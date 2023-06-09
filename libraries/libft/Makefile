@@ -6,7 +6,7 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/21 19:09:59 by thabeck-          #+#    #+#              #
-#    Updated: 2023/02/26 13:25:16 by matcardo         ###   ########.fr        #
+#    Updated: 2023/06/09 02:08:53 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,7 @@ $(NAME): 	$(OBJS) $(HDR)
 	@ ar -rcs $(NAME) $(OBJS)
 
 bonus:		$(NAME) $(BONUS_OBJS)
-	@printf "\r$(CY)Generating libft executable...                            $(RC)\n"
+	@printf "\r$(CY)Generating libft executable...$(RC)\n"
 	@ ar -rcs $(NAME) $(BONUS_OBJS)
 	@printf "$(GR)libft is Ready!$(RC)\n"
 

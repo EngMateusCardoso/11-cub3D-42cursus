@@ -6,7 +6,7 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 23:42:00 by matcardo          #+#    #+#              #
-#    Updated: 2023/06/07 02:17:42 by matcardo         ###   ########.fr        #
+#    Updated: 2023/06/09 03:37:20 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ CC			= gcc
 FLAGS		= -Wall -Wextra -Werror
 
 MLX			= ./minilibx-linux/libmlx.a
-MLX_FLAGS	= -lXext -lX11 -lm
+MLX_FLAGS	=  -lm -lmlx -lXext -lX11
 LIBFT		= ./libraries/libft/libft.a
 
 LEAKS 		= valgrind
@@ -40,9 +40,9 @@ RC				= \033[0m
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS_DIR) $(addprefix $(OBJS_DIR),$(OBJS))
+$(NAME): $(LIBFT) $(MLX) $(OBJS_DIR) $(addprefix $(OBJS_DIR),$(OBJS))
 		@printf "\r$(CY)Generating cub3D executable...$(RC)\n"
-		@$(CC) $(FLAGS) $(addprefix $(OBJS_DIR),$(OBJS)) -o $(NAME) $(LIBFT) $(MLX) $(MLX_FLAGS)
+		@$(CC) $(FLAGS) $(addprefix $(OBJS_DIR),$(OBJS)) $(LIBFT) -L./minilibx-linux $(MLX) $(MLX_FLAGS) -o $(NAME)
 		@printf "$(GR)cub3D is Ready!$(RC)\n"
 
 #lembrar de criar os subdiretorios quando houver
@@ -50,13 +50,19 @@ $(OBJS_DIR):
 	@mkdir $(OBJS_DIR)
 	
 objs/%.o:	src/%.c
-		@printf "\r$(CY)Generating object "$@
-		@$(CC) $(FLAGS) -c -o $@ $<
+		@printf "\r$(CY)Generating object$(RC)\n"
+		@$(CC) $(FLAGS) -c $< -o $@
+		@printf "$(GR)Object is ready!$(RC)\n"
 
 $(LIBFT):
 		@printf "$(CY)Generating libft...$(RC)\n"
 		@make bonus -C ./libraries/libft
-		@printf "$(GR)libft ready!$(RC)"
+		@printf "$(GR)libft ready!$(RC)\n"
+
+$(MLX):
+		@printf "$(CY)Generating minilibx...$(RC)\n"
+		make -C ./minilibx-linux
+		@printf "$(GR)minilibx ready!$(RC)\n"
 
 # descomenta se tiver algo do bonus	ou excluir
 # bonus: $(NAME)
@@ -74,6 +80,7 @@ clean:
 
 fclean:	
 		@make fclean -C ./libraries/libft
+		@make clean -C ./minilibx-linux
 		@$(RM) $(OBJS_DIR) $(LEAKS_FILE) $(NAME)
 		@printf "$(RE)Cub3D object files and executable removed!$(RC)\n"
 
