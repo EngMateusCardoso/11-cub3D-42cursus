@@ -1,0 +1,4 @@
+minilibx-linux/
+objs/
+libraries/libft/*.o
+cub3D
