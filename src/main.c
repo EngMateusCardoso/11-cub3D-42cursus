@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 23:40:03 by matcardo          #+#    #+#             */
-/*   Updated: 2023/09/07 22:55:55 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/09/08 13:30:51 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	render_line(t_img *img, int x, int y, float angle)
+void	render_little_line(t_img *img, int x, int y, float angle)
 {
 	float	x_step;
 	float	y_step;
@@ -32,6 +32,22 @@ void	render_line(t_img *img, int x, int y, float angle)
 	while (i < 5)
 	{
 		my_mlx_pixel_put(img, x + x_step * i, y + y_step * i, 0x00FF0000);
+		i++;
+	}
+}
+
+void	render_line(t_img *img, float x0, float y0, float x1, float y1)
+{
+	float	x_step;
+	float	y_step;
+	int		i;
+
+	i = 0;
+	x_step = (x1 - x0) / 64;
+	y_step = (y1 - y0) / 64;
+	while (i < 64)
+	{
+		my_mlx_pixel_put(img, x0 + x_step * i, y0 + y_step * i, 0x00FF0000);
 		i++;
 	}
 }
@@ -48,7 +64,7 @@ void	render_map_unit(t_img *img, int x, int y)
 		j = 1;
 		while (j < 64)
 		{
-			my_mlx_pixel_put(img, x * 64 + i, y * 64 + j, 0x00FFFFFF);
+			my_mlx_pixel_put(img, y * 64 + i, x * 64 + j, 0x00FFFFFF);
 			j++;
 		}
 		i++;
@@ -77,14 +93,75 @@ void	render_map(t_img *img)
 
 void	render_player(t_img *img)
 {
-	render_line(img, img->player.x, img->player.y, img->player.angle);
-	render_line(img, img->player.x, img->player.y, img->player.angle + PI / 2);
+	render_little_line(img, img->player.x, img->player.y, img->player.angle);
+	render_little_line(img, img->player.x, img->player.y, img->player.angle + PI / 2);
+	// render_little_line(img, img->player.x+1, img->player.y+1, img->player.angle);
+	// render_little_line(img, img->player.x+1, img->player.y+1, img->player.angle + PI / 2);
+	// render_little_line(img, img->player.x+2, img->player.y+2, img->player.angle);
+	// render_little_line(img, img->player.x+2, img->player.y+2, img->player.angle + PI / 2);
+	// render_little_line(img, img->player.x+3, img->player.y+3, img->player.angle);
+	// render_little_line(img, img->player.x+3, img->player.y+3, img->player.angle + PI / 2);
+}
+
+void	raytracer(t_img *img)
+{
+	int			i;
+	float		atan;
+	t_raytrace	ray;
+
+	ray.ra = img->player.angle;
+	i = 0;
+	while (i < 1)
+	{
+		ray.dof = 0;
+		atan = -1 / tan(ray.ra);
+		if (ray.ra > PI)
+		{
+			ray.ry = (((int)img->player.y >> 6) << 6) - 0.0001;
+			ray.rx = (img->player.y - ray.ry) * atan + img->player.x;
+			ray.yo = -64;
+			ray.xo = -ray.yo * atan;
+		}
+		else if (ray.ra < PI)
+		{
+			ray.ry = (((int)img->player.y >> 6) << 6) + 64;
+			ray.rx = (img->player.y - ray.ry) * atan + img->player.x;
+			ray.yo = 64;
+			ray.xo = -ray.yo * atan;
+		}
+		else if (ray.ra == 0 || ray.ra == PI)
+		{
+			ray.rx = img->player.x;
+			ray.ry = img->player.y;
+			ray.dof = 8;
+		}
+		i++;
+		while (ray.dof < 8)
+		{
+			ray.mx = (int)(ray.rx) >> 6;
+			ray.my = (int)(ray.ry) >> 6;
+			ray.mp = ray.my * img->map.width + ray.mx;
+			if (ray.mp > 0 && ray.mp < img->map.width * img->map.height && img->map.map[ray.mp / img->map.width][ray.mp % img->map.width] == 1)
+			{
+				ray.dof = 8;
+			}
+			else
+			{
+				ray.rx += ray.xo;
+				ray.ry += ray.yo;
+				ray.dof += 1;
+			}
+		}
+		render_line(img, img->player.x, img->player.y, ray.rx, ray.ry);
+	}
+	
 }
 
 void	print_screen(t_img *img)
 {
 	render_map(img);
 	render_player(img);
+	raytracer(img);
 	// my_mlx_pixel_put(img, img->player.x, img->player.y, 0x00FF0000);
 }
 

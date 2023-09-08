@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/09/07 23:02:28 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/09/08 11:08:53 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,19 @@
 // Errors
 # define STR_INVALID_ARG "Error\nUsage: ./cub3D <map.cub>\n"
 # define STR_INVALID_MAP "Error\nInvalid map file: %s\n"
+
+typedef struct s_raytrace {
+	int		r;
+	int		mx;
+	int		my;
+	int		mp;
+	int		dof;
+	float	rx;
+	float	ry;
+	float	ra;
+	float	xo;
+	float	yo;
+}				t_raytrace;
 
 typedef struct s_map {
 	char	**map;

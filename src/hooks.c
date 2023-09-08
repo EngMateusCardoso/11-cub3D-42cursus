@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:48:25 by matcardo          #+#    #+#             */
-/*   Updated: 2023/09/07 22:57:09 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/09/08 10:48:28 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	move_player(int keysys, t_win *win)
 	}
 }
 
-void rotate_player(int keysys, t_win *win)
+void	rotate_player(int keysys, t_win *win)
 {
 	if (keysys == 65361)
 	{
@@ -54,10 +54,16 @@ void rotate_player(int keysys, t_win *win)
 	win->img.player.sin = sin(win->img.player.angle) * 5;
 }
 
+void	close_window()
+{
+	// mlx_destroy_window(win->mlx, win->win);
+	exit(0);
+}
+
 int	handle_input(int keysys, t_win *win)
 {
-	// if (keysys == 65307)
-	// 	close_window(win);
+	if (keysys == 65307)
+		close_window();
 	if (keysys == 119 || keysys == 97 || keysys == 115 || keysys == 100)
 		move_player(keysys, win);
 	else if (keysys == 65361 || keysys == 65363)
