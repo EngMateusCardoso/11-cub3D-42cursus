@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/09/07 15:42:27 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/09/07 23:02:28 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,46 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
-// # include <math.h>
+# include <math.h>
 
-# define WIN_SIDE 500
 # define MLX_ERROR 42
 
 // Constants
 # define TRUE 1
 # define FALSE 0
+# define PI	3.14159265358979323846
 
 // Window constants
-# define WIN_WIDTH 500
-# define WIN_HEIGHT 500
+# define WIN_WIDTH 1000
+# define WIN_HEIGHT 1000
 
 // Errors
 # define STR_INVALID_ARG "Error\nUsage: ./cub3D <map.cub>\n"
 # define STR_INVALID_MAP "Error\nInvalid map file: %s\n"
 
+typedef struct s_map {
+	char	**map;
+	int		width;
+	int		height;
+}				t_map;
+
+typedef struct player {
+	float	x;
+	float	y;
+	float	cos;
+	float	sin;
+	float	angle;
+}				t_player;
+
+
 typedef struct s_img {
-	void	*img_ptr;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
+	void		*img_ptr;
+	char		*addr;
+	int			bpp;
+	int			line_len;
+	int			endian;
+	t_player	player;
+	t_map		map;
 }				t_img;
 
 typedef struct s_win {
@@ -50,5 +67,6 @@ typedef struct s_win {
 }				t_win;
 
 short int	check_args(int argc, char **argv);
-
+int			handle_input(int keysys, t_win *win);
+void		start_image(t_win *win);
 #endif

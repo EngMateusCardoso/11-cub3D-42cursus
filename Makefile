@@ -6,14 +6,15 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 23:42:00 by matcardo          #+#    #+#              #
-#    Updated: 2023/09/07 14:38:13 by matcardo         ###   ########.fr        #
+#    Updated: 2023/09/07 18:48:19 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= cub3D
 
 SRCS		= main.c		\
-			check_args.c
+			check_args.c	\
+			hooks.c			\
 
 OBJS		= ${SRCS:%.c=%.o}
 OBJS_DIR	= objs/
