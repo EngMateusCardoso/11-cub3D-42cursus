@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 23:40:03 by matcardo          #+#    #+#             */
-/*   Updated: 2023/09/08 13:30:51 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/09/09 04:13:44 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,16 +103,32 @@ void	render_player(t_img *img)
 	// render_little_line(img, img->player.x+3, img->player.y+3, img->player.angle + PI / 2);
 }
 
+float dist_between_points(float x1, float y1, float x2, float y2)
+{
+	return (sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
+}
+
 void	raytracer(t_img *img)
 {
 	int			i;
 	float		atan;
+	float		ntan;
 	t_raytrace	ray;
+	float		distV;
+	float		distH;
+	float		hx;
+	float		hy;
+	float		vx;
+	float		vy;
 
+	distV = 10000000000000;
+	distH = 10000000000000;
 	ray.ra = img->player.angle;
 	i = 0;
 	while (i < 1)
 	{
+		hx = img->player.x;
+		hy = img->player.y;
 		ray.dof = 0;
 		atan = -1 / tan(ray.ra);
 		if (ray.ra > PI)
@@ -135,14 +151,15 @@ void	raytracer(t_img *img)
 			ray.ry = img->player.y;
 			ray.dof = 8;
 		}
-		i++;
 		while (ray.dof < 8)
 		{
 			ray.mx = (int)(ray.rx) >> 6;
 			ray.my = (int)(ray.ry) >> 6;
-			ray.mp = ray.my * img->map.width + ray.mx;
-			if (ray.mp > 0 && ray.mp < img->map.width * img->map.height && img->map.map[ray.mp / img->map.width][ray.mp % img->map.width] == 1)
+			if (ray.mx >= 0 && ray.my >= 0 && ray.mx < img->map.width && ray.my < img->map.height && img->map.map[ray.my][ray.mx] == 1)
 			{
+				hx = ray.rx;
+				hy = ray.ry;
+				distH = dist_between_points(img->player.x, img->player.y, hx, hy);
 				ray.dof = 8;
 			}
 			else
@@ -151,6 +168,64 @@ void	raytracer(t_img *img)
 				ray.ry += ray.yo;
 				ray.dof += 1;
 			}
+		}
+
+
+		vx = img->player.x;
+		vy = img->player.y;
+		ray.dof = 0;
+		ntan = -tan(ray.ra);
+		if (ray.ra > PI / 2 && ray.ra < 3 * PI / 2)
+		{
+			ray.rx = (((int)img->player.x >> 6) << 6) - 0.0001;
+			ray.ry = (img->player.x - ray.rx) * ntan + img->player.y;
+			ray.xo = -64;
+			ray.yo = -ray.xo * ntan;
+		}
+		else if (ray.ra < PI / 2 || ray.ra > 3 * PI / 2)
+		{
+			ray.rx = (((int)img->player.x >> 6) << 6) + 64;
+			ray.ry = (img->player.x - ray.rx) * ntan + img->player.y;
+			ray.xo = 64;
+			ray.yo = -ray.xo * ntan;
+		}
+		else if (ray.ra == PI / 2 || ray.ra == 3 * PI / 2)
+		{
+			ray.rx = img->player.x;
+			ray.ry = img->player.y;
+			ray.dof = 8;
+		}
+		while (ray.dof < 8)
+		{
+			ray.mx = (int)(ray.rx) >> 6;
+			ray.my = (int)(ray.ry) >> 6;
+			if (ray.mx >= 0 && ray.my >= 0 && ray.mx < img->map.width && ray.my < img->map.height && img->map.map[ray.my][ray.mx] == 1)
+			{
+				vx = ray.rx;
+				vy = ray.ry;
+				distV = dist_between_points(img->player.x, img->player.y, vx, vy);
+				ray.dof = 8;
+			}
+			else
+			{
+				ray.rx += ray.xo;
+				ray.ry += ray.yo;
+				ray.dof += 1;
+			}
+		}
+	
+		i++;
+		printf("hx: %f, hy: %f, vx: %f, vy: %f, distH: %f, distV: %f\n", hx, hy, vx, vy, distH, distV);
+		
+		if (hx > 0 && hy > 0 && hx < img->map.width*64 && hy < img->map.height*64 && distH <= distV)
+		{
+			ray.rx = hx;
+			ray.ry = hy;
+		}
+		if (vx > 0 && vy > 0 && vx < img->map.width*64 && vy < img->map.height*64 && distV < distH)
+		{
+			ray.rx = vx;
+			ray.ry = vy;
 		}
 		render_line(img, img->player.x, img->player.y, ray.rx, ray.ry);
 	}
@@ -180,7 +255,7 @@ int	start_window(t_win *win)
 	win->mlx_ptr = mlx_init();
 	if (win->mlx_ptr == NULL)
 		return (MLX_ERROR);
-	win->win_ptr = mlx_new_window(win->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "Fract-ol");
+	win->win_ptr = mlx_new_window(win->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "Cats vs Cucumbers");
 	if (win->win_ptr == NULL)
 	{
 		free(win->mlx_ptr);
@@ -278,7 +353,6 @@ int	init_game(void)
 {
 	t_win	win;
 
-	printf("init_game\n");
 	init_game_params(&win);
 	if (!start_window(&win))
 		return (1);

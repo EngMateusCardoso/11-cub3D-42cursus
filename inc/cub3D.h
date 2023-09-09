@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/09/08 11:08:53 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/09/08 16:20:00 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 // Constants
 # define TRUE 1
 # define FALSE 0
-# define PI	3.14159265358979323846
+# define PI	3.141592
 
 // Window constants
 # define WIN_WIDTH 1000
