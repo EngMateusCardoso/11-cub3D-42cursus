@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/09/08 16:20:00 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/09/10 04:31:41 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@
 # define TRUE 1
 # define FALSE 0
 # define PI	3.141592
+# define DR	0.0174533
 
 // Window constants
-# define WIN_WIDTH 1000
-# define WIN_HEIGHT 1000
+# define WIN_WIDTH 600
+# define WIN_HEIGHT 600
 
 // Errors
 # define STR_INVALID_ARG "Error\nUsage: ./cub3D <map.cub>\n"

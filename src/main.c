@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 23:40:03 by matcardo          #+#    #+#             */
-/*   Updated: 2023/09/09 04:13:44 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/09/10 04:31:57 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,6 @@ void	render_player(t_img *img)
 {
 	render_little_line(img, img->player.x, img->player.y, img->player.angle);
 	render_little_line(img, img->player.x, img->player.y, img->player.angle + PI / 2);
-	// render_little_line(img, img->player.x+1, img->player.y+1, img->player.angle);
-	// render_little_line(img, img->player.x+1, img->player.y+1, img->player.angle + PI / 2);
-	// render_little_line(img, img->player.x+2, img->player.y+2, img->player.angle);
-	// render_little_line(img, img->player.x+2, img->player.y+2, img->player.angle + PI / 2);
-	// render_little_line(img, img->player.x+3, img->player.y+3, img->player.angle);
-	// render_little_line(img, img->player.x+3, img->player.y+3, img->player.angle + PI / 2);
 }
 
 float dist_between_points(float x1, float y1, float x2, float y2)
@@ -123,9 +117,13 @@ void	raytracer(t_img *img)
 
 	distV = 10000000000000;
 	distH = 10000000000000;
-	ray.ra = img->player.angle;
+	ray.ra = img->player.angle - DR * 30;
+	if (ray.ra < 0)
+		ray.ra += 2 * PI;
+	if (ray.ra > 2 * PI)
+		ray.ra -= 2 * PI;
 	i = 0;
-	while (i < 1)
+	while (i < 60)
 	{
 		hx = img->player.x;
 		hy = img->player.y;
@@ -145,9 +143,15 @@ void	raytracer(t_img *img)
 			ray.yo = 64;
 			ray.xo = -ray.yo * atan;
 		}
-		else if (ray.ra == 0 || ray.ra == PI)
+		else if (ray.ra == 0)
 		{
-			ray.rx = img->player.x;
+			ray.rx = img->player.x + 10;
+			ray.ry = img->player.y;
+			ray.dof = 8;
+		}
+		else if (ray.ra == PI)
+		{
+			ray.rx = img->player.x - 10;
 			ray.ry = img->player.y;
 			ray.dof = 8;
 		}
@@ -167,6 +171,9 @@ void	raytracer(t_img *img)
 				ray.rx += ray.xo;
 				ray.ry += ray.yo;
 				ray.dof += 1;
+				hx = ray.rx;
+				hy = ray.ry;
+				distH = dist_between_points(img->player.x, img->player.y, hx, hy);
 			}
 		}
 
@@ -189,10 +196,16 @@ void	raytracer(t_img *img)
 			ray.xo = 64;
 			ray.yo = -ray.xo * ntan;
 		}
-		else if (ray.ra == PI / 2 || ray.ra == 3 * PI / 2)
+		else if (ray.ra == PI / 2)
 		{
 			ray.rx = img->player.x;
-			ray.ry = img->player.y;
+			ray.ry = img->player.y + 10;
+			ray.dof = 8;
+		}
+		else if (ray.ra == 3 * PI / 2)
+		{
+			ray.rx = img->player.x;
+			ray.ry = img->player.y - 10;
 			ray.dof = 8;
 		}
 		while (ray.dof < 8)
@@ -211,12 +224,20 @@ void	raytracer(t_img *img)
 				ray.rx += ray.xo;
 				ray.ry += ray.yo;
 				ray.dof += 1;
+				vx = ray.rx;
+				vy = ray.ry;
+				distV = dist_between_points(img->player.x, img->player.y, vx, vy);
 			}
 		}
-	
+
 		i++;
-		printf("hx: %f, hy: %f, vx: %f, vy: %f, distH: %f, distV: %f\n", hx, hy, vx, vy, distH, distV);
-		
+		ray.ra += DR;
+		if (ray.ra < 0)
+			ray.ra += 2 * PI;
+		if (ray.ra > 2 * PI)
+			ray.ra -= 2 * PI;
+		ray.rx = 0;
+		ray.ry = 0;		
 		if (hx > 0 && hy > 0 && hx < img->map.width*64 && hy < img->map.height*64 && distH <= distV)
 		{
 			ray.rx = hx;
@@ -227,6 +248,7 @@ void	raytracer(t_img *img)
 			ray.rx = vx;
 			ray.ry = vy;
 		}
+		printf("i: %d, ray.rx: %f, ray.ry: %f\n", i, ray.rx, ray.ry);
 		render_line(img, img->player.x, img->player.y, ray.rx, ray.ry);
 	}
 	
@@ -303,7 +325,7 @@ void	init_game_params(t_win *win)
 	win->img.map.map[2][1] = 0;
 	win->img.map.map[2][2] = 1;
 	win->img.map.map[2][3] = 0;
-	win->img.map.map[2][4] = 0;
+	win->img.map.map[2][4] = 1;
 	win->img.map.map[2][5] = 0;
 	win->img.map.map[2][6] = 0;
 	win->img.map.map[2][7] = 1;
@@ -313,7 +335,7 @@ void	init_game_params(t_win *win)
 	win->img.map.map[3][3] = 0;
 	win->img.map.map[3][4] = 0;
 	win->img.map.map[3][5] = 0;
-	win->img.map.map[3][6] = 0;
+	win->img.map.map[3][6] = 1;
 	win->img.map.map[3][7] = 1;
 	win->img.map.map[4][0] = 1;
 	win->img.map.map[4][1] = 0;
