@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 23:40:03 by matcardo          #+#    #+#             */
-/*   Updated: 2023/09/10 04:31:57 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/09/27 21:53:20 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	render_little_line(t_img *img, int x, int y, float angle)
 	}
 }
 
-void	render_line(t_img *img, float x0, float y0, float x1, float y1)
+void	render_line(t_img *img, float x0, float y0, float x1, float y1, int color)
 {
 	float	x_step;
 	float	y_step;
@@ -47,7 +47,7 @@ void	render_line(t_img *img, float x0, float y0, float x1, float y1)
 	y_step = (y1 - y0) / 64;
 	while (i < 64)
 	{
-		my_mlx_pixel_put(img, x0 + x_step * i, y0 + y_step * i, 0x00FF0000);
+		my_mlx_pixel_put(img, x0 + x_step * i, y0 + y_step * i, color);
 		i++;
 	}
 }
@@ -110,6 +110,7 @@ void	raytracer(t_img *img)
 	t_raytrace	ray;
 	float		distV;
 	float		distH;
+	float		dist;
 	float		hx;
 	float		hy;
 	float		vx;
@@ -237,21 +238,51 @@ void	raytracer(t_img *img)
 		if (ray.ra > 2 * PI)
 			ray.ra -= 2 * PI;
 		ray.rx = 0;
-		ray.ry = 0;		
+		ray.ry = 0;
+		int wall_collor = 0x0000FF00;
+		// verticall wall hit
 		if (hx > 0 && hy > 0 && hx < img->map.width*64 && hy < img->map.height*64 && distH <= distV)
 		{
 			ray.rx = hx;
 			ray.ry = hy;
+			dist = distH;
+			wall_collor = 0x00FF0000;
 		}
+		// horizontal wall hit
 		if (vx > 0 && vy > 0 && vx < img->map.width*64 && vy < img->map.height*64 && distV < distH)
 		{
 			ray.rx = vx;
 			ray.ry = vy;
+			dist = distV;
+			wall_collor = 0x00550000;
 		}
 		printf("i: %d, ray.rx: %f, ray.ry: %f\n", i, ray.rx, ray.ry);
-		render_line(img, img->player.x, img->player.y, ray.rx, ray.ry);
+		render_line(img, img->player.x, img->player.y, ray.rx, ray.ry, 0x00FF0000);
+		//draw walls
+		
+		// fix fish eye
+		float ca = img->player.angle - ray.ra;
+		if (ca < 0)
+			ca += 2 * PI;
+		if (ca > 2 * PI)
+			ca -= 2 * PI;
+		dist = dist * cos(ca);
+		// line height
+		float lineH = (64 * 320) / dist;
+		if (lineH > 320)
+			lineH = 320;
+		// line offset
+		int lineO = 160 - lineH / 2;
+		if (lineO < 0)
+			lineO = 0;
+		int j = 0;
+		while (j < 8)
+		{
+			render_line(img, 512 + i*8 + j, 100+lineO , 512 + i*8 + j, 100 + lineH+lineO, wall_collor);
+			j++;
+		}
+		
 	}
-	
 }
 
 void	print_screen(t_img *img)
@@ -354,7 +385,7 @@ void	init_game_params(t_win *win)
 	win->img.map.map[5][6] = 0;
 	win->img.map.map[5][7] = 1;
 	win->img.map.map[6][0] = 1;
-	win->img.map.map[6][1] = 0;
+	win->img.map.map[6][1] = 1;
 	win->img.map.map[6][2] = 0;
 	win->img.map.map[6][3] = 0;
 	win->img.map.map[6][4] = 0;

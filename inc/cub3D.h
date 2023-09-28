@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/09/10 04:31:41 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:17:21 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define DR	0.0174533
 
 // Window constants
-# define WIN_WIDTH 600
+# define WIN_WIDTH 1500
 # define WIN_HEIGHT 600
 
 // Errors
