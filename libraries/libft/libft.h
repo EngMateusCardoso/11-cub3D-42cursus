@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:48:55 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/02/14 16:01:08 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/09/29 16:20:19 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define COLOR_YELLOW	"\e[38;5;184m"
 # define COLOR_GREY		"\e[38;5;244m"
 # define COLOR_RESET	"\e[0m"
+
+# define BUFFER_SIZE 2
 
 typedef struct s_list
 {
@@ -88,5 +90,7 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+char	*get_next_line(int fd);
 
 #endif

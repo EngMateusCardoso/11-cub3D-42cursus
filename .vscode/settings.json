@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "functional": "c",
+        "libft.h": "c"
+    }
+}

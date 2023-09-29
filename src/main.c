@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 23:40:03 by matcardo          #+#    #+#             */
-/*   Updated: 2023/09/27 21:53:20 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/09/29 16:16:03 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,12 @@ float dist_between_points(float x1, float y1, float x2, float y2)
 	return (sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
 }
 
-void	raytracer(t_img *img)
+void	raycasterr(t_img *img)
 {
 	int			i;
 	float		atan;
 	float		ntan;
-	t_raytrace	ray;
+	t_raycaster	ray;
 	float		distV;
 	float		distH;
 	float		dist;
@@ -256,7 +256,7 @@ void	raytracer(t_img *img)
 			dist = distV;
 			wall_collor = 0x00550000;
 		}
-		printf("i: %d, ray.rx: %f, ray.ry: %f\n", i, ray.rx, ray.ry);
+		// printf("i: %d, ray.rx: %f, ray.ry: %f\n", i, ray.rx, ray.ry);
 		render_line(img, img->player.x, img->player.y, ray.rx, ray.ry, 0x00FF0000);
 		//draw walls
 		
@@ -289,7 +289,7 @@ void	print_screen(t_img *img)
 {
 	render_map(img);
 	render_player(img);
-	raytracer(img);
+	raycasterr(img);
 	// my_mlx_pixel_put(img, img->player.x, img->player.y, 0x00FF0000);
 }
 
@@ -402,21 +402,21 @@ void	init_game_params(t_win *win)
 	win->img.map.map[7][7] = 1;
 }
 
+int	main(int argc, char **argv)
+{
+	if (!check_args(argc, argv))
+		return (1);
+	if (init_game())
+		return (1);
+	return (0);
+}
+
 int	init_game(void)
 {
 	t_win	win;
 
 	init_game_params(&win);
 	if (!start_window(&win))
-		return (1);
-	return (0);
-}
-
-int	main(int argc, char **argv)
-{
-	if (!check_args(argc, argv))
-		return (1);
-	if (init_game())
 		return (1);
 	return (0);
 }

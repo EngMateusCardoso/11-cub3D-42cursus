@@ -6,7 +6,7 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/21 19:09:59 by thabeck-          #+#    #+#              #
-#    Updated: 2023/06/09 02:08:53 by matcardo         ###   ########.fr        #
+#    Updated: 2023/09/29 15:59:54 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,6 @@ SRCS 		= ft_isalpha.c 			\
 			ft_free_array.c			\
 			ft_free_pointer.c		\
 
-
 BONUS_SRCS  = ft_lstnew.c			\
 			ft_lstadd_front.c  		\
 			ft_lstsize.c 			\
@@ -71,6 +70,7 @@ BONUS_SRCS  = ft_lstnew.c			\
 			ft_lstclear.c			\
 			ft_lstiter.c			\
 			ft_lstmap.c				\
+			get_next_line.c			\
 
 OBJS 		= $(SRCS:.c=.o)
 BONUS_OBJS 	= $(BONUS_SRCS:.c=.o)
