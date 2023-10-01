@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/09/29 16:20:05 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/09/30 22:59:58 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,13 @@ typedef struct s_win {
 
 // main.c
 int			main(int argc, char **argv);
-int			init_game(void);
+int			init_game(char *file);
+void		init_game_params(t_win *win, char *file);
+void		init_map(t_win *win, char *file);
+short int	is_map(char *line);
+void		init_map_dimensions(t_win *win, char *file);
+void		init_player_position(t_win *win, char *file);
+void		init_player_position_line(t_win *win, char *line, int i);
 
 // check_args.c
 short int	check_args(int argc, char **argv);

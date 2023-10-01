@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 23:40:03 by matcardo          #+#    #+#             */
-/*   Updated: 2023/09/29 16:16:03 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/09/30 23:05:11 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	render_map(t_img *img)
 		j = 0;
 		while (j < img->map.height)
 		{
-			if (img->map.map[i][j] == 1)
+			if (img->map.map[i][j] == '1')
 				render_map_unit(img, i, j);
 			j++;
 		}
@@ -160,7 +160,7 @@ void	raycasterr(t_img *img)
 		{
 			ray.mx = (int)(ray.rx) >> 6;
 			ray.my = (int)(ray.ry) >> 6;
-			if (ray.mx >= 0 && ray.my >= 0 && ray.mx < img->map.width && ray.my < img->map.height && img->map.map[ray.my][ray.mx] == 1)
+			if (ray.mx >= 0 && ray.my >= 0 && ray.mx < img->map.width && ray.my < img->map.height && img->map.map[ray.my][ray.mx] == '1')
 			{
 				hx = ray.rx;
 				hy = ray.ry;
@@ -213,7 +213,7 @@ void	raycasterr(t_img *img)
 		{
 			ray.mx = (int)(ray.rx) >> 6;
 			ray.my = (int)(ray.ry) >> 6;
-			if (ray.mx >= 0 && ray.my >= 0 && ray.mx < img->map.width && ray.my < img->map.height && img->map.map[ray.my][ray.mx] == 1)
+			if (ray.mx >= 0 && ray.my >= 0 && ray.mx < img->map.width && ray.my < img->map.height && img->map.map[ray.my][ray.mx] == '1')
 			{
 				vx = ray.rx;
 				vy = ray.ry;
@@ -323,100 +323,138 @@ int	start_window(t_win *win)
 	return (0);
 }
 
-void	init_game_params(t_win *win)
-{
-	win->mlx_ptr = NULL;
-	win->img.player.x = 250;
-	win->img.player.y = 350;
-	win->img.player.cos = 5;
-	win->img.player.sin = 0;
-	win->img.player.angle = 0;
-	win->img.map.width = 8;
-	win->img.map.height = 8;
-	win->img.map.map = malloc(sizeof(int *) * win->img.map.width);
-	for (int i = 0; i < win->img.map.width; i++)
-		win->img.map.map[i] = malloc(sizeof(int) * win->img.map.height);
-	win->img.map.map[0][0] = 1;
-	win->img.map.map[0][1] = 1;
-	win->img.map.map[0][2] = 1;
-	win->img.map.map[0][3] = 1;
-	win->img.map.map[0][4] = 1;
-	win->img.map.map[0][5] = 1;
-	win->img.map.map[0][6] = 1;
-	win->img.map.map[0][7] = 1;
-	win->img.map.map[1][0] = 1;
-	win->img.map.map[1][1] = 0;
-	win->img.map.map[1][2] = 1;
-	win->img.map.map[1][3] = 0;
-	win->img.map.map[1][4] = 0;
-	win->img.map.map[1][5] = 0;
-	win->img.map.map[1][6] = 0;
-	win->img.map.map[1][7] = 1;
-	win->img.map.map[2][0] = 1;
-	win->img.map.map[2][1] = 0;
-	win->img.map.map[2][2] = 1;
-	win->img.map.map[2][3] = 0;
-	win->img.map.map[2][4] = 1;
-	win->img.map.map[2][5] = 0;
-	win->img.map.map[2][6] = 0;
-	win->img.map.map[2][7] = 1;
-	win->img.map.map[3][0] = 1;
-	win->img.map.map[3][1] = 0;
-	win->img.map.map[3][2] = 1;
-	win->img.map.map[3][3] = 0;
-	win->img.map.map[3][4] = 0;
-	win->img.map.map[3][5] = 0;
-	win->img.map.map[3][6] = 1;
-	win->img.map.map[3][7] = 1;
-	win->img.map.map[4][0] = 1;
-	win->img.map.map[4][1] = 0;
-	win->img.map.map[4][2] = 0;
-	win->img.map.map[4][3] = 0;
-	win->img.map.map[4][4] = 0;
-	win->img.map.map[4][5] = 0;
-	win->img.map.map[4][6] = 0;
-	win->img.map.map[4][7] = 1;
-	win->img.map.map[5][0] = 1;
-	win->img.map.map[5][1] = 0;
-	win->img.map.map[5][2] = 0;
-	win->img.map.map[5][3] = 0;
-	win->img.map.map[5][4] = 0;
-	win->img.map.map[5][5] = 1;
-	win->img.map.map[5][6] = 0;
-	win->img.map.map[5][7] = 1;
-	win->img.map.map[6][0] = 1;
-	win->img.map.map[6][1] = 1;
-	win->img.map.map[6][2] = 0;
-	win->img.map.map[6][3] = 0;
-	win->img.map.map[6][4] = 0;
-	win->img.map.map[6][5] = 0;
-	win->img.map.map[6][6] = 0;
-	win->img.map.map[6][7] = 1;
-	win->img.map.map[7][0] = 1;
-	win->img.map.map[7][1] = 1;
-	win->img.map.map[7][2] = 1;
-	win->img.map.map[7][3] = 1;
-	win->img.map.map[7][4] = 1;
-	win->img.map.map[7][5] = 1;
-	win->img.map.map[7][6] = 1;
-	win->img.map.map[7][7] = 1;
-}
-
 int	main(int argc, char **argv)
 {
 	if (!check_args(argc, argv))
 		return (1);
-	if (init_game())
+	if (init_game(argv[1]))
 		return (1);
 	return (0);
 }
 
-int	init_game(void)
+int	init_game(char *file)
 {
 	t_win	win;
 
-	init_game_params(&win);
+	init_game_params(&win, file);
 	if (!start_window(&win))
 		return (1);
 	return (0);
+}
+
+void	init_game_params(t_win *win, char *file)
+{
+	win->mlx_ptr = NULL;
+	init_map_dimensions(win, file);
+	init_map(win, file);
+	init_player_position(win, file);
+}
+
+void	init_player_position(t_win *win, char *file)
+{
+	int		fd;
+	char	*line;
+	int		i;
+
+	fd = open(file, O_RDONLY);
+	line = get_next_line(fd);
+	i = 0;
+	while (line)
+	{
+		if (is_map(line))
+		{
+			init_player_position_line(win, line, i);
+			i++;
+			free(line);
+		}
+		line = get_next_line(fd);
+	}
+	close(fd);
+}
+
+void	init_player_position_line(t_win *win, char *line, int i)
+{
+	int	j;
+
+	j = 0;
+	while (line[j])
+	{
+		if (line[j] == 'N' || line[j] == 'S' || \
+			line[j] == 'E' || line[j] == 'W')
+		{
+			win->img.player.x = j * 64 + 32;
+			win->img.player.y = i * 64 + 32;
+			if (line[j] == 'N')
+				win->img.player.angle = 3 * PI / 2;
+			else if (line[j] == 'S')
+				win->img.player.angle = PI / 2;
+			else if (line[j] == 'E')
+				win->img.player.angle = 0;
+			else if (line[j] == 'W')
+				win->img.player.angle = PI;
+			win->img.player.cos = cos(win->img.player.angle) * 5;
+			win->img.player.sin = sin(win->img.player.angle) * 5;
+		}
+		j++;
+	}
+}
+
+void	init_map(t_win *win, char *file)
+{
+	int		fd;
+	char	*line;
+	int		i;
+
+	win->img.map.map = malloc(sizeof(char *) * win->img.map.width);
+	fd = open(file, O_RDONLY);
+	line = get_next_line(fd);
+	i = 0;
+	while (line)
+	{
+		if (is_map(line))
+		{
+			win->img.map.map[i] = ft_strdup(line);
+			i++;
+			free(line);
+		}
+		line = get_next_line(fd);
+	}
+	close(fd);
+}
+
+void	init_map_dimensions(t_win *win, char *file)
+{
+	int		fd;
+	char	*line;
+
+	fd = open(file, O_RDONLY);
+	line = get_next_line(fd);
+	win->img.map.height = 0;
+	win->img.map.width = 3;
+	while (line)
+	{
+		if (is_map(line))
+		{
+			win->img.map.height++;
+			if (win->img.map.width < (int)ft_strlen(line) - 1)
+				win->img.map.width = ft_strlen(line) - 1;
+			free(line);
+		}
+		line = get_next_line(fd);
+	}
+	close(fd);
+}
+
+short int	is_map(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && (line[i] == ' ' || line[i] == '1'))
+	{
+		if (line[i] == '1')
+			return (TRUE);
+		i++;
+	}
+	return (FALSE);
 }
