@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/01 02:17:41 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/10/01 04:20:30 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,19 @@
 // =============================================================================
 
 typedef struct s_raycaster {
-	float	angle;
 	float	first_hit_x;
 	float	first_hit_y;
 	float	y_offset;
 	float	x_offset;
-	int		r;
 	int		map_x;
 	int		map_y;
-	int		mp;
-	int		dof;
 }				t_raycaster;
+
+typedef struct s_coord {
+	int		x;
+	int		y;
+	float len;
+}				t_coord;
 
 typedef struct s_map {
 	char	**map;
@@ -122,6 +124,8 @@ short int	is_map(char *line);
 void		init_map_dimensions(t_win *win, char *file);
 void		init_player_position(t_win *win, char *file);
 void		init_player_position_line(t_win *win, char *line, int i);
+t_coord		get_horizontal_hit(t_img *img, float angle);
+t_coord		get_vertical_hit(t_img *img, float angle);
 
 // check_args.c
 short int	check_args(int argc, char **argv);
