@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:48:25 by matcardo          #+#    #+#             */
-/*   Updated: 2023/09/08 10:48:28 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/09/30 23:21:09 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 void	move_player(int keysys, t_win *win)
 {
-	if (keysys == 119)
+	if (keysys == KEY_W)
 	{
 		win->img.player.x += win->img.player.cos;
 		win->img.player.y += win->img.player.sin;
 	}
-	else if (keysys == 97)
+	else if (keysys == KEY_A)
 	{
 		win->img.player.x += win->img.player.sin;
 		win->img.player.y -= win->img.player.cos;
 	}
-	else if (keysys == 115)
+	else if (keysys == KEY_S)
 	{
 		win->img.player.x -= win->img.player.cos;
 		win->img.player.y -= win->img.player.sin;
 	}
-	else if (keysys == 100)
+	else if (keysys == KEY_D)
 	{
 		win->img.player.x -= win->img.player.sin;
 		win->img.player.y += win->img.player.cos;
@@ -38,13 +38,13 @@ void	move_player(int keysys, t_win *win)
 
 void	rotate_player(int keysys, t_win *win)
 {
-	if (keysys == 65361)
+	if (keysys == KEY_LEFT)
 	{
 		win->img.player.angle -= 0.1;
 		if (win->img.player.angle < 0)
 			win->img.player.angle += 2 * PI;
 	}
-	else if (keysys == 65363)
+	else if (keysys == KEY_RIGHT)
 	{
 		win->img.player.angle += 0.1;
 		if (win->img.player.angle > 2 * PI)
@@ -54,19 +54,21 @@ void	rotate_player(int keysys, t_win *win)
 	win->img.player.sin = sin(win->img.player.angle) * 5;
 }
 
-void	close_window()
+int	close_window(void)
 {
 	// mlx_destroy_window(win->mlx, win->win);
 	exit(0);
+	return (0);
 }
 
 int	handle_input(int keysys, t_win *win)
 {
-	if (keysys == 65307)
+	if (keysys == KEY_ESC)
 		close_window();
-	if (keysys == 119 || keysys == 97 || keysys == 115 || keysys == 100)
+	if (keysys == KEY_W || keysys == KEY_A || \
+		keysys == KEY_S || keysys == KEY_D)
 		move_player(keysys, win);
-	else if (keysys == 65361 || keysys == 65363)
+	else if (keysys == KEY_LEFT || keysys == KEY_RIGHT)
 		rotate_player(keysys, win);
 	start_image(win);
 	return (0);

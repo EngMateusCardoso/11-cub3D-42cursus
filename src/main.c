@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 23:40:03 by matcardo          #+#    #+#             */
-/*   Updated: 2023/09/30 23:05:11 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/10/01 02:21:53 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,150 +118,155 @@ void	raycasterr(t_img *img)
 
 	distV = 10000000000000;
 	distH = 10000000000000;
-	ray.ra = img->player.angle - DR * 30;
-	if (ray.ra < 0)
-		ray.ra += 2 * PI;
-	if (ray.ra > 2 * PI)
-		ray.ra -= 2 * PI;
+	ray.angle = img->player.angle - DR * 30;
+	if (ray.angle < 0)
+		ray.angle += 2 * PI;
+	if (ray.angle > 2 * PI)
+		ray.angle -= 2 * PI;
 	i = 0;
 	while (i < 60)
 	{
+		// Horizontal check
 		hx = img->player.x;
 		hy = img->player.y;
 		ray.dof = 0;
-		atan = -1 / tan(ray.ra);
-		if (ray.ra > PI)
+		atan = -1 / tan(ray.angle);
+		if (ray.angle > PI) // looking up
 		{
-			ray.ry = (((int)img->player.y >> 6) << 6) - 0.0001;
-			ray.rx = (img->player.y - ray.ry) * atan + img->player.x;
-			ray.yo = -64;
-			ray.xo = -ray.yo * atan;
+			ray.first_hit_y = (((int)img->player.y >> BASE_CUBE) \
+				<< BASE_CUBE) - 0.0001;
+			ray.first_hit_x = (img->player.y - ray.first_hit_y) * atan + img->player.x;
+			ray.y_offset = -CUBE_SIZE;
+			ray.x_offset = -ray.y_offset * atan;
 		}
-		else if (ray.ra < PI)
+		else if (ray.angle < PI) // looking down
 		{
-			ray.ry = (((int)img->player.y >> 6) << 6) + 64;
-			ray.rx = (img->player.y - ray.ry) * atan + img->player.x;
-			ray.yo = 64;
-			ray.xo = -ray.yo * atan;
+			ray.first_hit_y = (((int)img->player.y >> BASE_CUBE) \
+				<< BASE_CUBE) + CUBE_SIZE;
+			ray.first_hit_x = (img->player.y - ray.first_hit_y) * atan + img->player.x;
+			ray.y_offset = CUBE_SIZE;
+			ray.x_offset = -ray.y_offset * atan;
 		}
-		else if (ray.ra == 0)
+		else if (ray.angle == 0)
 		{
-			ray.rx = img->player.x + 10;
-			ray.ry = img->player.y;
-			ray.dof = 8;
+			ray.first_hit_x = img->player.x + 10;
+			ray.first_hit_y = img->player.y;
+			ray.dof = img->map.height;
 		}
-		else if (ray.ra == PI)
+		else if (ray.angle == PI)
 		{
-			ray.rx = img->player.x - 10;
-			ray.ry = img->player.y;
-			ray.dof = 8;
+			ray.first_hit_x = img->player.x - 10;
+			ray.first_hit_y = img->player.y;
+			ray.dof = img->map.height;
 		}
+
 		while (ray.dof < 8)
 		{
-			ray.mx = (int)(ray.rx) >> 6;
-			ray.my = (int)(ray.ry) >> 6;
-			if (ray.mx >= 0 && ray.my >= 0 && ray.mx < img->map.width && ray.my < img->map.height && img->map.map[ray.my][ray.mx] == '1')
+			ray.map_x = (int)(ray.first_hit_x) >> BASE_CUBE;
+			ray.map_y = (int)(ray.first_hit_y) >> BASE_CUBE;
+			if (ray.map_x >= 0 && ray.map_y >= 0 && ray.map_x < img->map.width && ray.map_y < img->map.height && img->map.map[ray.map_y][ray.map_x] == '1')
 			{
-				hx = ray.rx;
-				hy = ray.ry;
+				hx = ray.first_hit_x;
+				hy = ray.first_hit_y;
 				distH = dist_between_points(img->player.x, img->player.y, hx, hy);
 				ray.dof = 8;
 			}
 			else
 			{
-				ray.rx += ray.xo;
-				ray.ry += ray.yo;
+				ray.first_hit_x += ray.x_offset;
+				ray.first_hit_y += ray.y_offset;
 				ray.dof += 1;
-				hx = ray.rx;
-				hy = ray.ry;
+				hx = ray.first_hit_x;
+				hy = ray.first_hit_y;
 				distH = dist_between_points(img->player.x, img->player.y, hx, hy);
 			}
 		}
 
-
+		// Vertical check
 		vx = img->player.x;
 		vy = img->player.y;
 		ray.dof = 0;
-		ntan = -tan(ray.ra);
-		if (ray.ra > PI / 2 && ray.ra < 3 * PI / 2)
+		ntan = -tan(ray.angle);
+		if (ray.angle > PI / 2 && ray.angle < 3 * PI / 2)
 		{
-			ray.rx = (((int)img->player.x >> 6) << 6) - 0.0001;
-			ray.ry = (img->player.x - ray.rx) * ntan + img->player.y;
-			ray.xo = -64;
-			ray.yo = -ray.xo * ntan;
+			ray.first_hit_x = (((int)img->player.x >> 6) << 6) - 0.0001;
+			ray.first_hit_y = (img->player.x - ray.first_hit_x) * ntan + img->player.y;
+			ray.x_offset = -64;
+			ray.y_offset = -ray.x_offset * ntan;
 		}
-		else if (ray.ra < PI / 2 || ray.ra > 3 * PI / 2)
+		else if (ray.angle < PI / 2 || ray.angle > 3 * PI / 2)
 		{
-			ray.rx = (((int)img->player.x >> 6) << 6) + 64;
-			ray.ry = (img->player.x - ray.rx) * ntan + img->player.y;
-			ray.xo = 64;
-			ray.yo = -ray.xo * ntan;
+			ray.first_hit_x = (((int)img->player.x >> 6) << 6) + 64;
+			ray.first_hit_y = (img->player.x - ray.first_hit_x) * ntan + img->player.y;
+			ray.x_offset = 64;
+			ray.y_offset = -ray.x_offset * ntan;
 		}
-		else if (ray.ra == PI / 2)
+		else if (ray.angle == PI / 2)
 		{
-			ray.rx = img->player.x;
-			ray.ry = img->player.y + 10;
+			ray.first_hit_x = img->player.x;
+			ray.first_hit_y = img->player.y + 10;
 			ray.dof = 8;
 		}
-		else if (ray.ra == 3 * PI / 2)
+		else if (ray.angle == 3 * PI / 2)
 		{
-			ray.rx = img->player.x;
-			ray.ry = img->player.y - 10;
+			ray.first_hit_x = img->player.x;
+			ray.first_hit_y = img->player.y - 10;
 			ray.dof = 8;
 		}
+
 		while (ray.dof < 8)
 		{
-			ray.mx = (int)(ray.rx) >> 6;
-			ray.my = (int)(ray.ry) >> 6;
-			if (ray.mx >= 0 && ray.my >= 0 && ray.mx < img->map.width && ray.my < img->map.height && img->map.map[ray.my][ray.mx] == '1')
+			ray.map_x = (int)(ray.first_hit_x) >> 6;
+			ray.map_y = (int)(ray.first_hit_y) >> 6;
+			if (ray.map_x >= 0 && ray.map_y >= 0 && ray.map_x < img->map.width && ray.map_y < img->map.height && img->map.map[ray.map_y][ray.map_x] == '1')
 			{
-				vx = ray.rx;
-				vy = ray.ry;
+				vx = ray.first_hit_x;
+				vy = ray.first_hit_y;
 				distV = dist_between_points(img->player.x, img->player.y, vx, vy);
 				ray.dof = 8;
 			}
 			else
 			{
-				ray.rx += ray.xo;
-				ray.ry += ray.yo;
+				ray.first_hit_x += ray.x_offset;
+				ray.first_hit_y += ray.y_offset;
 				ray.dof += 1;
-				vx = ray.rx;
-				vy = ray.ry;
+				vx = ray.first_hit_x;
+				vy = ray.first_hit_y;
 				distV = dist_between_points(img->player.x, img->player.y, vx, vy);
 			}
 		}
 
 		i++;
-		ray.ra += DR;
-		if (ray.ra < 0)
-			ray.ra += 2 * PI;
-		if (ray.ra > 2 * PI)
-			ray.ra -= 2 * PI;
-		ray.rx = 0;
-		ray.ry = 0;
+		ray.angle += DR;
+		if (ray.angle < 0)
+			ray.angle += 2 * PI;
+		if (ray.angle > 2 * PI)
+			ray.angle -= 2 * PI;
+		ray.first_hit_x = 0;
+		ray.first_hit_y = 0;
 		int wall_collor = 0x0000FF00;
 		// verticall wall hit
 		if (hx > 0 && hy > 0 && hx < img->map.width*64 && hy < img->map.height*64 && distH <= distV)
 		{
-			ray.rx = hx;
-			ray.ry = hy;
+			ray.first_hit_x = hx;
+			ray.first_hit_y = hy;
 			dist = distH;
 			wall_collor = 0x00FF0000;
 		}
 		// horizontal wall hit
 		if (vx > 0 && vy > 0 && vx < img->map.width*64 && vy < img->map.height*64 && distV < distH)
 		{
-			ray.rx = vx;
-			ray.ry = vy;
+			ray.first_hit_x = vx;
+			ray.first_hit_y = vy;
 			dist = distV;
 			wall_collor = 0x00550000;
 		}
-		// printf("i: %d, ray.rx: %f, ray.ry: %f\n", i, ray.rx, ray.ry);
-		render_line(img, img->player.x, img->player.y, ray.rx, ray.ry, 0x00FF0000);
+		// printf("i: %d, ray.first_hit_x: %f, ray.first_hit_y: %f\n", i, ray.first_hit_x, ray.first_hit_y);
+		render_line(img, img->player.x, img->player.y, ray.first_hit_x, ray.first_hit_y, 0x00FF0000);
 		//draw walls
 		
 		// fix fish eye
-		float ca = img->player.angle - ray.ra;
+		float ca = img->player.angle - ray.angle;
 		if (ca < 0)
 			ca += 2 * PI;
 		if (ca > 2 * PI)
@@ -285,12 +290,13 @@ void	raycasterr(t_img *img)
 	}
 }
 
+// Main functions
+
 void	print_screen(t_img *img)
 {
-	render_map(img);
-	render_player(img);
 	raycasterr(img);
-	// my_mlx_pixel_put(img, img->player.x, img->player.y, 0x00FF0000);
+	// render_player(img);
+	// render_map(img);
 }
 
 void	start_image(t_win *win)
@@ -308,7 +314,7 @@ int	start_window(t_win *win)
 	win->mlx_ptr = mlx_init();
 	if (win->mlx_ptr == NULL)
 		return (MLX_ERROR);
-	win->win_ptr = mlx_new_window(win->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "Cats vs Cucumbers");
+	win->win_ptr = mlx_new_window(win->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, WIN_TITLE);
 	if (win->win_ptr == NULL)
 	{
 		free(win->mlx_ptr);
@@ -317,7 +323,7 @@ int	start_window(t_win *win)
 	start_image(win);
 	// mlx_mouse_hook(win->win_ptr, zoom, win);
 	mlx_hook(win->win_ptr, 2, 1L << 0, &handle_input, win);
-	// mlx_hook(win->win_ptr, 17, 1L << 0, &close_window, win);
+	mlx_hook(win->win_ptr, 17, 1L << 0, &close_window, win);
 	// mlx_expose_hook(win->win_ptr, (void *)start_image, win);
 	mlx_loop(win->mlx_ptr);
 	return (0);
@@ -331,6 +337,8 @@ int	main(int argc, char **argv)
 		return (1);
 	return (0);
 }
+
+// Init functions
 
 int	init_game(char *file)
 {
@@ -382,8 +390,8 @@ void	init_player_position_line(t_win *win, char *line, int i)
 		if (line[j] == 'N' || line[j] == 'S' || \
 			line[j] == 'E' || line[j] == 'W')
 		{
-			win->img.player.x = j * 64 + 32;
-			win->img.player.y = i * 64 + 32;
+			win->img.player.x = j * CUBE_SIZE + CUBE_SIZE / 2;
+			win->img.player.y = i * CUBE_SIZE + CUBE_SIZE / 2;
 			if (line[j] == 'N')
 				win->img.player.angle = 3 * PI / 2;
 			else if (line[j] == 'S')

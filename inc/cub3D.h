@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/09/30 22:59:58 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/10/01 02:17:41 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,19 @@
 
 # define MLX_ERROR 42
 
+// Keys
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define KEY_ESC 65307
+
 // Window constants
+# define CUBE_SIZE 64
+# define BASE_CUBE 6
+# define WIN_TITLE "Cats vs Cucumbers"
 # define WIN_WIDTH 1500
 # define WIN_HEIGHT 600
 
@@ -54,16 +66,16 @@
 // =============================================================================
 
 typedef struct s_raycaster {
+	float	angle;
+	float	first_hit_x;
+	float	first_hit_y;
+	float	y_offset;
+	float	x_offset;
 	int		r;
-	int		mx;
-	int		my;
+	int		map_x;
+	int		map_y;
 	int		mp;
 	int		dof;
-	float	rx;
-	float	ry;
-	float	ra;
-	float	xo;
-	float	yo;
 }				t_raycaster;
 
 typedef struct s_map {
@@ -119,5 +131,6 @@ short int	is_valid_map(char *str);
 
 int			handle_input(int keysys, t_win *win);
 void		start_image(t_win *win);
+int			close_window(void);
 
 #endif
