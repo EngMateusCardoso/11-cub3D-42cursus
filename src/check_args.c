@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:16:04 by matcardo          #+#    #+#             */
-/*   Updated: 2023/09/29 16:15:18 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/10/14 14:09:42 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ short int	is_valid_file(char *str)
 	return (TRUE);
 }
 
-// Ver substract como deve ser o arquivo .cub
+// TO DO: Ver substract como deve ser o arquivo .cub
 short int	is_valid_map(char *str)
 {
 	int		fd;

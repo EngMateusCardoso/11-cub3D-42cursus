@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/01 04:20:30 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/10/14 14:29:47 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,13 +119,15 @@ typedef struct s_win {
 int			main(int argc, char **argv);
 int			init_game(char *file);
 void		init_game_params(t_win *win, char *file);
-void		init_map(t_win *win, char *file);
-short int	is_map(char *line);
-void		init_map_dimensions(t_win *win, char *file);
+int			start_window(t_win *win);
+void		start_image(t_win *win);
+
+// init_functions.c
 void		init_player_position(t_win *win, char *file);
 void		init_player_position_line(t_win *win, char *line, int i);
-t_coord		get_horizontal_hit(t_img *img, float angle);
-t_coord		get_vertical_hit(t_img *img, float angle);
+void		init_map(t_win *win, char *file);
+void		init_map_dimensions(t_win *win, char *file);
+short int	is_map(char *line);
 
 // check_args.c
 short int	check_args(int argc, char **argv);
@@ -133,8 +135,17 @@ short int	is_valid_file_extension(char *str);
 short int	is_valid_file(char *str);
 short int	is_valid_map(char *str);
 
+// hooks.c
 int			handle_input(int keysys, t_win *win);
-void		start_image(t_win *win);
 int			close_window(void);
+
+// working
+void		print_screen(t_img *img);
+void		raycasterr(t_img *img);
+t_coord		get_horizontal_hit(t_img *img, float angle);
+t_coord		get_vertical_hit(t_img *img, float angle);
+void		render_line(t_img *img, float x0, float y0, float x1, float y1, int color);
+void		my_mlx_pixel_put(t_img *data, int x, int y, int color);
+float		dist_between_points(float x1, float y1, float x2, float y2);
 
 #endif
