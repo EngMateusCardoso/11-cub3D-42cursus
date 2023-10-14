@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:21:24 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/14 14:27:46 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/10/14 15:27:07 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,17 @@ void	raycasterr(t_img *img)
 			ca -= 2 * PI;
 		dist = dist * cos(ca);
 		// line height
-		float lineH = (64 * 320) / dist;
-		if (lineH > 320)
-			lineH = 320;
+		float lineH = (CUBE_SIZE * WIN_HEIGHT) / dist;
+		if (lineH > WIN_HEIGHT)
+			lineH = WIN_HEIGHT;
 		// line offset
-		int lineO = 160 - lineH / 2;
+		int lineO = WIN_HEIGHT / 2 - lineH / 2;
 		if (lineO < 0)
 			lineO = 0;
 		int j = 0;
-		while (j < 8)
+		while (j < WIN_WIDTH / 60)
 		{
-			render_line(img, i*8 + j, 100+lineO , i*8 + j, 100 + lineH+lineO, wall_collor);
+			render_line(img, i * WIN_WIDTH / 60 + j, 1 + lineO, i * WIN_WIDTH / 60 + j, 1 + lineH + lineO, wall_collor);
 			j++;
 		}
 		i++;
@@ -212,7 +212,7 @@ float	dist_between_points(float x1, float y1, float x2, float y2)
 }
 
 // void	render_player(t_img *img)
-// {
+// { 
 // 	render_little_line(img, img->player.x, img->player.y, img->player.angle);
 // 	render_little_line(img, img->player.x, img->player.y, img->player.angle + PI / 2);
 // }

@@ -6,12 +6,11 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:12:32 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/14 14:13:06 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/10/14 15:16:40 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
-
 
 void	init_player_position(t_win *win, char *file)
 {

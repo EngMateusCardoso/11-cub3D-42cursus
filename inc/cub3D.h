@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/14 14:29:47 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:13:14 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@
 # define CUBE_SIZE 64
 # define BASE_CUBE 6
 # define WIN_TITLE "Cats vs Cucumbers"
-# define WIN_WIDTH 1500
-# define WIN_HEIGHT 600
+# define WIN_WIDTH 640
+# define WIN_HEIGHT 640
+# define PLAYER_SIZE 20
 
 // Errors
 # define STR_INVALID_ARG "Error\nUsage: ./cub3D <map.cub>\n"
@@ -137,7 +138,15 @@ short int	is_valid_map(char *str);
 
 // hooks.c
 int			handle_input(int keysys, t_win *win);
+void		rotate_player(int keysys, t_win *win);
 int			close_window(void);
+
+// move_player.c
+void		move_player(int keysys, t_win *win);
+void		move_player_forward(t_win *win);
+void		move_player_backward(t_win *win);
+void		move_player_left(t_win *win);
+void		move_player_right(t_win *win);
 
 // working
 void		print_screen(t_img *img);
@@ -147,5 +156,4 @@ t_coord		get_vertical_hit(t_img *img, float angle);
 void		render_line(t_img *img, float x0, float y0, float x1, float y1, int color);
 void		my_mlx_pixel_put(t_img *data, int x, int y, int color);
 float		dist_between_points(float x1, float y1, float x2, float y2);
-
 #endif

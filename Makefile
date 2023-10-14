@@ -6,7 +6,7 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 23:42:00 by matcardo          #+#    #+#              #
-#    Updated: 2023/10/14 14:28:30 by matcardo         ###   ########.fr        #
+#    Updated: 2023/10/14 18:13:45 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRCS		= main.c			\
 			check_args.c		\
 			init_functions.c	\
 			hooks.c				\
+			move_player.c		\
 			print_screen_temp.c	\
 
 OBJS		= ${SRCS:%.c=%.o}
@@ -53,10 +54,10 @@ $(NAME): $(LIBFT) $(MLX) $(OBJS_DIR) $(addprefix $(OBJS_DIR),$(OBJS))
 $(OBJS_DIR):
 	@mkdir $(OBJS_DIR)
 	
-objs/%.o:	src/%.c
-		@printf "\r$(CY)Generating object$(RC)\n"
+objs/%.o:	src/%.c ./inc/cub3D.h
+#		@printf "\r$(CY)Generating object$(RC)\n"
 		@$(CC) $(FLAGS) -c $< -o $@
-		@printf "$(GR)Object is ready!$(RC)\n"
+#		@printf "$(GR)Object is ready!$(RC)\n"
 
 $(LIBFT):
 		@printf "$(CY)Generating libft...$(RC)\n"
