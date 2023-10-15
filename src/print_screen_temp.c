@@ -6,19 +6,42 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:21:24 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/14 15:27:07 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/10/14 22:25:10 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
 
+
+void	print_screen_background(t_img *img)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < WIN_WIDTH)
+	{
+		j = 0;
+		while (j < WIN_HEIGHT)
+		{
+			if (j < WIN_HEIGHT / 2)
+				my_mlx_pixel_put(img, i, j, img->ceiling_color);
+			else
+				my_mlx_pixel_put(img, i, j, img->floor_color);
+			j++;
+		}
+		i++;
+	}
+}
+
 void	print_screen(t_img *img)
 {
+	print_screen_background(img);
 	raycasterr(img);
 	// render_player(img);
 	// render_map(img);
 }
-
 
 void	raycasterr(t_img *img)
 {
@@ -75,7 +98,7 @@ void	raycasterr(t_img *img)
 		if (lineO < 0)
 			lineO = 0;
 		int j = 0;
-		while (j < WIN_WIDTH / 60)
+		while (j <= WIN_WIDTH / 60)
 		{
 			render_line(img, i * WIN_WIDTH / 60 + j, 1 + lineO, i * WIN_WIDTH / 60 + j, 1 + lineH + lineO, wall_collor);
 			j++;
@@ -184,17 +207,37 @@ t_coord	get_vertical_hit(t_img *img, float angle)
 
 void	render_line(t_img *img, float x0, float y0, float x1, float y1, int color)
 {
-	float	x_step;
-	float	y_step;
-	int		i;
+	int x0_int;
+	int x1_int;
+	int y0_int;
+	int y1_int;
 
-	i = 0;
-	x_step = (x1 - x0) / 64;
-	y_step = (y1 - y0) / 64;
-	while (i < 64)
+	if (x0 < x1)
 	{
-		my_mlx_pixel_put(img, x0 + x_step * i, y0 + y_step * i, color);
-		i++;
+		x0_int = round(x0);
+		x1_int = round(x1);
+	}
+	else {
+		x1_int = round(x0);
+		x0_int = round(x1);
+	}
+	if (y0 < y1)
+	{
+		y0_int = round(y0);
+		y1_int = round(y1);
+	}
+	else {
+		y1_int = round(y0);
+		y0_int = round(y1);
+	}
+	while (x0_int <= x1_int)
+	{
+		while (y0_int <= y1_int)
+		{
+			my_mlx_pixel_put(img, x0_int, y0_int, color);
+			y0_int++;
+		}
+		x0_int++;
 	}
 }
 

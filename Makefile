@@ -6,7 +6,7 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 23:42:00 by matcardo          #+#    #+#              #
-#    Updated: 2023/10/14 18:13:45 by matcardo         ###   ########.fr        #
+#    Updated: 2023/10/14 18:23:37 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME		= cub3D
 
 SRCS		= main.c			\
 			check_args.c		\
-			init_functions.c	\
+			init_functions_1.c	\
+			init_functions_2.c	\
 			hooks.c				\
 			move_player.c		\
 			print_screen_temp.c	\

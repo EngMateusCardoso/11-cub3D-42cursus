@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/14 18:13:14 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/10/14 19:04:25 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ typedef struct s_img {
 	int			bpp;
 	int			line_len;
 	int			endian;
+	int			ceiling_color;
+	int			floor_color;
 	t_player	player;
 	t_map		map;
 }				t_img;
@@ -123,12 +125,16 @@ void		init_game_params(t_win *win, char *file);
 int			start_window(t_win *win);
 void		start_image(t_win *win);
 
-// init_functions.c
+// init_functions_1.c
 void		init_player_position(t_win *win, char *file);
 void		init_player_position_line(t_win *win, char *line, int i);
 void		init_map(t_win *win, char *file);
 void		init_map_dimensions(t_win *win, char *file);
 short int	is_map(char *line);
+
+// init_functions_2.c
+void		init_roof_and_ceiling_color(t_win *win, char *file);
+int			get_color(char *line);
 
 // check_args.c
 short int	check_args(int argc, char **argv);
