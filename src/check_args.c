@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:16:04 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/15 02:11:40 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/10/15 02:17:37 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,11 @@ short int	is_valid_file(char *str)
 // Podem haver quantas linhas em branco quiser antes do mapa
 // Verificar se o argumento que vem depois de cada identifier é válido
 // Verificar se os arquivo .xpm são válidos (abrem corretamente, por exemplo)
-// Verificar se as cores são válidas (números entre 0 e 255, por exemplo)
+// Verificar se as cores são válidas (números entre 0 e 255, não aceitar letras, se tem as virgulas, etc)
 // Não deve havernas linhas mais nada além do identifier e seu argumento
 // Não devem haver linhas com mais de 1 argumento ou com coisas aleátorias, (sem identifier por exemplo)
 // MAPA
+// Verificar se o mapa tem mapa
 // Verificar se o mapa é válido. O que é um mapa válido?
 // Acho que é só ir caracter por caracter
 // ignora espaços até encontrar um 1 (se não encontrar, retorna erro) 
@@ -78,6 +79,8 @@ short int	is_valid_file(char *str)
 // Se encontrou o 1 e o \n em seguida a linha está ok
 // Se encontrou o 1 e o espaço em seguida, verifica se há apenas espaços até o \n
 // Essa verificação tem que fazer na horizontal e na vertical
+// ver se colocou o player uma vez e não mais de uma vez
+// Enfim tem uma lista de possíveis erros nos testes de repositórios por ai
 short int	is_valid_map(char *str)
 {
 	int		fd;
