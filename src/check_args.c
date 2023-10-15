@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:16:04 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/14 15:17:16 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/10/15 02:06:19 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,23 @@ short int	is_valid_file(char *str)
 }
 
 // TO DO: Ver substract como deve ser o arquivo .cub
+// Ver se tem uma única linha para cada "type identifier" (R, NO, SO, WE, EA, S, F, C)
+// Nâo mais que uma nem menos
+// Ver se estes identifiers estão antes do mapa.
+// Lembrar que podem haver tantos espaços quanto quiser antes e depois de cada linha
+// Podem haver quantas linhas em branco quiser antes do mapa
+// Verificar se o argumento que vem depois de cada identifier é válido
+// Verificar se os arquivo .xpm são válidos (abrem corretamente, por exemplo)
+// Verificar se as cores são válidas (números entre 0 e 255, por exemplo)
+// MAPA
+// Verificar se o mapa é válido. O que é um mapa válido?
+// Acho que é só ir caracter por caracter
+// ignora espaços até encontrar um 1 (se não encontrar, retorna erro) 
+// depoisdo 1 deve haver apenas 0, N, S, E, W (Depois adicionaremos mais mais para portas e sprites)
+// até que encontre um 1 novamente seguido por um espaço ou ou \n
+// Se encontrou o 1 e o \n em seguida a linha está ok
+// Se encontrou o 1 e o espaço em seguida, verifica se há apenas espaços até o \n
+// Essa verificação tem que fazer na horizontal e na vertical
 short int	is_valid_map(char *str)
 {
 	int		fd;
