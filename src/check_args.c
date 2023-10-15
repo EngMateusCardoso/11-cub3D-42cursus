@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:16:04 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/15 02:06:19 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/10/15 02:11:40 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ short int	is_valid_file(char *str)
 // Verificar se o argumento que vem depois de cada identifier é válido
 // Verificar se os arquivo .xpm são válidos (abrem corretamente, por exemplo)
 // Verificar se as cores são válidas (números entre 0 e 255, por exemplo)
+// Não deve havernas linhas mais nada além do identifier e seu argumento
+// Não devem haver linhas com mais de 1 argumento ou com coisas aleátorias, (sem identifier por exemplo)
 // MAPA
 // Verificar se o mapa é válido. O que é um mapa válido?
 // Acho que é só ir caracter por caracter
