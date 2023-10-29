@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/14 19:04:25 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/10/29 14:37:19 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct s_raycaster {
 typedef struct s_coord {
 	int		x;
 	int		y;
-	float len;
+	float	len;
 }				t_coord;
 
 typedef struct s_map {
@@ -102,10 +102,13 @@ typedef struct s_img {
 	int			bpp;
 	int			line_len;
 	int			endian;
+	int			img_width;
+	int			img_height;
 	int			ceiling_color;
 	int			floor_color;
 	t_player	player;
 	t_map		map;
+	int			textures[4][64][64];
 }				t_img;
 
 typedef struct s_win {
@@ -115,6 +118,18 @@ typedef struct s_win {
 }				t_win;
 
 // =============================================================================
+// ENUMS
+// =============================================================================
+
+enum e_directions
+{
+	NO,
+	SO,
+	EA,
+	WE
+};
+
+// =============================================================================
 // PROTOTYPES
 // =============================================================================
 
@@ -122,7 +137,7 @@ typedef struct s_win {
 int			main(int argc, char **argv);
 int			init_game(char *file);
 void		init_game_params(t_win *win, char *file);
-int			start_window(t_win *win);
+int			start_window(t_win *win, char *file);
 void		start_image(t_win *win);
 
 // init_functions_1.c
@@ -135,6 +150,9 @@ short int	is_map(char *line);
 // init_functions_2.c
 void		init_roof_and_ceiling_color(t_win *win, char *file);
 int			get_color(char *line);
+void		init_textures(t_win *win, char *file);
+void		get_texture(char *line, t_win *win, int direction);
+char		*path_to_texture(char *line);
 
 // check_args.c
 short int	check_args(int argc, char **argv);
@@ -159,7 +177,7 @@ void		print_screen(t_img *img);
 void		raycasterr(t_img *img);
 t_coord		get_horizontal_hit(t_img *img, float angle);
 t_coord		get_vertical_hit(t_img *img, float angle);
-void		render_line(t_img *img, float x0, float y0, float x1, float y1, int color);
+void		render_line(t_img *img, float x0, float y0, float x1, float y1, int color, float step, float step_offset);
 void		my_mlx_pixel_put(t_img *data, int x, int y, int color);
 float		dist_between_points(float x1, float y1, float x2, float y2);
 #endif
