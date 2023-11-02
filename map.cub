@@ -1,7 +1,7 @@
-NO ./textures/north_texture.xpm
-SO ./textures/south_texture.xpm
-EA ./textures/east_texture.xpm
-WE ./textures/west_texture.xpm
+NO ./textures/redbrick.xpm
+SO ./textures/greystone.xpm
+EA ./textures/eagle.xpm
+WE ./textures/eagle.xpm
 F 42,55,57
 C 255,255,255
 
@@ -17,6 +17,6 @@ C 255,255,255
 10100001
 10100001
 10000001
-10E00101
+10N00101
 10000001
 11111111

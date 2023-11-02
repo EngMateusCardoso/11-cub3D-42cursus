@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 23:40:03 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/14 19:05:11 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/10/18 23:38:38 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	init_game(char *file)
 	t_win	win;
 
 	init_game_params(&win, file);
-	if (!start_window(&win))
+	if (!start_window(&win, file))
 		return (1);
 	return (0);
 }
@@ -41,7 +41,7 @@ void	init_game_params(t_win *win, char *file)
 	// init_textures(win, file);
 }
 
-int	start_window(t_win *win)
+int	start_window(t_win *win, char *file)
 {
 	win->mlx_ptr = mlx_init();
 	if (win->mlx_ptr == NULL)
@@ -52,6 +52,7 @@ int	start_window(t_win *win)
 		free(win->mlx_ptr);
 		return (MLX_ERROR);
 	}
+	init_textures(win, file);
 	start_image(win);
 	// mlx_mouse_hook(win->win_ptr, zoom, win);
 	mlx_hook(win->win_ptr, 2, 1L << 0, &handle_input, win);
