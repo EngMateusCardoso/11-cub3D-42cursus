@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 18:23:58 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/25 19:36:59 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/10/29 16:54:01 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,16 +100,16 @@ void	get_texture(char *line, t_win *win, int direction)
 		printf("Error\nInvalid texture path\n");
 		exit(1);
 	}
-	img.addr = mlx_get_data_addr(img.img_ptr, &img.bpp, \
+	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp, \
 		&img.line_len, &img.endian);
 	i = 0;
-	while (i < img.img_height)
+	while (i < img.img_width)
 	{
 		j = 0;
-		while (j < img.img_width)
+		while (j < img.img_height)
 		{
 			win->img.textures[direction][i][j] = \
-				img.addr[img.img_width * i + j];
+				img.data[i + j * img.img_height];
 				// img.addr[i * img.line_len + j * (img.bpp / 8)];
 				// *(unsigned int *)(img.addr + (i * img.line_len + j * (img.bpp / 8)));
 			j++;

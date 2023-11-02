@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:21:24 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/29 14:39:47 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/10/29 16:54:17 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	raycasterr(t_img *img)
 	t_coord	hor_hit;
 	float	angle;
 	float	dist;
+	float	x_hit;
 	int		i;
 
 	angle = img->player.angle - DR * 30;
@@ -71,12 +72,13 @@ void	raycasterr(t_img *img)
 		if (hor_hit.x > 0 && hor_hit.y > 0 && hor_hit.x < img->map.width*64 && hor_hit.y < img->map.height * 64 && hor_hit.len <= vert_hit.len)
 		{
 			dist = hor_hit.len;
+			x_hit = hor_hit.x;
 			// NO
 			if (angle > 0 && angle < PI)
-				wall_direction = NO;
+				wall_direction = SO;
 			// SO
 			else
-				wall_direction = SO;
+				wall_direction = NO;
 				// wall_direction = 0x00550000;
 		// render_line(img, img->player.x, img->player.y, hor_hit.x, hor_hit.y, 0x00FF0000);
 		}
@@ -84,6 +86,7 @@ void	raycasterr(t_img *img)
 		if (vert_hit.x > 0 && vert_hit.y > 0 && vert_hit.x < img->map.width*64 && vert_hit.y < img->map.height*64 && vert_hit.len < hor_hit.len)
 		{
 			dist = vert_hit.len;
+			x_hit = vert_hit.y;
 			// WE hit
 			if (angle > PI / 2 && angle < 3 * PI / 2)
 				wall_direction = WE;
@@ -122,12 +125,14 @@ void	raycasterr(t_img *img)
 			lineO = 0;
 
 		int j = 0;
+		// Laço para criar espessura da linha vertical
 		while (j <= WIN_WIDTH / 60)
 		{
-			render_line(img, i * WIN_WIDTH / 60 + j, 1 + lineO, i * WIN_WIDTH / 60 + j, 1 + lineH + lineO, wall_direction, step, step_offset);
+			render_line(img, i * WIN_WIDTH / 60 + j, 1 + lineO, i * WIN_WIDTH / 60 + j, 1 + lineH + lineO, wall_direction, step, step_offset, x_hit);
 			j++;
 		}
 		i++;
+		
 	}
 }
 
@@ -229,7 +234,7 @@ t_coord	get_vertical_hit(t_img *img, float angle)
 	return (hit);
 }
 
-void	render_line(t_img *img, float x0, float y0, float x1, float y1, int direction, float step, float step_offset)
+void	render_line(t_img *img, float x0, float y0, float x1, float y1, int direction, float step, float step_offset, float x_hit)
 {
 	int x0_int;
 	int x1_int;
@@ -238,8 +243,7 @@ void	render_line(t_img *img, float x0, float y0, float x1, float y1, int directi
 	float i;
 	int	color;
 
-	if (x0 < x1)
-	{
+	if (x0 < x1) {
 		x0_int = round(x0);
 		x1_int = round(x1);
 	}
@@ -247,8 +251,7 @@ void	render_line(t_img *img, float x0, float y0, float x1, float y1, int directi
 		x1_int = round(x0);
 		x0_int = round(x1);
 	}
-	if (y0 < y1)
-	{
+	if (y0 < y1) {
 		y0_int = round(y0);
 		y1_int = round(y1);
 	}
@@ -270,12 +273,13 @@ void	render_line(t_img *img, float x0, float y0, float x1, float y1, int directi
 		while (y0_int <= y1_int)
 		{
 			color = img->textures[direction][0][(int)(i)];
+			color = img->textures[direction][(int)x_hit % 64][(int)(i)];
 			// printf("x0_int: %d, y0_int: %d, x1_int: %d, y1_int: %d\n", x0_int, y0_int, x1_int, y1_int);
 			// printf("x0_int %% 64: %d, y0_int %% 64: %d\n", x0_int % 64 * 64, y0_int % 64 * 64);
 			// printf("i: %d, length: %d\n", i, length);
 			// my_mlx_pixel_put(img, x0_int, y0_int, color[y0_int % 64 * 64]);
 			my_mlx_pixel_put(img, x0_int, y0_int, color);
-			i +=  step;
+			i += step;
 			y0_int++;
 		}
 		x0_int++; 

@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/29 14:37:19 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/10/29 16:47:29 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,12 @@ typedef struct player {
 typedef struct s_img {
 	void		*img_ptr;
 	char		*addr;
+	int			endian;
 	int			bpp;
 	int			line_len;
-	int			endian;
 	int			img_width;
 	int			img_height;
+	int			*data;
 	int			ceiling_color;
 	int			floor_color;
 	t_player	player;
@@ -177,7 +178,7 @@ void		print_screen(t_img *img);
 void		raycasterr(t_img *img);
 t_coord		get_horizontal_hit(t_img *img, float angle);
 t_coord		get_vertical_hit(t_img *img, float angle);
-void		render_line(t_img *img, float x0, float y0, float x1, float y1, int color, float step, float step_offset);
+void		render_line(t_img *img, float x0, float y0, float x1, float y1, int color, float step, float step_offset, float x_hit);
 void		my_mlx_pixel_put(t_img *data, int x, int y, int color);
 float		dist_between_points(float x1, float y1, float x2, float y2);
 #endif
