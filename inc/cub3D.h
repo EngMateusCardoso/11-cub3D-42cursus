@@ -17,7 +17,7 @@
 // LIBRARIES
 // =============================================================================
 
-# include "../minilibx-linux/mlx.h"
+# include "../libraries/minilibx-linux/mlx.h"
 # include "../libraries/libft/libft.h"
 # include <unistd.h>	// write (?)
 # include <stdio.h>		// printf
