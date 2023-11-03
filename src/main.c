@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 23:40:03 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/18 23:38:38 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/03 00:01:43 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	init_game_params(t_win *win, char *file)
 	init_map(win, file);
 	init_player_position(win, file);
 	init_roof_and_ceiling_color(win, file);
-	// init_textures(win, file);
 }
 
 int	start_window(t_win *win, char *file)

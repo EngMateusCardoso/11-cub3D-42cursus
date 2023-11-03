@@ -1,16 +1,64 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_functions.c                                   :+:      :+:    :+:   */
+/*   init_functions_1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:12:32 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/14 15:16:40 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/03 00:09:18 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
+
+void	init_map_dimensions(t_win *win, char *file)
+{
+	int		fd;
+	char	*line;
+
+	fd = open(file, O_RDONLY);
+	line = get_next_line(fd);
+	win->img.map.height = 0;
+	win->img.map.width = 3;
+	while (line)
+	{
+		if (is_map(line))
+		{
+			win->img.map.height++;
+			if (win->img.map.width < (int)ft_strlen(line) - 1)
+				win->img.map.width = ft_strlen(line) - 1;
+		}
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
+	close(fd);
+}
+
+void	init_map(t_win *win, char *file)
+{
+	int		fd;
+	char	*line;
+	int		i;
+
+	win->img.map.map = malloc(sizeof(char *) * win->img.map.width);
+	fd = open(file, O_RDONLY);
+	line = get_next_line(fd);
+	i = 0;
+	while (line)
+	{
+		if (is_map(line))
+		{
+			win->img.map.map[i] = ft_strdup(line);
+			i++;
+		}
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
+	close(fd);
+}
 
 void	init_player_position(t_win *win, char *file)
 {
@@ -27,10 +75,11 @@ void	init_player_position(t_win *win, char *file)
 		{
 			init_player_position_line(win, line, i);
 			i++;
-			free(line);
 		}
+		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
 	close(fd);
 }
 
@@ -59,52 +108,6 @@ void	init_player_position_line(t_win *win, char *line, int i)
 		}
 		j++;
 	}
-}
-
-void	init_map(t_win *win, char *file)
-{
-	int		fd;
-	char	*line;
-	int		i;
-
-	win->img.map.map = malloc(sizeof(char *) * win->img.map.width);
-	fd = open(file, O_RDONLY);
-	line = get_next_line(fd);
-	i = 0;
-	while (line)
-	{
-		if (is_map(line))
-		{
-			win->img.map.map[i] = ft_strdup(line);
-			i++;
-			free(line);
-		}
-		line = get_next_line(fd);
-	}
-	close(fd);
-}
-
-void	init_map_dimensions(t_win *win, char *file)
-{
-	int		fd;
-	char	*line;
-
-	fd = open(file, O_RDONLY);
-	line = get_next_line(fd);
-	win->img.map.height = 0;
-	win->img.map.width = 3;
-	while (line)
-	{
-		if (is_map(line))
-		{
-			win->img.map.height++;
-			if (win->img.map.width < (int)ft_strlen(line) - 1)
-				win->img.map.width = ft_strlen(line) - 1;
-			free(line);
-		}
-		line = get_next_line(fd);
-	}
-	close(fd);
 }
 
 short int	is_map(char *line)

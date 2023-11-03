@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/29 16:47:29 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/03 00:09:48 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,11 +142,11 @@ int			start_window(t_win *win, char *file);
 void		start_image(t_win *win);
 
 // init_functions_1.c
+void		init_map_dimensions(t_win *win, char *file);
+void		init_map(t_win *win, char *file);
+short int	is_map(char *line);
 void		init_player_position(t_win *win, char *file);
 void		init_player_position_line(t_win *win, char *line, int i);
-void		init_map(t_win *win, char *file);
-void		init_map_dimensions(t_win *win, char *file);
-short int	is_map(char *line);
 
 // init_functions_2.c
 void		init_roof_and_ceiling_color(t_win *win, char *file);
