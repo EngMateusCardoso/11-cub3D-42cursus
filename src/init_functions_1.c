@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:12:32 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/03 00:13:32 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/03 01:34:18 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	init_map(t_win *win, char *file)
 	char	*line;
 	int		i;
 
-	win->img.map.map = malloc(sizeof(char *) * win->img.map.width);
+	win->img.map.map = malloc(sizeof(char *) * (win->img.map.width + 1));
 	fd = open(file, O_RDONLY);
 	line = get_next_line(fd);
 	i = 0;
@@ -56,6 +56,7 @@ void	init_map(t_win *win, char *file)
 		free(line);
 		line = get_next_line(fd);
 	}
+	win->img.map.map[i] = NULL;
 	free(line);
 	close(fd);
 }
