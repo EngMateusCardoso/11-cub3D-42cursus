@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 23:40:03 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/03 00:01:43 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/03 00:59:58 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	start_window(t_win *win, char *file)
 	win->mlx_ptr = mlx_init();
 	if (win->mlx_ptr == NULL)
 		return (MLX_ERROR);
-	win->win_ptr = mlx_new_window(win->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, WIN_TITLE);
+	win->win_ptr = mlx_new_window(win->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, \
+		WIN_TITLE);
 	if (win->win_ptr == NULL)
 	{
 		free(win->mlx_ptr);

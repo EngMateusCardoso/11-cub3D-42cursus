@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/03 00:09:48 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/03 01:09:48 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,13 +144,13 @@ void		start_image(t_win *win);
 // init_functions_1.c
 void		init_map_dimensions(t_win *win, char *file);
 void		init_map(t_win *win, char *file);
-short int	is_map(char *line);
+short int	is_map_line(char *line);
 void		init_player_position(t_win *win, char *file);
 void		init_player_position_line(t_win *win, char *line, int i);
 
 // init_functions_2.c
 void		init_roof_and_ceiling_color(t_win *win, char *file);
-int			get_color(char *line);
+int			get_color_in_line(char *line);
 void		init_textures(t_win *win, char *file);
 void		get_texture(char *line, t_win *win, int direction);
 char		*path_to_texture(char *line);
@@ -164,7 +164,8 @@ short int	is_valid_map(char *str);
 // hooks.c
 int			handle_input(int keysys, t_win *win);
 void		rotate_player(int keysys, t_win *win);
-int			close_window(void);
+int			close_window(t_win *win);
+void		free_map(char **map);
 
 // move_player.c
 void		move_player(int keysys, t_win *win);

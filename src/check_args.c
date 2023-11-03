@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:16:04 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/15 02:17:37 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/03 01:13:11 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ short int	is_valid_map(char *str)
 		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
 	close(fd);
 	return (TRUE);
 }

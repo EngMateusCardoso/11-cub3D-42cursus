@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:12:32 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/03 00:09:18 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/03 00:13:32 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	init_map_dimensions(t_win *win, char *file)
 	win->img.map.width = 3;
 	while (line)
 	{
-		if (is_map(line))
+		if (is_map_line(line))
 		{
 			win->img.map.height++;
 			if (win->img.map.width < (int)ft_strlen(line) - 1)
@@ -48,7 +48,7 @@ void	init_map(t_win *win, char *file)
 	i = 0;
 	while (line)
 	{
-		if (is_map(line))
+		if (is_map_line(line))
 		{
 			win->img.map.map[i] = ft_strdup(line);
 			i++;
@@ -71,7 +71,7 @@ void	init_player_position(t_win *win, char *file)
 	i = 0;
 	while (line)
 	{
-		if (is_map(line))
+		if (is_map_line(line))
 		{
 			init_player_position_line(win, line, i);
 			i++;
@@ -110,7 +110,7 @@ void	init_player_position_line(t_win *win, char *line, int i)
 	}
 }
 
-short int	is_map(char *line)
+short int	is_map_line(char *line)
 {
 	int	i;
 

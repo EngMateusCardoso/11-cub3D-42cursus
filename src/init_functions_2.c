@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 18:23:58 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/29 16:54:01 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/03 01:04:16 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,20 @@ void	init_roof_and_ceiling_color(t_win *win, char *file)
 	while (line)
 	{
 		i = 0;
-		while (line[i] == ' ')
+		while (line[i] == ' ' || line[i] == '\t')
 			i++;
 		if (line[i] == 'C')
-			win->img.ceiling_color = get_color(line);
+			win->img.ceiling_color = get_color_in_line(line);
 		else if (line[i] == 'F')
-			win->img.floor_color = get_color(line);
+			win->img.floor_color = get_color_in_line(line);
+		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
 	close(fd);
 }
 
-int	get_color(char *line)
+int	get_color_in_line(char *line)
 {
 	int		i;
 	int		color;
@@ -80,8 +82,10 @@ void	init_textures(t_win *win, char *file)
 			get_texture(line, win, WE);
 		else if (line[i] == 'E' && line[i + 1] == 'A')
 			get_texture(line, win, EA);
+		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
 	close(fd);
 }
 
@@ -95,6 +99,7 @@ void	get_texture(char *line, t_win *win, int direction)
 	path = path_to_texture(line);
 	img.img_ptr = mlx_xpm_file_to_image(win->mlx_ptr, path, \
 		&img.img_width, &img.img_height);
+	free(path);
 	if (!img.img_ptr)
 	{
 		printf("Error\nInvalid texture path\n");
@@ -102,19 +107,13 @@ void	get_texture(char *line, t_win *win, int direction)
 	}
 	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp, \
 		&img.line_len, &img.endian);
-	i = 0;
-	while (i < img.img_width)
+	i = -1;
+	while (++i < img.img_width)
 	{
-		j = 0;
-		while (j < img.img_height)
-		{
+		j = -1;
+		while (++j < img.img_height)
 			win->img.textures[direction][i][j] = \
 				img.data[i + j * img.img_height];
-				// img.addr[i * img.line_len + j * (img.bpp / 8)];
-				// *(unsigned int *)(img.addr + (i * img.line_len + j * (img.bpp / 8)));
-			j++;
-		}
-		i++;
 	}
 	mlx_destroy_image(win->mlx_ptr, img.img_ptr);
 }
