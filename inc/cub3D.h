@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/03 01:09:48 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/03 23:35:04 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ short int	is_valid_map(char *str);
 // hooks.c
 int			handle_input(int keysys, t_win *win);
 void		rotate_player(int keysys, t_win *win);
+int			handle_mouse(int keysys, int x, int y, t_win *win);
 int			close_window(t_win *win);
 void		free_map(char **map);
 

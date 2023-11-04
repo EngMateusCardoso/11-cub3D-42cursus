@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 23:40:03 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/03 00:59:58 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/03 23:28:00 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	start_window(t_win *win, char *file)
 	}
 	init_textures(win, file);
 	start_image(win);
-	// mlx_mouse_hook(win->win_ptr, zoom, win);
+	mlx_mouse_hook(win->win_ptr, handle_mouse, win);
 	mlx_hook(win->win_ptr, 2, 1L << 0, &handle_input, win);
 	mlx_hook(win->win_ptr, 17, 1L << 0, &close_window, win);
 	// mlx_expose_hook(win->win_ptr, (void *)start_image, win);
