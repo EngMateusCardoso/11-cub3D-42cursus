@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/04 13:05:30 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/04 15:28:12 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@
 # define WIN_WIDTH 640
 # define WIN_HEIGHT 640
 # define PLAYER_SIZE 20
-# define MINIMAP_SCALE 0.2
+# define MAX_MAP_SCALE 0.2
 
 // Errors
 # define STR_INVALID_ARG "Error\nUsage: ./cub3D <map.cub>\n"
@@ -86,6 +86,7 @@ typedef struct s_map {
 	char	**map;
 	int		width;
 	int		height;
+	float	minimap_scale;
 }				t_map;
 
 typedef struct player {

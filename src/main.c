@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 23:40:03 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/03 23:28:00 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/04 14:30:28 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,20 @@ int	init_game(char *file)
 	return (0);
 }
 
+void	print_map(t_win *win)
+{
+	int	i;
+
+	i = 0;
+	printf("Map:\n");
+	printf("Map height: %d\n", win->img.map.height);
+	while (i < win->img.map.height)
+	{
+		printf("%s\n", win->img.map.map[i]);
+		i++;
+	}
+}
+
 void	init_game_params(t_win *win, char *file)
 {
 	win->mlx_ptr = NULL;
@@ -38,6 +52,8 @@ void	init_game_params(t_win *win, char *file)
 	init_map(win, file);
 	init_player_position(win, file);
 	init_roof_and_ceiling_color(win, file);
+	printf("\ninit_game_params end\n");
+	// print_map(win);
 }
 
 int	start_window(t_win *win, char *file)

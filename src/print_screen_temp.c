@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:21:24 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/04 13:14:39 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/04 15:45:10 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,13 @@ void	print_screen_background(t_img *img)
 
 void	print_screen(t_img *img)
 {
+	// printf("print_screen\n");
 	print_screen_background(img);
+	// printf("print_screen_background\n");
 	raycasterr(img);
-	// render_player(img);
+	// printf("raycasterr\n");
 	render_map(img);
+	// printf("render_map\n");
 }
 
 void	raycasterr(t_img *img)
@@ -313,10 +316,10 @@ void	render_map(t_img *img)
 
 	i = 0;
 	j = 0;
-	while (i < img->map.width)
+	while (i < img->map.height)
 	{
 		j = 0;
-		while (j < img->map.height)
+		while (img->map.map[i][j] != '\0' && img->map.map[i][j] != '\n')
 		{
 			if (img->map.map[i][j] == '1')
 				render_map_unit(img, i, j, 0x00FFFFFF);
@@ -339,7 +342,7 @@ void	render_map_unit(t_img *img, int x, int y, int color)
 		j = 1;
 		while (j < CUBE_SIZE)
 		{
-			my_mlx_pixel_put(img, (y * CUBE_SIZE + i)*MINIMAP_SCALE, (x * CUBE_SIZE + j)*MINIMAP_SCALE, color);
+			my_mlx_pixel_put(img, (y * CUBE_SIZE + i)*img->map.minimap_scale, (x * CUBE_SIZE + j)*img->map.minimap_scale, color);
 			j++;
 		}
 		i++;
@@ -358,7 +361,7 @@ void	render_player(t_img *img)
 		j = 0;
 		while (j < PLAYER_SIZE * 2)
 		{
-			my_mlx_pixel_put(img, ((img->player.x/64) * CUBE_SIZE + j - PLAYER_SIZE)*MINIMAP_SCALE, ((img->player.y/64) * CUBE_SIZE + i - PLAYER_SIZE)*MINIMAP_SCALE, 0x00FF0000);
+			my_mlx_pixel_put(img, ((img->player.x/64) * CUBE_SIZE + j - PLAYER_SIZE)*img->map.minimap_scale, ((img->player.y/64) * CUBE_SIZE + i - PLAYER_SIZE)*img->map.minimap_scale, 0x00FF0000);
 			j++;
 		}
 		i++;

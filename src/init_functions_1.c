@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:12:32 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/03 01:34:18 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/04 15:42:12 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,15 @@ void	init_map_dimensions(t_win *win, char *file)
 	}
 	free(line);
 	close(fd);
+	if (win->img.map.width >= WIN_WIDTH / CUBE_SIZE || win->img.map.height >= WIN_WIDTH / CUBE_SIZE)
+	{
+		if (win->img.map.width >= win->img.map.height)
+			win->img.map.minimap_scale = WIN_WIDTH * MAX_MAP_SCALE / (CUBE_SIZE * win->img.map.width);
+		else
+			win->img.map.minimap_scale = WIN_WIDTH * MAX_MAP_SCALE / (CUBE_SIZE * win->img.map.height);
+	}
+	else
+		win->img.map.minimap_scale = MAX_MAP_SCALE;
 }
 
 void	init_map(t_win *win, char *file)
@@ -42,7 +51,7 @@ void	init_map(t_win *win, char *file)
 	char	*line;
 	int		i;
 
-	win->img.map.map = malloc(sizeof(char *) * (win->img.map.width + 1));
+	win->img.map.map = malloc(sizeof(char *) * (win->img.map.height + 1));
 	fd = open(file, O_RDONLY);
 	line = get_next_line(fd);
 	i = 0;
