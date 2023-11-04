@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:21:24 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/29 16:54:17 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/04 13:14:39 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	print_screen(t_img *img)
 	print_screen_background(img);
 	raycasterr(img);
 	// render_player(img);
-	// render_map(img);
+	render_map(img);
 }
 
 void	raycasterr(t_img *img)
@@ -305,57 +305,62 @@ float	dist_between_points(float x1, float y1, float x2, float y2)
 // 	render_little_line(img, img->player.x, img->player.y, img->player.angle + PI / 2);
 // }
 
-// void	render_little_line(t_img *img, int x, int y, float angle)
-// {
-// 	float	x_step;
-// 	float	y_step;
-// 	int		i;
 
-// 	i = 0;
-// 	x_step = cos(angle) * 5;
-// 	y_step = sin(angle) * 5;
-// 	while (i < 5)
-// 	{
-// 		my_mlx_pixel_put(img, x + x_step * i, y + y_step * i, 0x00FF0000);
-// 		i++;
-// 	}
-// }
+void	render_map(t_img *img)
+{
+	int	i;
+	int	j;
 
-// void	render_map(t_img *img)
-// {
-// 	int	i;
-// 	int	j;
+	i = 0;
+	j = 0;
+	while (i < img->map.width)
+	{
+		j = 0;
+		while (j < img->map.height)
+		{
+			if (img->map.map[i][j] == '1')
+				render_map_unit(img, i, j, 0x00FFFFFF);
+			j++;
+		}
+		i++;
+	}
+	render_player(img);
+}
 
-// 	i = 0;
-// 	j = 0;
-// 	while (i < img->map.width)
-// 	{
-// 		j = 0;
-// 		while (j < img->map.height)
-// 		{
-// 			if (img->map.map[i][j] == '1')
-// 				render_map_unit(img, i, j);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
+void	render_map_unit(t_img *img, int x, int y, int color)
+{
+	int i;
+	int j;
 
-// void	render_map_unit(t_img *img, int x, int y)
-// {
-// 	int i;
-// 	int j;
+	i = 1;
+	j = 1;
+	while (i < CUBE_SIZE)
+	{
+		j = 1;
+		while (j < CUBE_SIZE)
+		{
+			my_mlx_pixel_put(img, (y * CUBE_SIZE + i)*MINIMAP_SCALE, (x * CUBE_SIZE + j)*MINIMAP_SCALE, color);
+			j++;
+		}
+		i++;
+	}
+}
 
-// 	i = 1;
-// 	j = 1;
-// 	while (i < 64)
-// 	{
-// 		j = 1;
-// 		while (j < 64)
-// 		{
-// 			my_mlx_pixel_put(img, y * 64 + i, x * 64 + j, 0x00FFFFFF);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
+void	render_player(t_img *img)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (i < PLAYER_SIZE * 2)
+	{
+		j = 0;
+		while (j < PLAYER_SIZE * 2)
+		{
+			my_mlx_pixel_put(img, ((img->player.x/64) * CUBE_SIZE + j - PLAYER_SIZE)*MINIMAP_SCALE, ((img->player.y/64) * CUBE_SIZE + i - PLAYER_SIZE)*MINIMAP_SCALE, 0x00FF0000);
+			j++;
+		}
+		i++;
+	}
+}
