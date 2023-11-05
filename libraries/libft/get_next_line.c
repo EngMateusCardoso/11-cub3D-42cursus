@@ -6,11 +6,27 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 14:32:32 by matcardo          #+#    #+#             */
-/*   Updated: 2023/09/29 16:19:21 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/03 01:28:14 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+char	*ft_strjoin_gnl(char const *s1, char const *s2)
+{
+	char	*str;
+
+	if (!s1 || !s2)
+		return (NULL);
+	str = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
+	if (str)
+	{
+		ft_strlcpy(str, s1, (ft_strlen(s1) + 1));
+		ft_strlcat(str, s2, (ft_strlen(s1) + ft_strlen(s2) + 1));
+	}
+	free((char *)s1);
+	return (str);
+}
 
 char	*get_line(int fd, char *backup, size_t buffer_size)
 {
@@ -34,7 +50,7 @@ char	*get_line(int fd, char *backup, size_t buffer_size)
 			return (NULL);
 		}
 		buffer[line_lenght] = '\0';
-		line = ft_strjoin(line, buffer);
+		line = ft_strjoin_gnl(line, buffer);
 	}
 	free(buffer);
 	return (line);

@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/29 16:47:29 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/04 13:05:30 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@
 # define WIN_WIDTH 640
 # define WIN_HEIGHT 640
 # define PLAYER_SIZE 20
+# define MINIMAP_SCALE 0.2
 
 // Errors
 # define STR_INVALID_ARG "Error\nUsage: ./cub3D <map.cub>\n"
@@ -142,15 +143,15 @@ int			start_window(t_win *win, char *file);
 void		start_image(t_win *win);
 
 // init_functions_1.c
+void		init_map_dimensions(t_win *win, char *file);
+void		init_map(t_win *win, char *file);
+short int	is_map_line(char *line);
 void		init_player_position(t_win *win, char *file);
 void		init_player_position_line(t_win *win, char *line, int i);
-void		init_map(t_win *win, char *file);
-void		init_map_dimensions(t_win *win, char *file);
-short int	is_map(char *line);
 
 // init_functions_2.c
 void		init_roof_and_ceiling_color(t_win *win, char *file);
-int			get_color(char *line);
+int			get_color_in_line(char *line);
 void		init_textures(t_win *win, char *file);
 void		get_texture(char *line, t_win *win, int direction);
 char		*path_to_texture(char *line);
@@ -164,7 +165,9 @@ short int	is_valid_map(char *str);
 // hooks.c
 int			handle_input(int keysys, t_win *win);
 void		rotate_player(int keysys, t_win *win);
-int			close_window(void);
+int			handle_mouse(int keysys, int x, int y, t_win *win);
+int			close_window(t_win *win);
+void		free_map(char **map);
 
 // move_player.c
 void		move_player(int keysys, t_win *win);
@@ -181,4 +184,7 @@ t_coord		get_vertical_hit(t_img *img, float angle);
 void		render_line(t_img *img, float x0, float y0, float x1, float y1, int color, float step, float step_offset, float x_hit);
 void		my_mlx_pixel_put(t_img *data, int x, int y, int color);
 float		dist_between_points(float x1, float y1, float x2, float y2);
+void	render_map(t_img *img);
+void	render_map_unit(t_img *img, int x, int y, int color);
+void	render_player(t_img *img);
 #endif
