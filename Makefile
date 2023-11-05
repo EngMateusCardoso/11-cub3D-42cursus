@@ -27,7 +27,7 @@ RM			= rm -fr
 CC			= gcc
 FLAGS		= -Wall -Wextra -Werror
 
-MLX			= ./minilibx-linux/libmlx.a
+MLX			= ./libraries/minilibx-linux/libmlx.a
 MLX_FLAGS	=  -lm -lmlx -lXext -lX11
 LIBFT		= ./libraries/libft/libft.a
 
@@ -48,7 +48,7 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS_DIR) $(addprefix $(OBJS_DIR),$(OBJS))
 		@printf "\r$(CY)Generating cub3D executable...$(RC)\n"
-		@$(CC) $(FLAGS) $(addprefix $(OBJS_DIR),$(OBJS)) $(LIBFT) -L./minilibx-linux $(MLX) $(MLX_FLAGS) -o $(NAME)
+		@$(CC) $(FLAGS) $(addprefix $(OBJS_DIR),$(OBJS)) $(LIBFT) -L./libraries/minilibx-linux $(MLX) $(MLX_FLAGS) -o $(NAME)
 		@printf "$(GR)cub3D is Ready!$(RC)\n"
 
 #lembrar de criar os subdiretorios quando houver
@@ -67,7 +67,7 @@ $(LIBFT):
 
 $(MLX):
 		@printf "$(CY)Generating minilibx...$(RC)\n"
-		make -C ./minilibx-linux
+		make -C ./libraries/minilibx-linux
 		@printf "$(GR)minilibx ready!$(RC)\n"
 
 # descomenta se tiver algo do bonus	ou excluir
@@ -86,7 +86,7 @@ clean:
 
 fclean:	
 		@make fclean -C ./libraries/libft
-		@make clean -C ./minilibx-linux
+		@make clean -C ./libraries/minilibx-linux
 		@$(RM) $(OBJS_DIR) $(LEAKS_FILE) $(NAME)
 		@printf "$(RE)Cub3D object files and executable removed!$(RC)\n"
 

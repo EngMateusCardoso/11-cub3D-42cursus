@@ -1,9 +1,9 @@
-NO ./textures/redbrick.xpm
-SO ./textures/greystone.xpm
-EA ./textures/eagle.xpm
-WE ./textures/eagle.xpm
-F 42,55,57
-C 255,255,255
+NO ./textures/1.xpm
+SO ./textures/2.xpm
+EA ./textures/4.xpm
+WE ./textures/5.xpm
+F 36,38,51
+C 1,5,28
 
 -1111111111111111
 -1000000000000001
