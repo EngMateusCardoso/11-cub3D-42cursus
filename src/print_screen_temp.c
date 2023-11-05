@@ -6,12 +6,11 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:21:24 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/04 15:45:10 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/05 14:10:53 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
-
 
 void	print_screen_background(t_img *img)
 {
@@ -76,13 +75,10 @@ void	raycasterr(t_img *img)
 		{
 			dist = hor_hit.len;
 			x_hit = hor_hit.x;
-			// NO
 			if (angle > 0 && angle < PI)
 				wall_direction = SO;
-			// SO
 			else
 				wall_direction = NO;
-				// wall_direction = 0x00550000;
 		// render_line(img, img->player.x, img->player.y, hor_hit.x, hor_hit.y, 0x00FF0000);
 		}
 		// horizontal wall hit
@@ -90,13 +86,10 @@ void	raycasterr(t_img *img)
 		{
 			dist = vert_hit.len;
 			x_hit = vert_hit.y;
-			// WE hit
 			if (angle > PI / 2 && angle < 3 * PI / 2)
 				wall_direction = WE;
-			// EA hit
 			else
 				wall_direction = EA;
-				// wall_direction = 0x00FF0000;
 		// render_line(img, img->player.x, img->player.y, vert_hit.x, vert_hit.y, 0x00FF0000);
 		}
 		//draw walls
@@ -152,7 +145,7 @@ t_coord	get_horizontal_hit(t_img *img, float angle)
 	if (angle > PI) // looking up
 	{
 		ray.first_hit_y = (((int)img->player.y >> BASE_CUBE) \
-			<< BASE_CUBE) - 0.0001;
+			<< BASE_CUBE) - 0.001;
 		ray.first_hit_x = (img->player.y - ray.first_hit_y) * -1 / tan(angle) + img->player.x;
 		ray.y_offset = -CUBE_SIZE;
 		ray.x_offset = -ray.y_offset * -1 / tan(angle);
@@ -201,7 +194,7 @@ t_coord	get_vertical_hit(t_img *img, float angle)
 	hit.y = img->player.y;
 	if (angle > PI / 2 && angle < 3 * PI / 2)
 	{
-		ray.first_hit_x = (((int)img->player.x >> BASE_CUBE) << BASE_CUBE) - 0.0001;
+		ray.first_hit_x = (((int)img->player.x >> BASE_CUBE) << BASE_CUBE) - 0.001;
 		ray.first_hit_y = (img->player.x - ray.first_hit_x) * -tan(angle) + img->player.y;
 		ray.x_offset = -CUBE_SIZE;
 		ray.y_offset = -ray.x_offset * -tan(angle);
