@@ -81,7 +81,54 @@ short int	is_valid_file(char *str)
 // Essa verificação tem que fazer na horizontal e na vertical
 // ver se colocou o player uma vez e não mais de uma vez
 // Enfim tem uma lista de possíveis erros nos testes de repositórios por ai
+
+static void	init_params(t_params *params)
+{
+	params->ceilcolor = -1;
+	params->floorcolor = -1;
+	params->east = NULL;
+	params->north = NULL;
+	params->south = NULL;
+	params->west = NULL;
+}
+
+char	**fetch_map_array(int fd)
+{
+	char	*line;
+	char	*tmp;
+	char	**ret;
+
+	if (fd == -1)
+		return (NULL);
+	tmp = ft_get_next_line(fd);
+	while (ftex_is_in_set(*tmp, VALID_ID))
+	{
+		free(tmp);
+		tmp = ft_get_next_line(fd);
+		if (!tmp)
+			return (NULL);
+	}
+	line = ft_strdup("");
+	while (tmp)
+	{
+		line = ft_strmerge(line, tmp);
+		tmp = ft_get_next_line(fd);
+	}
+	ret = ft_split(line, '\n');
+	ret = insert_padding(ret, string_max_size(ret));
+	close(fd);
+	free(line);
+	return (ret);
+}
+
 short int	is_valid_map(char *str)
+{
+	t_params params;
+
+	init_params(&params);
+}
+
+short int	print_map(char *str)
 {
 	int		fd;
 	char	*line;

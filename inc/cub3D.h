@@ -58,7 +58,7 @@
 # define MINIMAP_SCALE 0.2
 
 // Errors
-# define STR_INVALID_ARG "Error\nUsage: ./cub3D <map.cub>\n"
+# define STR_INVALID_ARG "Error\nInvalid number of arguments\nUsage: ./cub3D <map.cub>\n"
 # define STR_INVALID_EXT "Error\nInvalid file extension: %s\nUsage: ./cub3D <map.cub>\n"
 # define STR_FILE_NOT_FOUND "Error\nFile not found: %s\n"
 # define STR_INVALID_MAP "Error\nInvalid map in: %s\n"
@@ -96,7 +96,6 @@ typedef struct player {
 	float	angle;
 }				t_player;
 
-
 typedef struct s_img {
 	void		*img_ptr;
 	char		*addr;
@@ -118,6 +117,17 @@ typedef struct s_win {
 	char	*win_ptr;
 	t_img	img;
 }				t_win;
+
+typedef struct s_params
+{
+	char	*north;
+	char	*south;
+	char	*east;
+	char	*west;
+	int		ceilcolor;
+	int		floorcolor;
+	t_map	map;
+}	t_params;
 
 // =============================================================================
 // ENUMS
