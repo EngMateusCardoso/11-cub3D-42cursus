@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:16:04 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 01:51:32 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/06 01:59:32 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ short int	check_args(int argc, char **argv)
 	}
 	if (!is_valid_map(argv[1]))
 	{
-		printf(STR_INVALID_MAP, argv[1]);
 		return (FALSE);
 	}
 	return (TRUE);
@@ -222,7 +221,7 @@ short int	is_valid_map(char *str)
 	if (!params.map)
 	{
 		printf(STR_EMPTY_MAP);
-		return (map_validation_failed(&params, NULL));
+		return (FALSE);
 	}
 	print_colored_map(params.map);
 	return (TRUE);
