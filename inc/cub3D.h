@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 09:06:33 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/06 20:51:42 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,20 @@
 # define STR_FILE_NOT_FOUND "Error\nFile not found: %s\n"
 # define STR_INVALID_MAP "Error\nInvalid map in: %s\n"
 # define STR_EMPTY_MAP "Error\nThe map is empty\n"
+# define STR_INVALID_ID_MAP "Error\nInvalid map\nInvalid identifier '%s= %s'\n"
+# define STR_NO_TEXTURE "Error\nInvalid map\nMissing texture '%s'\n"
+# define STR_DUPLICATED_TEXTURE "Error\nInvalid map\nDuplicated texture identifier '%s'"
+# define STR_INCORRECT_TEXTURE "Error\nInvalid map\nIncorrect texture file type: %s= %s\nExpected: .xpm\n"
+# define STR_TEXTURE_NOT_FOUND "Error\nInvalid map\nTexture file not found: %s= %s\n"
+# define STR_NO_COLOR "Error\nInvalid map\nMissing color '%s'\n"
+# define STR_OUT_RANGE_COLOR "Error\nInvalid map\nColor RGB parameter out of range in set: %s= %s\n"
+# define STR_MANY_COLOR "Error\nInvalid map\nWrong number of RGB parameters in color: %s= %s\n"
+# define STR_DUPLICATED_COLOR "Error\nInvalid map\nDuplicate color identifier '%s'\n"
+# define STR_PLAYER_NOT_FOUND "Error\nInvalid map\nPlayer not found in map\n"
+# define STR_MULTI_PLAYER "Error\nInvalid map\nMultiple Players in map\n"
+# define STR_INVALID_MAP_CHAR "Error\nInvalid map\nInvalid char in the map: '%c'\n"
+# define STR_MAP_WALLS_OPEN1 "Error\nInvalid map\nExternal walls are open\n"
+# define STR_MAP_WALLS_OPEN2 "Error\nInvalid map\nInternal walls are open\n"
 
 // =============================================================================
 // STRUCTURES
@@ -150,6 +164,12 @@ typedef struct s_params
 	int		floorcolor;
 	char	**map;
 }	t_params;
+
+typedef struct s_xy
+{
+	int	x;
+	int	y;
+}	t_xy;
 
 // =============================================================================
 // ENUMS
