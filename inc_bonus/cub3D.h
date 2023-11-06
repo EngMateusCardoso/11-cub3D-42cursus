@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 01:55:03 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/06 01:10:45 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,10 @@
 # define RAYCASTER_NUM_RAYS 640
 
 // Errors
-# define VALID_ID "NSEWCF\n"
-# define VALID_MAP_CHARS "01 NSEW\n"
-# define VALID_PLAYER "NSEW"
-# define VALID_MAP "01"
-# define STR_INVALID_ARG "Error\nInvalid number of arguments\nUsage: ./cub3D <map.cub>\n"
+# define STR_INVALID_ARG "Error\nUsage: ./cub3D <map.cub>\n"
 # define STR_INVALID_EXT "Error\nInvalid file extension: %s\nUsage: ./cub3D <map.cub>\n"
 # define STR_FILE_NOT_FOUND "Error\nFile not found: %s\n"
 # define STR_INVALID_MAP "Error\nInvalid map in: %s\n"
-# define STR_EMPTY_MAP "Error\nThe map is empty\n"
 
 // =============================================================================
 // STRUCTURES
@@ -109,6 +104,7 @@ typedef struct player {
 	float	angle;
 }				t_player;
 
+
 typedef struct s_img {
 	void		*img_ptr;
 	char		*addr;
@@ -133,17 +129,6 @@ typedef struct s_win {
 	t_img	img;
 }				t_win;
 
-typedef struct s_params
-{
-	char	*north;
-	char	*south;
-	char	*east;
-	char	*west;
-	int		ceilcolor;
-	int		floorcolor;
-	char	**map;
-}	t_params;
-
 // =============================================================================
 // ENUMS
 // =============================================================================
@@ -167,23 +152,19 @@ void		init_game_params(t_win *win, char *file);
 int			start_window(t_win *win, char *file);
 void		start_image(t_win *win);
 
-// init_map_functions.c
+// init_functions_1.c
 void		init_map_dimensions(t_win *win, char *file);
 void		init_map(t_win *win, char *file);
-void		init_map_scale(t_win *win);
 short int	is_map_line(char *line);
-
-// init_player_and_bg_functions.c
-void		init_roof_and_ceiling_color(t_win *win, char *file);
-int			get_color_in_line(char *line);
 void		init_player_position(t_win *win, char *file);
 void		init_player_position_line(t_win *win, char *line, int i);
 
-// init_texture_functions.c
+// init_functions_2.c
+void		init_roof_and_ceiling_color(t_win *win, char *file);
+int			get_color_in_line(char *line);
 void		init_textures(t_win *win, char *file);
 void		get_texture(char *line, t_win *win, int direction);
 char		*path_to_texture(char *line);
-void		set_texture(t_win *win, t_img img, int direction);
 
 // check_args.c
 short int	check_args(int argc, char **argv);
