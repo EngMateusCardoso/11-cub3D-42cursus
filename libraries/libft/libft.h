@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:48:55 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/09/29 16:20:19 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/06 00:44:16 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int		ft_arrlen(char	**array);
 void	ft_free_array(char **array);
 void	ft_free_pointer(void **ptr);
 void	ft_swap(int *a, int *b);
+char	*ft_strmerge(char *s1, char *s2);
 
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);

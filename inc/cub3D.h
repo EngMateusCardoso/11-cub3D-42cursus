@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 01:45:56 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/06 02:33:34 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,15 @@
 # define RAYCASTER_NUM_RAYS 640
 
 // Errors
-# define STR_INVALID_ARG "Error\nUsage: ./cub3D <map.cub>\n"
+# define VALID_ID "NSEWCF\n"
+# define VALID_MAP_CHARS "01 NSEW\n"
+# define VALID_PLAYER "NSEW"
+# define VALID_MAP "01"
+# define STR_INVALID_ARG "Error\nInvalid number of arguments\nUsage: ./cub3D <map.cub>\n"
 # define STR_INVALID_EXT "Error\nInvalid file extension: %s\nUsage: ./cub3D <map.cub>\n"
 # define STR_FILE_NOT_FOUND "Error\nFile not found: %s\n"
 # define STR_INVALID_MAP "Error\nInvalid map in: %s\n"
+# define STR_EMPTY_MAP "Error\nThe map is empty\n"
 
 // =============================================================================
 // STRUCTURES
@@ -104,7 +109,6 @@ typedef struct player {
 	float	angle;
 }				t_player;
 
-
 typedef struct s_img {
 	void		*img_ptr;
 	char		*addr;
@@ -128,6 +132,17 @@ typedef struct s_win {
 	char	*win_ptr;
 	t_img	img;
 }				t_win;
+
+typedef struct s_params
+{
+	char	*north;
+	char	*south;
+	char	*east;
+	char	*west;
+	int		ceilcolor;
+	int		floorcolor;
+	char	**map;
+}	t_params;
 
 // =============================================================================
 // ENUMS
