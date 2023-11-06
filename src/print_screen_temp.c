@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:21:24 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/05 14:10:53 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/06 00:08:23 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	raycasterr(t_img *img)
 		// line height
 		float lineH = (CUBE_SIZE * WIN_HEIGHT) / dist;
 		// passo da textura
-		float step = 64.0 / lineH;
+		float step = img->texture_height[wall_direction]  / lineH;
 		// quanbdo esta próximo começa a textura do offset
 		float step_offset = 0.0;
 		if (lineH > WIN_HEIGHT)
@@ -269,7 +269,7 @@ void	render_line(t_img *img, float x0, float y0, float x1, float y1, int directi
 		while (y0_int <= y1_int)
 		{
 			color = img->textures[direction][0][(int)(i)];
-			color = img->textures[direction][(int)x_hit % 64][(int)(i)];
+			color = img->textures[direction][((int)x_hit % 64) * img->texture_width[direction]/CUBE_SIZE][(int)(i)];
 			// printf("x0_int: %d, y0_int: %d, x1_int: %d, y1_int: %d\n", x0_int, y0_int, x1_int, y1_int);
 			// printf("x0_int %% 64: %d, y0_int %% 64: %d\n", x0_int % 64 * 64, y0_int % 64 * 64);
 			// printf("i: %d, length: %d\n", i, length);

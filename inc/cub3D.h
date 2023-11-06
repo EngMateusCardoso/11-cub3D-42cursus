@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/04 15:28:12 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/06 00:04:56 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,9 @@ typedef struct s_img {
 	int			floor_color;
 	t_player	player;
 	t_map		map;
-	int			textures[4][64][64];
+	int			**textures[4];
+	int			texture_width[4];
+	int			texture_height[4];
 }				t_img;
 
 typedef struct s_win {
