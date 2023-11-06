@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 01:45:56 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/06 02:20:43 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@
 
 // Window constants
 # define WIN_TITLE "Cats vs Cucumbers"
-# define WIN_WIDTH 640
-# define WIN_HEIGHT 640
+# define WIN_WIDTH 1280
+# define WIN_HEIGHT 960
 
 // Game constants
 # define PLAYER_SIZE 20
@@ -83,6 +83,13 @@ typedef struct s_raycaster {
 	int		map_y;
 }				t_raycaster;
 
+typedef struct s_ray {
+	int		wall_direction;
+	float	angle;
+	float	dist;
+	float	x_hit;
+}				t_ray;
+
 typedef struct s_coord {
 	int		x;
 	int		y;
@@ -103,7 +110,6 @@ typedef struct player {
 	float	sin;
 	float	angle;
 }				t_player;
-
 
 typedef struct s_img {
 	void		*img_ptr;
@@ -192,6 +198,7 @@ void		move_player_right(t_win *win);
 
 // working
 void		print_screen(t_img *img);
+void		print_screen_background(t_img *img);
 void		raycasterr(t_img *img);
 t_coord		get_horizontal_hit(t_img *img, float angle);
 t_coord		get_vertical_hit(t_img *img, float angle);
@@ -201,4 +208,6 @@ float		dist_between_points(float x1, float y1, float x2, float y2);
 void	render_map(t_img *img);
 void	render_map_unit(t_img *img, int x, int y, int color);
 void	render_player(t_img *img);
+float	fix_angle(float angle);
+t_ray	get_ray(t_img *img, t_coord hor_hit, t_coord vert_hit, t_ray ray);
 #endif
