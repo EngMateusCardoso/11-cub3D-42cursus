@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 00:32:39 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/06 01:41:23 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,15 @@
 # define MAX_MAP_SCALE 0.2
 
 // Errors
+# define VALID_ID "NSEWCF\n"
+# define VALID_MAP_CHARS "01 NSEW\n"
+# define VALID_PLAYER "NSEW"
+# define VALID_MAP "01"
 # define STR_INVALID_ARG "Error\nInvalid number of arguments\nUsage: ./cub3D <map.cub>\n"
 # define STR_INVALID_EXT "Error\nInvalid file extension: %s\nUsage: ./cub3D <map.cub>\n"
 # define STR_FILE_NOT_FOUND "Error\nFile not found: %s\n"
 # define STR_INVALID_MAP "Error\nInvalid map in: %s\n"
+# define STR_EMPTY_MAP "Error\nThe map is empty\n"
 
 // =============================================================================
 // STRUCTURES
@@ -129,7 +134,7 @@ typedef struct s_params
 	char	*west;
 	int		ceilcolor;
 	int		floorcolor;
-	t_map	map;
+	char	**map;
 }	t_params;
 
 // =============================================================================
