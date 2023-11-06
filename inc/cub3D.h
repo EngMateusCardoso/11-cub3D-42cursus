@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 00:48:44 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/06 01:10:45 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@
 # define PLAYER_MINIMAP_COLOR 0x00FF0000
 # define WALL_MINIMAP_COLOR 0x00FFFFFF
 # define ANGLE_OF_VIEW 60
-# define RAYCASTER_NUM_RAYS 600
+# define RAYCASTER_NUM_RAYS 640
 
 // Errors
 # define STR_INVALID_ARG "Error\nUsage: ./cub3D <map.cub>\n"

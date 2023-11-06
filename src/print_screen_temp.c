@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:21:24 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 00:46:10 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/06 01:21:46 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ void	raycasterr(t_img *img)
 			j++;
 		}
 		i++;
-		
 	}
 }
 
@@ -255,25 +254,16 @@ void	render_line(t_img *img, float x0, float y0, float x1, float y1, int directi
 		y1_int = round(y0);
 		y0_int = round(y1);
 	}
-	// if (direction == NO)
-	// 	color = img->textures[NO][0];
-	// else if (direction == SO)
-	// 	color = img->textures[SO][0];
-	// else if (direction == WE)
-	// 	color = img->textures[WE][0];
-	// else if (direction == EA)
-	// 	color = img->textures[EA][0];
 	while (x0_int <= x1_int)
 	{
 		i = 1 + step_offset * step;
 		while (y0_int <= y1_int)
 		{
 			color = img->textures[direction][0][(int)(i)];
-			color = img->textures[direction][((int)x_hit % CUBE_SIZE) * img->texture_width[direction]/CUBE_SIZE][(int)(i)];
-			// printf("x0_int: %d, y0_int: %d, x1_int: %d, y1_int: %d\n", x0_int, y0_int, x1_int, y1_int);
-			// printf("x0_int %% 64: %d, y0_int %% 64: %d\n", x0_int % 64 * 64, y0_int % 64 * 64);
-			// printf("i: %d, length: %d\n", i, length);
-			// my_mlx_pixel_put(img, x0_int, y0_int, color[y0_int % 64 * 64]);
+			if (direction == NO || direction == EA)
+				color = img->textures[direction][((int)x_hit % CUBE_SIZE) * img->texture_width[direction]/CUBE_SIZE][(int)(i)];
+			else if (direction == SO || direction == WE)
+				color = img->textures[direction][(63 - ((int)x_hit % CUBE_SIZE))* img->texture_width[direction]/CUBE_SIZE][(int)(i)];
 			my_mlx_pixel_put(img, x0_int, y0_int, color);
 			i += step;
 			y0_int++;
