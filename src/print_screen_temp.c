@@ -6,12 +6,11 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:21:24 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/04 13:14:39 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/06 00:08:23 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
-
 
 void	print_screen_background(t_img *img)
 {
@@ -37,10 +36,13 @@ void	print_screen_background(t_img *img)
 
 void	print_screen(t_img *img)
 {
+	// printf("print_screen\n");
 	print_screen_background(img);
+	// printf("print_screen_background\n");
 	raycasterr(img);
-	// render_player(img);
+	// printf("raycasterr\n");
 	render_map(img);
+	// printf("render_map\n");
 }
 
 void	raycasterr(t_img *img)
@@ -73,13 +75,10 @@ void	raycasterr(t_img *img)
 		{
 			dist = hor_hit.len;
 			x_hit = hor_hit.x;
-			// NO
 			if (angle > 0 && angle < PI)
 				wall_direction = SO;
-			// SO
 			else
 				wall_direction = NO;
-				// wall_direction = 0x00550000;
 		// render_line(img, img->player.x, img->player.y, hor_hit.x, hor_hit.y, 0x00FF0000);
 		}
 		// horizontal wall hit
@@ -87,13 +86,10 @@ void	raycasterr(t_img *img)
 		{
 			dist = vert_hit.len;
 			x_hit = vert_hit.y;
-			// WE hit
 			if (angle > PI / 2 && angle < 3 * PI / 2)
 				wall_direction = WE;
-			// EA hit
 			else
 				wall_direction = EA;
-				// wall_direction = 0x00FF0000;
 		// render_line(img, img->player.x, img->player.y, vert_hit.x, vert_hit.y, 0x00FF0000);
 		}
 		//draw walls
@@ -109,7 +105,7 @@ void	raycasterr(t_img *img)
 		// line height
 		float lineH = (CUBE_SIZE * WIN_HEIGHT) / dist;
 		// passo da textura
-		float step = 64.0 / lineH;
+		float step = img->texture_height[wall_direction]  / lineH;
 		// quanbdo esta próximo começa a textura do offset
 		float step_offset = 0.0;
 		if (lineH > WIN_HEIGHT)
@@ -149,7 +145,7 @@ t_coord	get_horizontal_hit(t_img *img, float angle)
 	if (angle > PI) // looking up
 	{
 		ray.first_hit_y = (((int)img->player.y >> BASE_CUBE) \
-			<< BASE_CUBE) - 0.0001;
+			<< BASE_CUBE) - 0.001;
 		ray.first_hit_x = (img->player.y - ray.first_hit_y) * -1 / tan(angle) + img->player.x;
 		ray.y_offset = -CUBE_SIZE;
 		ray.x_offset = -ray.y_offset * -1 / tan(angle);
@@ -198,7 +194,7 @@ t_coord	get_vertical_hit(t_img *img, float angle)
 	hit.y = img->player.y;
 	if (angle > PI / 2 && angle < 3 * PI / 2)
 	{
-		ray.first_hit_x = (((int)img->player.x >> BASE_CUBE) << BASE_CUBE) - 0.0001;
+		ray.first_hit_x = (((int)img->player.x >> BASE_CUBE) << BASE_CUBE) - 0.001;
 		ray.first_hit_y = (img->player.x - ray.first_hit_x) * -tan(angle) + img->player.y;
 		ray.x_offset = -CUBE_SIZE;
 		ray.y_offset = -ray.x_offset * -tan(angle);
@@ -273,7 +269,7 @@ void	render_line(t_img *img, float x0, float y0, float x1, float y1, int directi
 		while (y0_int <= y1_int)
 		{
 			color = img->textures[direction][0][(int)(i)];
-			color = img->textures[direction][(int)x_hit % 64][(int)(i)];
+			color = img->textures[direction][((int)x_hit % 64) * img->texture_width[direction]/CUBE_SIZE][(int)(i)];
 			// printf("x0_int: %d, y0_int: %d, x1_int: %d, y1_int: %d\n", x0_int, y0_int, x1_int, y1_int);
 			// printf("x0_int %% 64: %d, y0_int %% 64: %d\n", x0_int % 64 * 64, y0_int % 64 * 64);
 			// printf("i: %d, length: %d\n", i, length);
@@ -313,10 +309,10 @@ void	render_map(t_img *img)
 
 	i = 0;
 	j = 0;
-	while (i < img->map.width)
+	while (i < img->map.height)
 	{
 		j = 0;
-		while (j < img->map.height)
+		while (img->map.map[i][j] != '\0' && img->map.map[i][j] != '\n')
 		{
 			if (img->map.map[i][j] == '1')
 				render_map_unit(img, i, j, 0x00FFFFFF);
@@ -339,7 +335,7 @@ void	render_map_unit(t_img *img, int x, int y, int color)
 		j = 1;
 		while (j < CUBE_SIZE)
 		{
-			my_mlx_pixel_put(img, (y * CUBE_SIZE + i)*MINIMAP_SCALE, (x * CUBE_SIZE + j)*MINIMAP_SCALE, color);
+			my_mlx_pixel_put(img, (y * CUBE_SIZE + i)*img->map.minimap_scale, (x * CUBE_SIZE + j)*img->map.minimap_scale, color);
 			j++;
 		}
 		i++;
@@ -358,7 +354,7 @@ void	render_player(t_img *img)
 		j = 0;
 		while (j < PLAYER_SIZE * 2)
 		{
-			my_mlx_pixel_put(img, ((img->player.x/64) * CUBE_SIZE + j - PLAYER_SIZE)*MINIMAP_SCALE, ((img->player.y/64) * CUBE_SIZE + i - PLAYER_SIZE)*MINIMAP_SCALE, 0x00FF0000);
+			my_mlx_pixel_put(img, ((img->player.x/64) * CUBE_SIZE + j - PLAYER_SIZE)*img->map.minimap_scale, ((img->player.y/64) * CUBE_SIZE + i - PLAYER_SIZE)*img->map.minimap_scale, 0x00FF0000);
 			j++;
 		}
 		i++;

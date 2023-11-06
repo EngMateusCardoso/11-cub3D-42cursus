@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 23:40:03 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/03 23:28:00 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/05 21:57:58 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,15 @@ int	init_game(char *file)
 void	init_game_params(t_win *win, char *file)
 {
 	win->mlx_ptr = NULL;
+	// printf("Initializing game...\n");
 	init_map_dimensions(win, file);
+	// printf("Initializing map...\n");
 	init_map(win, file);
+	// printf("Initializing player...\n");
 	init_player_position(win, file);
+	// printf("Initializing textures...\n");
 	init_roof_and_ceiling_color(win, file);
+	// printf("Initializing sprites...\n");
 }
 
 int	start_window(t_win *win, char *file)
@@ -57,7 +62,7 @@ int	start_window(t_win *win, char *file)
 	mlx_mouse_hook(win->win_ptr, handle_mouse, win);
 	mlx_hook(win->win_ptr, 2, 1L << 0, &handle_input, win);
 	mlx_hook(win->win_ptr, 17, 1L << 0, &close_window, win);
-	// mlx_expose_hook(win->win_ptr, (void *)start_image, win);
+	mlx_expose_hook(win->win_ptr, (void *)start_image, win);
 	mlx_loop(win->mlx_ptr);
 	return (0);
 }

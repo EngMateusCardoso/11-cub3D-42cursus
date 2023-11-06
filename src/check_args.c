@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:16:04 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/03 01:13:11 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/06 00:32:25 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ short int	is_valid_file(char *str)
 // Verificar se o mapa é válido. O que é um mapa válido?
 // Acho que é só ir caracter por caracter
 // ignora espaços até encontrar um 1 (se não encontrar, retorna erro) 
-// depoisdo 1 deve haver apenas 0, N, S, E, W (Depois adicionaremos mais mais para portas e sprites)
+// depoisdo 1 deve haver apenas 0, N, S, E, W (Depois adicionaremos mais para portas (O e D) e sprites)
 // até que encontre um 1 novamente seguido por um espaço ou ou \n
 // Se encontrou o 1 e o \n em seguida a linha está ok
 // Se encontrou o 1 e o espaço em seguida, verifica se há apenas espaços até o \n

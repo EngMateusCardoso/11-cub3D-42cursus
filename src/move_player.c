@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 18:06:39 by matcardo          #+#    #+#             */
-/*   Updated: 2023/10/14 18:11:45 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/05 22:01:16 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void	move_player_forward(t_win *win)
 	int	player_map_position_forward_x;
 	int	player_map_position_forward_y;
 
-	player_map_position_x = (int)win->img.player.x / 64;
-	player_map_position_y = (int)win->img.player.y / 64;
+	player_map_position_x = (int)win->img.player.x / CUBE_SIZE;
+	player_map_position_y = (int)win->img.player.y / CUBE_SIZE;
 	player_map_position_forward_x
-		= (int)(win->img.player.x + win->img.player.cos * 4) / 64;
+		= (int)(win->img.player.x + win->img.player.cos * 4) / CUBE_SIZE;
 	player_map_position_forward_y
-		= (int)(win->img.player.y + win->img.player.sin * 4) / 64;
+		= (int)(win->img.player.y + win->img.player.sin * 4) / CUBE_SIZE;
 	if (win->img.map.map[player_map_position_y][player_map_position_forward_x]
 		!= '1')
 		win->img.player.x += win->img.player.cos;
@@ -52,12 +52,12 @@ void	move_player_backward(t_win *win)
 	int	player_map_position_backward_x;
 	int	player_map_position_backward_y;
 
-	player_map_position_x = (int)win->img.player.x / 64;
-	player_map_position_y = (int)win->img.player.y / 64;
+	player_map_position_x = (int)win->img.player.x / CUBE_SIZE;
+	player_map_position_y = (int)win->img.player.y / CUBE_SIZE;
 	player_map_position_backward_x
-		= (int)(win->img.player.x - win->img.player.cos * 4) / 64;
+		= (int)(win->img.player.x - win->img.player.cos * 4) / CUBE_SIZE;
 	player_map_position_backward_y
-		= (int)(win->img.player.y - win->img.player.sin * 4) / 64;
+		= (int)(win->img.player.y - win->img.player.sin * 4) / CUBE_SIZE;
 	if (win->img.map.map[player_map_position_y][player_map_position_backward_x]
 		!= '1')
 		win->img.player.x -= win->img.player.cos;
@@ -73,12 +73,12 @@ void	move_player_right(t_win *win)
 	int	player_map_position_left_x;
 	int	player_map_position_left_y;
 
-	player_map_position_x = (int)win->img.player.x / 64;
-	player_map_position_y = (int)win->img.player.y / 64;
+	player_map_position_x = (int)win->img.player.x / CUBE_SIZE;
+	player_map_position_y = (int)win->img.player.y / CUBE_SIZE;
 	player_map_position_left_x
-		= (int)(win->img.player.x - win->img.player.sin * 4) / 64;
+		= (int)(win->img.player.x - win->img.player.sin * 4) / CUBE_SIZE;
 	player_map_position_left_y
-		= (int)(win->img.player.y + win->img.player.cos * 4) / 64;
+		= (int)(win->img.player.y + win->img.player.cos * 4) / CUBE_SIZE;
 	if (win->img.map.map[player_map_position_y][player_map_position_left_x]
 		!= '1')
 		win->img.player.x -= win->img.player.sin;
@@ -94,12 +94,12 @@ void	move_player_left(t_win *win)
 	int	player_map_position_right_x;
 	int	player_map_position_right_y;
 
-	player_map_position_x = (int)win->img.player.x / 64;
-	player_map_position_y = (int)win->img.player.y / 64;
+	player_map_position_x = (int)win->img.player.x / CUBE_SIZE;
+	player_map_position_y = (int)win->img.player.y / CUBE_SIZE;
 	player_map_position_right_x
-		= (int)(win->img.player.x + win->img.player.sin * 4) / 64;
+		= (int)(win->img.player.x + win->img.player.sin * 4) / CUBE_SIZE;
 	player_map_position_right_y
-		= (int)(win->img.player.y - win->img.player.cos * 4) / 64;
+		= (int)(win->img.player.y - win->img.player.cos * 4) / CUBE_SIZE;
 	if (win->img.map.map[player_map_position_y][player_map_position_right_x]
 		!= '1')
 		win->img.player.x += win->img.player.sin;

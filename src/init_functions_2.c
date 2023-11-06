@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 18:23:58 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/03 01:04:16 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/05 23:59:37 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	init_textures(t_win *win, char *file)
 	while (line)
 	{
 		i = 0;
-		while (line[i] == ' ')
+		while (line[i] == ' ' || line[i] == '\t')
 			i++;
 		if (line[i] == 'N' && line[i + 1] == 'O')
 			get_texture(line, win, NO);
@@ -107,6 +107,10 @@ void	get_texture(char *line, t_win *win, int direction)
 	}
 	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp, \
 		&img.line_len, &img.endian);
+	win->img.textures[direction] = malloc(sizeof(int *) * img.img_width);
+	i = -1;
+	while (++i < img.img_width)
+		win->img.textures[direction][i] = malloc(sizeof(int) * img.img_height);
 	i = -1;
 	while (++i < img.img_width)
 	{
@@ -115,6 +119,8 @@ void	get_texture(char *line, t_win *win, int direction)
 			win->img.textures[direction][i][j] = \
 				img.data[i + j * img.img_height];
 	}
+	win->img.texture_width[direction] = img.img_width;
+	win->img.texture_height[direction] = img.img_height;
 	mlx_destroy_image(win->mlx_ptr, img.img_ptr);
 }
 
