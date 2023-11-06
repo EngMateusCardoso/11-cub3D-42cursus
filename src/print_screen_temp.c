@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:21:24 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 00:08:23 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/06 00:46:10 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,24 @@ void	raycasterr(t_img *img)
 	float	x_hit;
 	int		i;
 
-	angle = img->player.angle - DR * 30;
+	angle = img->player.angle - DR * (ANGLE_OF_VIEW / 2);
 	if (angle < 0)
 		angle += 2 * PI;
 	if (angle > 2 * PI)
 		angle -= 2 * PI;
 	i = 0;
-	while (i < 60)
+	while (i < RAYCASTER_NUM_RAYS)
 	{
 		hor_hit = get_horizontal_hit(img, angle);
 		vert_hit = get_vertical_hit(img, angle);
-		angle += DR;
+		angle += ((float)ANGLE_OF_VIEW / RAYCASTER_NUM_RAYS) * DR;
 		if (angle < 0)
 			angle += 2 * PI;
 		if (angle > 2 * PI)
 			angle -= 2 * PI;
-		int wall_direction = 0x0000FF00;
+		int wall_direction = NO;
 		// verticall wall hit
-		if (hor_hit.x > 0 && hor_hit.y > 0 && hor_hit.x < img->map.width*64 && hor_hit.y < img->map.height * 64 && hor_hit.len <= vert_hit.len)
+		if (hor_hit.x > 0 && hor_hit.y > 0 && hor_hit.x < img->map.width*CUBE_SIZE && hor_hit.y < img->map.height * CUBE_SIZE && hor_hit.len <= vert_hit.len)
 		{
 			dist = hor_hit.len;
 			x_hit = hor_hit.x;
@@ -82,7 +82,7 @@ void	raycasterr(t_img *img)
 		// render_line(img, img->player.x, img->player.y, hor_hit.x, hor_hit.y, 0x00FF0000);
 		}
 		// horizontal wall hit
-		if (vert_hit.x > 0 && vert_hit.y > 0 && vert_hit.x < img->map.width*64 && vert_hit.y < img->map.height*64 && vert_hit.len < hor_hit.len)
+		if (vert_hit.x > 0 && vert_hit.y > 0 && vert_hit.x < img->map.width*CUBE_SIZE && vert_hit.y < img->map.height*CUBE_SIZE && vert_hit.len < hor_hit.len)
 		{
 			dist = vert_hit.len;
 			x_hit = vert_hit.y;
@@ -122,9 +122,9 @@ void	raycasterr(t_img *img)
 
 		int j = 0;
 		// Laço para criar espessura da linha vertical
-		while (j <= WIN_WIDTH / 60)
+		while (j <= WIN_WIDTH / RAYCASTER_NUM_RAYS)
 		{
-			render_line(img, i * WIN_WIDTH / 60 + j, 1 + lineO, i * WIN_WIDTH / 60 + j, 1 + lineH + lineO, wall_direction, step, step_offset, x_hit);
+			render_line(img, i * WIN_WIDTH / RAYCASTER_NUM_RAYS + j, 1 + lineO, i * WIN_WIDTH / RAYCASTER_NUM_RAYS + j, 1 + lineH + lineO, wall_direction, step, step_offset, x_hit);
 			j++;
 		}
 		i++;
@@ -269,7 +269,7 @@ void	render_line(t_img *img, float x0, float y0, float x1, float y1, int directi
 		while (y0_int <= y1_int)
 		{
 			color = img->textures[direction][0][(int)(i)];
-			color = img->textures[direction][((int)x_hit % 64) * img->texture_width[direction]/CUBE_SIZE][(int)(i)];
+			color = img->textures[direction][((int)x_hit % CUBE_SIZE) * img->texture_width[direction]/CUBE_SIZE][(int)(i)];
 			// printf("x0_int: %d, y0_int: %d, x1_int: %d, y1_int: %d\n", x0_int, y0_int, x1_int, y1_int);
 			// printf("x0_int %% 64: %d, y0_int %% 64: %d\n", x0_int % 64 * 64, y0_int % 64 * 64);
 			// printf("i: %d, length: %d\n", i, length);
@@ -315,7 +315,7 @@ void	render_map(t_img *img)
 		while (img->map.map[i][j] != '\0' && img->map.map[i][j] != '\n')
 		{
 			if (img->map.map[i][j] == '1')
-				render_map_unit(img, i, j, 0x00FFFFFF);
+				render_map_unit(img, i, j, WALL_MINIMAP_COLOR);
 			j++;
 		}
 		i++;
@@ -354,7 +354,7 @@ void	render_player(t_img *img)
 		j = 0;
 		while (j < PLAYER_SIZE * 2)
 		{
-			my_mlx_pixel_put(img, ((img->player.x/64) * CUBE_SIZE + j - PLAYER_SIZE)*img->map.minimap_scale, ((img->player.y/64) * CUBE_SIZE + i - PLAYER_SIZE)*img->map.minimap_scale, 0x00FF0000);
+			my_mlx_pixel_put(img, ((img->player.x/CUBE_SIZE) * CUBE_SIZE + j - PLAYER_SIZE)*img->map.minimap_scale, ((img->player.y/CUBE_SIZE) * CUBE_SIZE + i - PLAYER_SIZE)*img->map.minimap_scale, PLAYER_MINIMAP_COLOR);
 			j++;
 		}
 		i++;
