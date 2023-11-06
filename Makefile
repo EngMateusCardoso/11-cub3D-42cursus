@@ -6,19 +6,20 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 23:42:00 by matcardo          #+#    #+#              #
-#    Updated: 2023/10/14 18:23:37 by matcardo         ###   ########.fr        #
+#    Updated: 2023/11/06 01:45:52 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= cub3D
 
-SRCS		= main.c			\
-			check_args.c		\
-			init_functions_1.c	\
-			init_functions_2.c	\
-			hooks.c				\
-			move_player.c		\
-			print_screen_temp.c	\
+SRCS		= main.c						\
+			check_args.c					\
+			init_map_functions.c			\
+			init_player_and_bg_functions.c	\
+			init_texture_functions.c		\
+			hooks.c							\
+			move_player.c					\
+			print_screen_temp.c				\
 
 OBJS		= ${SRCS:%.c=%.o}
 OBJS_DIR	= objs/

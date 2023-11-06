@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 01:45:56 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/06 01:10:45 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,23 +152,19 @@ void		init_game_params(t_win *win, char *file);
 int			start_window(t_win *win, char *file);
 void		start_image(t_win *win);
 
-// init_map_functions.c
+// init_functions_1.c
 void		init_map_dimensions(t_win *win, char *file);
 void		init_map(t_win *win, char *file);
-void		init_map_scale(t_win *win);
 short int	is_map_line(char *line);
-
-// init_player_and_bg_functions.c
-void		init_roof_and_ceiling_color(t_win *win, char *file);
-int			get_color_in_line(char *line);
 void		init_player_position(t_win *win, char *file);
 void		init_player_position_line(t_win *win, char *line, int i);
 
-// init_texture_functions.c
+// init_functions_2.c
+void		init_roof_and_ceiling_color(t_win *win, char *file);
+int			get_color_in_line(char *line);
 void		init_textures(t_win *win, char *file);
 void		get_texture(char *line, t_win *win, int direction);
 char		*path_to_texture(char *line);
-void		set_texture(t_win *win, t_img img, int direction);
 
 // check_args.c
 short int	check_args(int argc, char **argv);
