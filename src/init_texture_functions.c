@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_textures_functions.c                          :+:      :+:    :+:   */
+/*   init_texture_functions.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 18:23:58 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 01:43:28 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/06 01:48:06 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	get_texture(char *line, t_win *win, int direction)
 	if (!img.img_ptr)
 	{
 		printf("Error\nInvalid texture path\n");
-		exit(1);
+		close_window(win);
 	}
 	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp, \
 		&img.line_len, &img.endian);

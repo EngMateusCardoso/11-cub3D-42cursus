@@ -6,11 +6,18 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:21:24 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 01:21:46 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/06 02:20:18 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
+
+void	print_screen(t_img *img)
+{
+	print_screen_background(img);
+	raycasterr(img);
+	// render_map(img);
+}
 
 void	print_screen_background(t_img *img)
 {
@@ -34,78 +41,45 @@ void	print_screen_background(t_img *img)
 	}
 }
 
-void	print_screen(t_img *img)
+float	fix_angle(float angle)
 {
-	// printf("print_screen\n");
-	print_screen_background(img);
-	// printf("print_screen_background\n");
-	raycasterr(img);
-	// printf("raycasterr\n");
-	render_map(img);
-	// printf("render_map\n");
+	if (angle < 0)
+		angle += 2 * PI;
+	if (angle > 2 * PI)
+		angle -= 2 * PI;
+	return (angle);
 }
 
 void	raycasterr(t_img *img)
 {
 	t_coord	vert_hit;
 	t_coord	hor_hit;
-	float	angle;
-	float	dist;
-	float	x_hit;
+	t_ray	ray;
 	int		i;
 
-	angle = img->player.angle - DR * (ANGLE_OF_VIEW / 2);
-	if (angle < 0)
-		angle += 2 * PI;
-	if (angle > 2 * PI)
-		angle -= 2 * PI;
+	ray.angle = img->player.angle - DR * (ANGLE_OF_VIEW / 2);
+	ray.angle = fix_angle(ray.angle);
 	i = 0;
 	while (i < RAYCASTER_NUM_RAYS)
 	{
-		hor_hit = get_horizontal_hit(img, angle);
-		vert_hit = get_vertical_hit(img, angle);
-		angle += ((float)ANGLE_OF_VIEW / RAYCASTER_NUM_RAYS) * DR;
-		if (angle < 0)
-			angle += 2 * PI;
-		if (angle > 2 * PI)
-			angle -= 2 * PI;
-		int wall_direction = NO;
-		// verticall wall hit
-		if (hor_hit.x > 0 && hor_hit.y > 0 && hor_hit.x < img->map.width*CUBE_SIZE && hor_hit.y < img->map.height * CUBE_SIZE && hor_hit.len <= vert_hit.len)
-		{
-			dist = hor_hit.len;
-			x_hit = hor_hit.x;
-			if (angle > 0 && angle < PI)
-				wall_direction = SO;
-			else
-				wall_direction = NO;
-		// render_line(img, img->player.x, img->player.y, hor_hit.x, hor_hit.y, 0x00FF0000);
-		}
-		// horizontal wall hit
-		if (vert_hit.x > 0 && vert_hit.y > 0 && vert_hit.x < img->map.width*CUBE_SIZE && vert_hit.y < img->map.height*CUBE_SIZE && vert_hit.len < hor_hit.len)
-		{
-			dist = vert_hit.len;
-			x_hit = vert_hit.y;
-			if (angle > PI / 2 && angle < 3 * PI / 2)
-				wall_direction = WE;
-			else
-				wall_direction = EA;
-		// render_line(img, img->player.x, img->player.y, vert_hit.x, vert_hit.y, 0x00FF0000);
-		}
-		//draw walls
+		hor_hit = get_horizontal_hit(img, ray.angle);
+		vert_hit = get_vertical_hit(img, ray.angle);
+		ray.angle += ((float)ANGLE_OF_VIEW / RAYCASTER_NUM_RAYS) * DR;
+		ray.angle = fix_angle(ray.angle);
+		ray = get_ray(img, hor_hit, vert_hit, ray);
+		// draw_walls(img, ray, i);
 		// fix fish eye
-		float ca = img->player.angle - angle;
+		float ca = img->player.angle - ray.angle;
 		if (ca < 0)
 			ca += 2 * PI;
 		if (ca > 2 * PI)
 			ca -= 2 * PI;
-		dist = dist * cos(ca);
-
+		ray.dist = ray.dist * cos(ca);
 
 		// line height
-		float lineH = (CUBE_SIZE * WIN_HEIGHT) / dist;
+		float lineH = (CUBE_SIZE * WIN_HEIGHT) / ray.dist;
 		// passo da textura
-		float step = img->texture_height[wall_direction]  / lineH;
+		float step = img->texture_height[ray.wall_direction]  / lineH;
 		// quanbdo esta próximo começa a textura do offset
 		float step_offset = 0.0;
 		if (lineH > WIN_HEIGHT)
@@ -124,11 +98,38 @@ void	raycasterr(t_img *img)
 		// Laço para criar espessura da linha vertical
 		while (j <= WIN_WIDTH / RAYCASTER_NUM_RAYS)
 		{
-			render_line(img, i * WIN_WIDTH / RAYCASTER_NUM_RAYS + j, 1 + lineO, i * WIN_WIDTH / RAYCASTER_NUM_RAYS + j, 1 + lineH + lineO, wall_direction, step, step_offset, x_hit);
+			render_line(img, i * WIN_WIDTH / RAYCASTER_NUM_RAYS + j, 1 + lineO, i * WIN_WIDTH / RAYCASTER_NUM_RAYS + j, 1 + lineH + lineO, ray.wall_direction, step, step_offset, ray.x_hit);
 			j++;
 		}
 		i++;
 	}
+}
+
+t_ray	get_ray(t_img *img, t_coord hor_hit, t_coord vert_hit, t_ray ray)
+{
+	if (hor_hit.x > 0 && hor_hit.y > 0 && \
+		hor_hit.x < img->map.width * CUBE_SIZE && \
+		hor_hit.y < img->map.height * CUBE_SIZE && hor_hit.len <= vert_hit.len)
+	{
+		ray.dist = hor_hit.len;
+		ray.x_hit = hor_hit.x;
+		if (ray.angle > 0 && ray.angle < PI)
+			ray.wall_direction = SO;
+		else
+			ray.wall_direction = NO;
+	}
+	if (vert_hit.x > 0 && vert_hit.y > 0 && \
+		vert_hit.x < img->map.width * CUBE_SIZE && \
+		vert_hit.y < img->map.height * CUBE_SIZE && vert_hit.len < hor_hit.len)
+	{
+		ray.dist = vert_hit.len;
+		ray.x_hit = vert_hit.y;
+		if (ray.angle > PI / 2 && ray.angle < 3 * PI / 2)
+			ray.wall_direction = WE;
+		else
+			ray.wall_direction = EA;
+	}
+	return (ray);
 }
 
 t_coord	get_horizontal_hit(t_img *img, float angle)
@@ -272,25 +273,10 @@ void	render_line(t_img *img, float x0, float y0, float x1, float y1, int directi
 	}
 }
 
-void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_len + x * (data->bpp / 8));
-	*(unsigned int*)dst = color;
-}
-
 float	dist_between_points(float x1, float y1, float x2, float y2)
 {
 	return (sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
 }
-
-// void	render_player(t_img *img)
-// { 
-// 	render_little_line(img, img->player.x, img->player.y, img->player.angle);
-// 	render_little_line(img, img->player.x, img->player.y, img->player.angle + PI / 2);
-// }
-
 
 void	render_map(t_img *img)
 {
@@ -349,4 +335,12 @@ void	render_player(t_img *img)
 		}
 		i++;
 	}
+}
+
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_len + x * (data->bpp / 8));
+	*(unsigned int*)dst = color;
 }
