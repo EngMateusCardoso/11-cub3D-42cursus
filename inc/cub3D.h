@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 01:41:23 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/06 01:53:58 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,20 @@
 # define KEY_ESC 65307
 
 // Window constants
-# define CUBE_SIZE 64
-# define BASE_CUBE 6
 # define WIN_TITLE "Cats vs Cucumbers"
 # define WIN_WIDTH 640
 # define WIN_HEIGHT 640
+
+// Game constants
+# define PLAYER_SIZE 20
+# define CUBE_SIZE 64
+# define BASE_CUBE 6
 # define PLAYER_SIZE 20
 # define MAX_MAP_SCALE 0.2
+# define PLAYER_MINIMAP_COLOR 0x00FF0000
+# define WALL_MINIMAP_COLOR 0x00FFFFFF
+# define ANGLE_OF_VIEW 60
+# define RAYCASTER_NUM_RAYS 640
 
 // Errors
 # define VALID_ID "NSEWCF\n"
