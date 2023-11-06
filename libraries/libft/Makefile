@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/21 19:09:59 by thabeck-          #+#    #+#              #
-#    Updated: 2023/09/29 15:59:54 by matcardo         ###   ########.fr        #
+#    Updated: 2023/11/06 00:44:22 by thabeck-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ SRCS 		= ft_isalpha.c 			\
 			ft_swap.c				\
 			ft_free_array.c			\
 			ft_free_pointer.c		\
+			ft_strmerge.c			\
 
 BONUS_SRCS  = ft_lstnew.c			\
 			ft_lstadd_front.c  		\
