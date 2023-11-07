@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 20:51:42 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/07 00:34:02 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@
 # define STR_INVALID_ID_MAP "Error\nInvalid map\nInvalid identifier '%s= %s'\n"
 # define STR_NO_TEXTURE "Error\nInvalid map\nMissing texture '%s'\n"
 # define STR_DUPLICATED_TEXTURE "Error\nInvalid map\nDuplicated texture identifier '%s'"
-# define STR_INCORRECT_TEXTURE "Error\nInvalid map\nIncorrect texture file type: %s= %s\nExpected: .xpm\n"
+# define STR_INCORRECT_TEXTURE "Error\nInvalid map\nIncorrect texture file type: %s= %sExpected: .xpm\n"
 # define STR_TEXTURE_NOT_FOUND "Error\nInvalid map\nTexture file not found: %s= %s\n"
 # define STR_NO_COLOR "Error\nInvalid map\nMissing color '%s'\n"
-# define STR_OUT_RANGE_COLOR "Error\nInvalid map\nColor RGB parameter out of range in set: %s= %s\n"
-# define STR_MANY_COLOR "Error\nInvalid map\nWrong number of RGB parameters in color: %s= %s\n"
+# define STR_OUT_RANGE_COLOR "Error\nInvalid map\nColor RGB parameter out of range in set: %s= %s"
+# define STR_MANY_COLOR "Error\nInvalid map\nWrong number of RGB parameters in color: %s= %s"
 # define STR_DUPLICATED_COLOR "Error\nInvalid map\nDuplicate color identifier '%s'\n"
 # define STR_PLAYER_NOT_FOUND "Error\nInvalid map\nPlayer not found in map\n"
 # define STR_MULTI_PLAYER "Error\nInvalid map\nMultiple Players in map\n"
