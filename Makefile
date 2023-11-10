@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 23:42:00 by matcardo          #+#    #+#              #
-#    Updated: 2023/11/06 01:45:52 by matcardo         ###   ########.fr        #
+#    Updated: 2023/11/10 19:36:53 by thabeck-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,17 @@ NAME		= cub3D
 
 SRCS		= main.c						\
 			check_args.c					\
+			check_args_utils.c				\
+			ftex_utils.c					\
+			map_validation.c				\
+			map_validation_utils.c			\
+			map_walls_validation.c			\
+			map_walls_validation_utils.c	\
+			parameter_validation_1.c		\
+			parameter_validation_2.c		\
+			parameter_utils.c				\
+			trim_map.c						\
+			validation_utils.c				\
 			init_map_functions.c			\
 			init_player_and_bg_functions.c	\
 			init_texture_functions.c		\

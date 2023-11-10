@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/10 15:29:55 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/10 19:49:30 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@
 
 // Game constants
 # define PLAYER_SIZE 20
-# define CUBE_SIZE 64
-# define BASE_CUBE 6
+# define CUBE_SIZE 128
+# define BASE_CUBE 7
 # define PLAYER_SIZE 20
 # define MAX_MAP_SCALE 0.2
 # define PLAYER_MINIMAP_COLOR 0x00FF0000
@@ -74,7 +74,7 @@
 # define STR_INVALID_EXT "Error\nInvalid file extension: %s\nUsage: ./cub3D <map.cub>\n"
 # define STR_FILE_NOT_FOUND "Error\nFile not found: %s\n"
 # define STR_INVALID_MAP "Error\nInvalid map in: %s\n"
-# define STR_EMPTY_MAP "Error\nThe map is empty\n"
+# define STR_EMPTY_MAP "Error\nInvalid map\nThe map is empty\n"
 # define STR_INVALID_ID_MAP "Error\nInvalid map\nInvalid identifier: %s\n"
 # define STR_NO_TEXTURE "Error\nInvalid map\nMissing / Misplaced texture '%s'\n"
 # define STR_DUPLICATED_TEXTURE "Error\nInvalid map\nDuplicated texture identifier: '%s'\n"
@@ -222,6 +222,74 @@ short int	is_valid_file_extension(char *str);
 short int	is_valid_file(char *str);
 short int	is_valid_map(char *str);
 
+//check_args_utils.c
+short int	print_error(char *error, char *param, char *set);
+short int	print_error_char(char *error, char param);
+int			istrimmed(char c, char const *set);
+int			strsize(char *str, char *set);
+void		print_color_map(char **map);
+
+//ftex_utils.c
+int			is_in_del(char c, char *del);
+char		find_new(char *ret, int index);
+char		*ftex_strerase(char *str, char *set);
+short int	ftex_is_in_set(char c, char *set);
+void		ftex_tr(char *str, char *del, char *replace);
+
+//map_validation.c
+short int	count_player(char **map);
+short int	char_is_next_to(char **map, int x, int y, char c);
+void		clear_around_map(char **map);
+char		validate_map_chars(char **map);
+short int	map_validation(char **map);
+
+//map_validation_utils.c
+short int	is_border(char **map, int x, int y, char c);
+void		outline_walls(char **map);
+void		outline_useless_walls(char **map);
+void		remove_out_characters(char **map);
+short int	player_out_of_map(char **map);
+
+//map_walls_validation.c
+short int	is_player_inside(char **map, int i, int j);
+short int	slide_polygon(char **map, int x, int y, char fill);
+short int	recursive_polygon(char **map, int x, int y);
+short int	forked_polygon(char **map, int x, int y);
+short int	walls_are_closed(char **map);
+
+//map_walls_validation_utils.c
+int			check_end(char **map, int x, int y, char c);
+t_xy		get_player_position(char **map, int x, int y);
+short int	inner_polygons_are_closed(char **map);
+
+//parameter_validation_1.c
+short int	check_parameter_matrix(t_params *p, char **m, char *f, char *t);
+short int	is_first_char_invalid(int fd, char **tmp);
+short int	check_all_params(t_params *params);
+short int	validate_texture_file(char *param, char *file, char **store);
+short int	files_validation(t_params *params, char *file);
+
+//parameter_validation_2.c
+void		tr_matrix(char **matrix, char *del, char *replace);
+char		*join_color_set(char **matrix);
+short int	validate_color_set(char *param, char *set, int *store);
+
+//parameter_utils.c
+void		init_params(t_params *params);
+void		free_params_validation(t_params *params);
+short int	map_validation_failed(t_params *params);
+
+//trim_map.c
+char		**set_padding(char **matrix, int maxsize);
+char		**trim_map_array(int fd);
+
+//validation_utils.c
+int			comma_counter(char *str);
+int			get_color(int r, int g, int b);
+short int	is_str_number(char **str);
+void		gnl_purge(char *tmp, int fd);
+int			str_maxsize(char **matrix);
+
 // hooks.c
 int			handle_input(int keysys, t_win *win);
 void		rotate_player(int keysys, t_win *win);
@@ -250,4 +318,5 @@ void	render_map_unit(t_img *img, int x, int y, int color);
 void	render_player(t_img *img);
 float	fix_angle(float angle);
 t_ray	get_ray(t_img *img, t_coord hor_hit, t_coord vert_hit, t_ray ray);
+
 #endif
