@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:16:04 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 20:39:44 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/10 15:44:46 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,6 +287,27 @@ char	*join_color_set(char **matrix)
 	return (ret);
 }
 
+short int	is_str_number(char **str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		while (str[i][j])
+		{
+			if (!ft_isdigit(str[i][j]))
+				return (FALSE);
+			j++;
+		}
+		i++;
+		j = 0;
+	}
+	return (TRUE);	
+}
+
 short int	validate_color_set(char *param, char *set, int *store)
 {
 	char	**rgb;
@@ -296,7 +317,7 @@ short int	validate_color_set(char *param, char *set, int *store)
 
 	valid = TRUE;
 	if (comma_counter(set) != 2)
-		return (print_error(STR_MANY_COLOR, param, set));
+		return (print_error(STR_RGB_COLOR, param, set));
 	if (*store != -1)
 		return (print_error(STR_DUPLICATED_COLOR, param, NULL));
 	tmp = ftex_strerase(set, " \n");
@@ -306,7 +327,10 @@ short int	validate_color_set(char *param, char *set, int *store)
 		if (ft_atoi(rgb[i]) > 255 || ft_atoi(rgb[i]) < 0)
 			valid = print_error(STR_OUT_RANGE_COLOR, param, set);
 	if (i != 3)
-		valid = print_error(STR_MANY_COLOR, param, set);
+		valid = print_error(STR_RGB_COLOR, param, set);
+	
+	if (!is_str_number(rgb) && valid)
+		valid = print_error(STR_NOT_NUMERIC_COLOR, param, set);
 	if (valid)
 		*store = get_color(ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]));
 	free(tmp);
@@ -365,9 +389,9 @@ short int	check_parameter_matrix(t_params *params, char **matrix, char *file, ch
 	else if (!ft_strncmp(matrix[0], "WE", 2) && ft_strlen(matrix[0]) == 2)
 		valid = validate_texture_file(matrix[0], matrix[1], &params->west);
 	else if (!ft_strncmp(matrix[0], "F", 1) && ft_strlen(matrix[0]) == 1)
-		valid = validate_color_set(matrix[0], matrix[1], &params->floorcolor);
+		valid = validate_color_set(matrix[0], matrix[1], &params->floor_color);
 	else if (!ft_strncmp(matrix[0], "C", 1) && ft_strlen(matrix[0]) == 1)
-		valid = validate_color_set(matrix[0], matrix[1], &params->ceilcolor);
+		valid = validate_color_set(matrix[0], matrix[1], &params->ceil_color);
 	else
 		print_error(STR_INVALID_ID_MAP, matrix[0], file);
 	free_map(matrix);
@@ -394,6 +418,8 @@ short int	is_first_char_invalid(int fd, char **tmp)
 
 short int	check_all_params(t_params *params)
 {
+	if(!ftex_is_in_set((params->dev_map)[0][0], VALID_GLOBAL_ID))
+		return (print_error(STR_INVALID_ID_MAP, (params->dev_map)[0], NULL));
 	if (params->north == NULL)
 		return (print_error(STR_NO_TEXTURE, "NO", NULL));
 	if (params->east == NULL)
@@ -402,9 +428,9 @@ short int	check_all_params(t_params *params)
 		return (print_error(STR_NO_TEXTURE, "SO", NULL));
 	if (params->west == NULL)
 		return (print_error(STR_NO_TEXTURE, "WE", NULL));
-	if (params->ceilcolor == -1)
+	if (params->ceil_color == -1)
 		return (print_error(STR_NO_COLOR, "C", NULL));
-	if (params->floorcolor == -1)
+	if (params->floor_color == -1)
 		return (print_error(STR_NO_COLOR, "F", NULL));
 	return (TRUE);
 }
@@ -439,26 +465,28 @@ short int	files_validation(t_params *params, char *file)
 
 static void	init_params(t_params *params)
 {
-	params->ceilcolor = -1;
-	params->floorcolor = -1;
+	params->ceil_color = -1;
+	params->floor_color = -1;
 	params->east = NULL;
 	params->north = NULL;
 	params->south = NULL;
 	params->west = NULL;
 }
 
-void	free_map_test(t_params *params, char **map)
+void	free_params_validation(t_params *params)
 {
-	free_map(map);
+	free_map(params->map);
+	free_map(params->dev_map);
 	free(params->north);
 	free(params->south);
 	free(params->west);
 	free(params->east);
 }
 
-short int	map_validation_failed(t_params *params, char **map)
+short int	map_validation_failed(t_params *params)
 {
-	free_map(map);
+	free_map(params->map);
+	free_map(params->dev_map);
 	free(params->north);
 	free(params->south);
 	free(params->west);
@@ -536,7 +564,7 @@ char	**trim_map_array(int fd)
 	return (ret);
 }
 
-short int	find_player(char **map)
+short int	count_player(char **map)
 {
 	int	i;
 	int	j;
@@ -729,7 +757,7 @@ short int	recursive_polygon(char **map, int x, int y)
 	return (FALSE);
 }
 
-t_xy	get_position(char **map, int x, int y)
+t_xy	get_player_position(char **map, int x, int y)
 {
 	t_xy	xy;
 
@@ -777,13 +805,28 @@ short int	is_player_inside(char **map, int i, int j)
 	return (FALSE);
 }
 
-short int	player_walls_are_closed(char **map)
+short int	player_out_of_map(char **map)
+{
+	t_xy	xy;
+
+	xy = get_player_position(map, 0, 0);
+	if(map[xy.x - 1][xy.y] && map[xy.x][xy.y - 1] \
+		&& map[xy.x + 1][xy.y] && map[xy.x][xy.y + 1] \
+		&& (map[xy.x - 1][xy.y] == ' ' || map[xy.x - 1][xy.y] == '\t'
+		|| map[xy.x + 1][xy.y] == ' ' || map[xy.x + 1][xy.y] == '\t'
+		|| map[xy.x][xy.y - 1] == ' ' || map[xy.x][xy.y - 1] == '\t'
+		|| map[xy.x][xy.y + 1] == ' ' || map[xy.x][xy.y + 1] == '\t'))
+			return (TRUE);
+	return (FALSE);
+}
+
+short int	walls_are_closed(char **map)
 {
 	t_xy	xy;
 	short int	boolean;
 
 	boolean = TRUE;
-	xy = get_position(map, 0, 0);
+	xy = get_player_position(map, 0, 0);
 	if (xy.x == 0 || map[xy.x][xy.y + 1] == '\0')
 		return (FALSE);
 	while (map[xy.x][xy.y] && map[xy.x][xy.y] != '9')
@@ -794,7 +837,7 @@ short int	player_walls_are_closed(char **map)
 		while (!is_player_inside(map, -1, -1))
 		{
 			tr_matrix(map, "!", "@");
-			xy = get_position(map, 0, 0);
+			xy = get_player_position(map, 0, 0);
 			if (xy.x == 0 || !ft_strchr(&map[xy.x][xy.y], '9'))
 				return (FALSE);
 			while (map[xy.x][xy.y] && map[xy.x][xy.y] != '9')
@@ -848,7 +891,7 @@ short int	map_validation(char **map)
 	short int	player;
 	char		invalid;
 
-	player = find_player(map);
+	player = count_player(map);
 	if (player < 1)
 		return (print_error(STR_PLAYER_NOT_FOUND, NULL, NULL));
 	else if (player > 1)
@@ -859,11 +902,13 @@ short int	map_validation(char **map)
 		return (print_error_char(STR_INVALID_MAP_CHAR, invalid));
 	outline_walls(map);
 	outline_useless_walls(map);
-	if (!player_walls_are_closed(map))
+	if (!walls_are_closed(map))
 		return (print_error(STR_MAP_WALLS_OPEN1, NULL, NULL));
 	remove_out_characters(map);
 	if (!inner_polygons_are_closed(map))
 		return (print_error(STR_MAP_WALLS_OPEN2, NULL, NULL));
+	if (player_out_of_map(map))
+		return (print_error(STR_PLAYER_OUT, NULL, NULL));
 	tr_matrix(map, "@", "1");
 	tr_matrix(map, "!", "1");
 	return (TRUE);
@@ -875,13 +920,14 @@ short int	is_valid_map(char *str)
 
 	init_params(&params);
 	params.map = trim_map_array(open(str, O_RDONLY));
+	params.dev_map = trim_map_array(open(str, O_RDONLY));
 	if (!params.map)
 		return (print_error(STR_EMPTY_MAP, NULL, NULL));
 	if (!files_validation(&params, str))
-		return (map_validation_failed(&params, params.map));
+		return (map_validation_failed(&params));
 	if (!map_validation(params.map))
-		return (map_validation_failed(&params, params.map));
+		return (map_validation_failed(&params));
 	print_color_map(params.map);
-	free_map_test(&params, params.map);
+	free_params_validation(&params);
 	return (TRUE);
 }
