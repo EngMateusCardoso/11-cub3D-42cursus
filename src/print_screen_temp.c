@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_screen_temp.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:21:24 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 02:20:18 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/10 18:29:48 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,7 @@ void	render_line(t_img *img, float x0, float y0, float x1, float y1, int directi
 			if (direction == NO || direction == EA)
 				color = img->textures[direction][((int)x_hit % CUBE_SIZE) * img->texture_width[direction]/CUBE_SIZE][(int)(i)];
 			else if (direction == SO || direction == WE)
-				color = img->textures[direction][(63 - ((int)x_hit % CUBE_SIZE))* img->texture_width[direction]/CUBE_SIZE][(int)(i)];
+				color = img->textures[direction][((CUBE_SIZE - 1) - ((int)x_hit % CUBE_SIZE))* img->texture_width[direction]/CUBE_SIZE][(int)(i)];
 			my_mlx_pixel_put(img, x0_int, y0_int, color);
 			i += step;
 			y0_int++;

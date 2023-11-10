@@ -1,65 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_functions_2.c                                 :+:      :+:    :+:   */
+/*   init_texture_functions.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 18:23:58 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/05 23:59:37 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/06 01:48:06 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
-
-void	init_roof_and_ceiling_color(t_win *win, char *file)
-{
-	int		fd;
-	char	*line;
-	int		i;
-
-	fd = open(file, O_RDONLY);
-	line = get_next_line(fd);
-	while (line)
-	{
-		i = 0;
-		while (line[i] == ' ' || line[i] == '\t')
-			i++;
-		if (line[i] == 'C')
-			win->img.ceiling_color = get_color_in_line(line);
-		else if (line[i] == 'F')
-			win->img.floor_color = get_color_in_line(line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	free(line);
-	close(fd);
-}
-
-int	get_color_in_line(char *line)
-{
-	int		i;
-	int		color;
-	int		r;
-	int		g;
-	int		b;
-
-	i = 0;
-	while (line[i] == ' ' || line[i] == 'C' || line[i] == 'F')
-		i++;
-	i++;
-	r = ft_atoi(line + i);
-	while (ft_isdigit(line[i]))
-		i++;
-	i++;
-	g = ft_atoi(line + i);
-	while (ft_isdigit(line[i]))
-		i++;
-	i++;
-	b = ft_atoi(line + i);
-	color = 0 << 24 | r << 16 | g << 8 | b;
-	return (color);
-}
 
 void	init_textures(t_win *win, char *file)
 {
@@ -94,7 +45,6 @@ void	get_texture(char *line, t_win *win, int direction)
 	char	*path;
 	t_img	img;
 	int		i;
-	int		j;
 
 	path = path_to_texture(line);
 	img.img_ptr = mlx_xpm_file_to_image(win->mlx_ptr, path, \
@@ -103,7 +53,7 @@ void	get_texture(char *line, t_win *win, int direction)
 	if (!img.img_ptr)
 	{
 		printf("Error\nInvalid texture path\n");
-		exit(1);
+		close_window(win);
 	}
 	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp, \
 		&img.line_len, &img.endian);
@@ -111,14 +61,7 @@ void	get_texture(char *line, t_win *win, int direction)
 	i = -1;
 	while (++i < img.img_width)
 		win->img.textures[direction][i] = malloc(sizeof(int) * img.img_height);
-	i = -1;
-	while (++i < img.img_width)
-	{
-		j = -1;
-		while (++j < img.img_height)
-			win->img.textures[direction][i][j] = \
-				img.data[i + j * img.img_height];
-	}
+	set_texture(win, img, direction);
 	win->img.texture_width[direction] = img.img_width;
 	win->img.texture_height[direction] = img.img_height;
 	mlx_destroy_image(win->mlx_ptr, img.img_ptr);
@@ -146,4 +89,19 @@ char	*path_to_texture(char *line)
 	}
 	path[j] = '\0';
 	return (path);
+}
+
+void	set_texture(t_win *win, t_img img, int direction)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < img.img_width)
+	{
+		j = -1;
+		while (++j < img.img_height)
+			win->img.textures[direction][i][j] = \
+					img.data[i + j * img.img_height];
+	}
 }
