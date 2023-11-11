@@ -6,7 +6,7 @@
 #    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 23:42:00 by matcardo          #+#    #+#              #
-#    Updated: 2023/11/11 02:27:44 by thabeck-         ###   ########.fr        #
+#    Updated: 2023/11/11 13:07:22 by thabeck-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ SRCS_BONUS	= main.c								\
 OBJS		= ${SRCS:%.c=%.o}
 OBJS_BONUS	= ${SRCS_BONUS:%.c=%.o}
 OBJS_DIR	= objs/
+OBJS_DIR_B	= objs_bonus/
 
 RM			= rm -fr
 CC			= gcc
@@ -84,19 +85,23 @@ $(NAME): $(LIBFT) $(MLX) $(OBJS_DIR) $(addprefix $(OBJS_DIR),$(OBJS))
 	@$(CC) $(FLAGS) $(addprefix $(OBJS_DIR),$(OBJS)) $(LIBFT) $(MLX) $(MLX_FLAGS) -o $(NAME)
 	@printf "$(GR)cub3D is Ready!$(RC)\n"
 
-bonus: $(LIBFT) $(MLX) $(OBJS_DIR) $(addprefix $(OBJS_DIR),$(OBJS_BONUS))
+bonus: $(LIBFT) $(MLX) $(OBJS_DIR_B) $(addprefix $(OBJS_DIR_B),$(OBJS_BONUS))
 	@printf "\r$(CY)Generating cub3D executable...$(RC)\n"
-	@$(CC) $(FLAGS) $(addprefix $(OBJS_DIR),$(OBJS_BONUS)) $(LIBFT) $(MLX) $(MLX_FLAGS) -o $(NAME)
+	@$(CC) $(FLAGS) $(addprefix $(OBJS_DIR_B),$(OBJS_BONUS)) $(LIBFT) $(MLX) $(MLX_FLAGS) -o $(NAME)
 	@printf "$(GR)cub3D is Ready!$(RC)\n"
 
 #lembrar de criar os subdiretorios quando houver
 $(OBJS_DIR):
 	@mkdir $(OBJS_DIR) objs/validation/
+
+$(OBJS_DIR_B):
+	@mkdir $(OBJS_DIR_B) objs_bonus/validation/
 	
 objs/%.o:	src/%.c ./inc/cub3D.h
-#	@printf "\r$(CY)Generating object$(RC)\n"
 	@$(CC) $(FLAGS) -c $< -o $@
-#	@printf "$(GR)Object is ready!$(RC)\n"
+
+objs_bonus/%.o:	src_bonus/%.c ./inc_bonus/cub3D.h
+	@$(CC) $(FLAGS) -c $< -o $@
 
 $(LIBFT):
 	@make bonus -C ./libraries/libft
@@ -105,16 +110,16 @@ leaks:		$(NAME)
 		$(LEAKS) $(LF) ./$(NAME)
 
 norm:
-	norminette ${SRCS}
+	norminette ${SRCS} ${SRCS_BONUS}
 
 clean:
 	@make clean -C ./libraries/libft
-	@$(RM) $(OBJS_DIR) $(LEAKS_FILE)
+	@$(RM) $(OBJS_DIR) $(OBJS_DIR_B) $(LEAKS_FILE)
 	@printf "$(RE)Cub3D object files removed!$(RC)\n"
 
 fclean:	
 	@make fclean -C ./libraries/libft
-	@$(RM) $(OBJS_DIR) $(LEAKS_FILE) $(NAME)
+	@$(RM) $(OBJS_DIR) $(OBJS_DIR_B) $(LEAKS_FILE) $(NAME)
 	@printf "$(RE)Cub3D object files and executable removed!$(RC)\n"
 
 re:			fclean all

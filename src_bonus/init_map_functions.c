@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_map_functions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:12:32 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 01:35:22 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/11 03:13:41 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../inc_bonus/cub3D.h"
 
 void	init_map_dimensions(t_win *win, char *file)
 {
