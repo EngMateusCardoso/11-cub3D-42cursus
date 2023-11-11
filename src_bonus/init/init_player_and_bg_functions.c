@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 01:34:59 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 15:09:09 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:59:23 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc_bonus/cub3D.h"
+#include "../../inc_bonus/cub3D.h"
 
 void	init_player_position(t_win *win, char *file)
 {

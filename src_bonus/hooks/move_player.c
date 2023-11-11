@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 18:06:39 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 15:28:46 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:56:37 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc_bonus/cub3D.h"
+#include "../../inc_bonus/cub3D.h"
 
 void	move_player(int keysys, t_win *win)
 {

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 23:42:00 by matcardo          #+#    #+#              #
-#    Updated: 2023/11/11 15:34:39 by matcardo         ###   ########.fr        #
+#    Updated: 2023/11/11 16:02:26 by thabeck-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,12 +33,13 @@ SRCS		= main.c								\
 			init/init_texture_functions.c			\
 
 SRCS_BONUS	= main.c								\
-			init_map_functions.c					\
-			init_player_and_bg_functions.c			\
-			init_texture_functions.c				\
-			hooks.c									\
-			move_player.c							\
 			print_screen_temp.c						\
+			init/init_map_functions.c				\
+			init/init_player_and_bg_functions.c		\
+			init/init_texture_functions.c			\
+			hooks/hooks.c							\
+			hooks/mouse_hooks.c						\
+			hooks/move_player.c						\
 			validation/check_args.c					\
 			validation/check_args_utils.c			\
 			validation/ftex_utils.c					\
@@ -95,7 +96,7 @@ $(OBJS_DIR):
 	@mkdir $(OBJS_DIR) objs/validation/ objs/init/
 
 $(OBJS_DIR_B):
-	@mkdir $(OBJS_DIR_B) objs_bonus/validation/
+	@mkdir $(OBJS_DIR_B) objs_bonus/validation/ objs_bonus/init/ objs_bonus/hooks/
 	
 objs/%.o:	src/%.c ./inc/cub3D.h
 	@$(CC) $(FLAGS) -c $< -o $@
