@@ -1,5 +1,6 @@
 minilibx-linux/
 objs/
+objs_bonus/
 libraries/libft/*.o
 cub3D
 chavessh.txt
