@@ -6,31 +6,31 @@
 #    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 23:42:00 by matcardo          #+#    #+#              #
-#    Updated: 2023/11/10 19:36:53 by thabeck-         ###   ########.fr        #
+#    Updated: 2023/11/11 02:12:53 by thabeck-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= cub3D
 
-SRCS		= main.c						\
-			check_args.c					\
-			check_args_utils.c				\
-			ftex_utils.c					\
-			map_validation.c				\
-			map_validation_utils.c			\
-			map_walls_validation.c			\
-			map_walls_validation_utils.c	\
-			parameter_validation_1.c		\
-			parameter_validation_2.c		\
-			parameter_utils.c				\
-			trim_map.c						\
-			validation_utils.c				\
-			init_map_functions.c			\
-			init_player_and_bg_functions.c	\
-			init_texture_functions.c		\
-			hooks.c							\
-			move_player.c					\
-			print_screen_temp.c				\
+SRCS		= main.c								\
+			init_map_functions.c					\
+			init_player_and_bg_functions.c			\
+			init_texture_functions.c				\
+			hooks.c									\
+			move_player.c							\
+			print_screen_temp.c						\
+			validation/check_args.c					\
+			validation/check_args_utils.c			\
+			validation/ftex_utils.c					\
+			validation/map_validation.c				\
+			validation/map_validation_utils.c		\
+			validation/map_walls_validation.c		\
+			validation/map_walls_validation_utils.c	\
+			validation/parameter_validation_1.c		\
+			validation/parameter_validation_2.c		\
+			validation/parameter_utils.c			\
+			validation/trim_map.c					\
+			validation/validation_utils.c			\
 
 OBJS		= ${SRCS:%.c=%.o}
 OBJS_DIR	= objs/
@@ -65,7 +65,7 @@ $(NAME): $(LIBFT) $(MLX) $(OBJS_DIR) $(addprefix $(OBJS_DIR),$(OBJS))
 
 #lembrar de criar os subdiretorios quando houver
 $(OBJS_DIR):
-	@mkdir $(OBJS_DIR)
+	@mkdir $(OBJS_DIR) objs/validation/
 	
 objs/%.o:	src/%.c ./inc/cub3D.h
 #		@printf "\r$(CY)Generating object$(RC)\n"

@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:01:16 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/10 19:20:48 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 01:48:23 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../../inc/cub3D.h"
 
 short int	check_parameter_matrix(t_params *p, char **m, char *f, char *t)
 {
@@ -32,7 +32,7 @@ short int	check_parameter_matrix(t_params *p, char **m, char *f, char *t)
 	else if (!ft_strncmp(m[0], "C", 1) && ft_strlen(m[0]) == 1)
 		valid = validate_color_set(m[0], m[1], &p->ceil_color);
 	else
-		print_error(STR_INVALID_ID_MAP, m[0], f);
+		print_error(E_INVID, m[0], f);
 	free_map(m);
 	return (valid);
 }
@@ -57,20 +57,20 @@ short int	is_first_char_invalid(int fd, char **tmp)
 
 short int	check_all_params(t_params *params)
 {
-	if(!ftex_is_in_set((params->dev_map)[0][0], VALID_GLOBAL_ID))
-		return (print_error(STR_INVALID_ID_MAP, (params->dev_map)[0], NULL));
+	if (!ftex_is_in_set((params->dev_map)[0][0], VALID_GLOBAL_ID))
+		return (print_error(E_INVID, (params->dev_map)[0], NULL));
 	if (params->north == NULL)
-		return (print_error(STR_NO_TEXTURE, "NO", NULL));
+		return (print_error(E_NOTEX, "NO", NULL));
 	if (params->east == NULL)
-		return (print_error(STR_NO_TEXTURE, "EA", NULL));
+		return (print_error(E_NOTEX, "EA", NULL));
 	if (params->south == NULL)
-		return (print_error(STR_NO_TEXTURE, "SO", NULL));
+		return (print_error(E_NOTEX, "SO", NULL));
 	if (params->west == NULL)
-		return (print_error(STR_NO_TEXTURE, "WE", NULL));
+		return (print_error(E_NOTEX, "WE", NULL));
 	if (params->ceil_color == -1)
-		return (print_error(STR_NO_COLOR, "C", NULL));
+		return (print_error(E_NOCOLOR, "C", NULL));
 	if (params->floor_color == -1)
-		return (print_error(STR_NO_COLOR, "F", NULL));
+		return (print_error(E_NOCOLOR, "F", NULL));
 	return (TRUE);
 }
 
@@ -80,16 +80,16 @@ short int	validate_texture_file(char *param, char *file, char **store)
 	char	*dot;
 
 	if (*store)
-		return (print_error(STR_DUPLICATED_TEXTURE, param, NULL));
+		return (print_error(E_DUPTEX, param, NULL));
 	if (!file)
 		return (FALSE);
 	dot = ft_strrchr(file, '.');
 	if (!dot || ft_strncmp(dot, ".xpm\n", 5))
-		return (print_error(STR_INCORRECT_TEXTURE, param, file));
+		return (print_error(E_EXTTEX, param, file));
 	file[ft_strlen(file) - 1] = '\0';
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		return (print_error(STR_TEXTURE_NOT_FOUND, param, file));
+		return (print_error(E_TEX_404, param, file));
 	close(fd);
 	*store = ft_strdup(file);
 	return (TRUE);
@@ -97,9 +97,9 @@ short int	validate_texture_file(char *param, char *file, char **store)
 
 short int	files_validation(t_params *params, char *file)
 {
-	int		fd;
-	char	*tmp;
-	char	**parameters;
+	int			fd;
+	char		*tmp;
+	char		**parameters;
 	short int	valid;
 
 	valid = TRUE;

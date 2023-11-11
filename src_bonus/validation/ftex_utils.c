@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:36:01 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/10 19:27:42 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 01:01:31 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../../inc/cub3D.h"
 
 int	is_in_del(char c, char *del)
 {

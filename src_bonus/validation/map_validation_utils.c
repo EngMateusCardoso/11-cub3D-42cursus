@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:40:54 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/10 19:15:46 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 01:20:48 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../../inc/cub3D.h"
 
 short int	is_border(char **map, int x, int y, char c)
 {
@@ -86,12 +86,12 @@ short int	player_out_of_map(char **map)
 	t_xy	xy;
 
 	xy = get_player_position(map, 0, 0);
-	if(map[xy.x - 1][xy.y] && map[xy.x][xy.y - 1] \
+	if (map[xy.x - 1][xy.y] && map[xy.x][xy.y - 1] \
 		&& map[xy.x + 1][xy.y] && map[xy.x][xy.y + 1] \
 		&& (map[xy.x - 1][xy.y] == ' ' || map[xy.x - 1][xy.y] == '\t'
 		|| map[xy.x + 1][xy.y] == ' ' || map[xy.x + 1][xy.y] == '\t'
 		|| map[xy.x][xy.y - 1] == ' ' || map[xy.x][xy.y - 1] == '\t'
 		|| map[xy.x][xy.y + 1] == ' ' || map[xy.x][xy.y + 1] == '\t'))
-			return (TRUE);
+		return (TRUE);
 	return (FALSE);
 }

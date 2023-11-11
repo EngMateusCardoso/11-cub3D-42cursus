@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/10 19:49:30 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 02:08:10 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,33 +64,35 @@
 # define ANGLE_OF_VIEW 60
 # define RAYCASTER_NUM_RAYS 640
 
-// Errors
+// Variables
 # define VALID_ID "NSEWCF\n"
 # define VALID_GLOBAL_ID "NSEWCF \t01\n"
 # define VALID_MAP_CHARS "01 NSEW\n"
 # define VALID_PLAYER "NSEW"
 # define VALID_MAP "01"
-# define STR_INVALID_ARG "Error\nInvalid number of arguments\nUsage: ./cub3D <map.cub>\n"
-# define STR_INVALID_EXT "Error\nInvalid file extension: %s\nUsage: ./cub3D <map.cub>\n"
-# define STR_FILE_NOT_FOUND "Error\nFile not found: %s\n"
-# define STR_INVALID_MAP "Error\nInvalid map in: %s\n"
-# define STR_EMPTY_MAP "Error\nInvalid map\nThe map is empty\n"
-# define STR_INVALID_ID_MAP "Error\nInvalid map\nInvalid identifier: %s\n"
-# define STR_NO_TEXTURE "Error\nInvalid map\nMissing / Misplaced texture '%s'\n"
-# define STR_DUPLICATED_TEXTURE "Error\nInvalid map\nDuplicated texture identifier: '%s'\n"
-# define STR_INCORRECT_TEXTURE "Error\nInvalid map\nIncorrect texture file type: %s= %sExpected: .xpm\n"
-# define STR_TEXTURE_NOT_FOUND "Error\nInvalid map\nTexture file not found: %s= %s\n"
-# define STR_NO_COLOR "Error\nInvalid map\nMissing / Misplaced color '%s'\n"
-# define STR_OUT_RANGE_COLOR "Error\nInvalid map\nColor RGB parameter out of range in set: %s= %s"
-# define STR_RGB_COLOR "Error\nInvalid map\nWrong number of RGB parameters in color: %s= %s"
-# define STR_NOT_NUMERIC_COLOR "Error\nInvalid map\nRGB parameter in color is not numeric: %s= %s"
-# define STR_DUPLICATED_COLOR "Error\nInvalid map\nDuplicate color identifier '%s'\n"
-# define STR_PLAYER_NOT_FOUND "Error\nInvalid map\nPlayer not found in map\n"
-# define STR_MULTI_PLAYER "Error\nInvalid map\nMultiple Players in map\n"
-# define STR_PLAYER_OUT "Error\nInvalid map\nPlayer out of map\n"
-# define STR_INVALID_MAP_CHAR "Error\nInvalid map\nInvalid char in the map: '%c'\n"
-# define STR_MAP_WALLS_OPEN1 "Error\nInvalid map\nExternal walls are open\n"
-# define STR_MAP_WALLS_OPEN2 "Error\nInvalid map\nInternal walls are open\n"
+
+// Errors
+# define E_ARG "Error\nInvalid number of arguments\nUsage: ./cub3D <map.cub>\n"
+# define E_EXT "Error\nInvalid file extension: %s\nUsage: ./cub3D <map.cub>\n"
+# define E_FILE_404 "Error\nFile not found: %s\n"
+# define E_INVMAP "Error\nInvalid map in: %s\n"
+# define E_EMPTMAP "Error\nInvalid map\nThe map is empty\n"
+# define E_INVID "Error\nInvalid map\nInvalid identifier: %s\n"
+# define E_NOTEX "Error\nInvalid map\nMissing / Misplaced texture: '%s'\n"
+# define E_DUPTEX "Error\nInvalid map\nDuplicated texture identifier: '%s'\n"
+# define E_EXTTEX "Error\nInvalid map\nTexture file is not a .xpm: %s %s"
+# define E_TEX_404 "Error\nInvalid map\nTexture file not found: %s %s\n"
+# define E_NOCOLOR "Error\nInvalid map\nMissing / Misplaced color: '%s'\n"
+# define E_RANGECOLOR "Error\nInvalid map\nRGB color out of range: %s %s"
+# define E_RGBCOLOR "Error\nInvalid map\nWrong number of RGB colors: %s %s"
+# define E_NOTNUMCOLOR "Error\nInvalid map\nRGB color is not numeric: %s %s"
+# define E_DUPCOLOR "Error\nInvalid map\nDuplicate color identifier: '%s'\n"
+# define E_PLAYER_404 "Error\nInvalid map\nPlayer not found in map\n"
+# define E_MULTIPLAYER "Error\nInvalid map\nMultiple Players in map\n"
+# define E_PLAYEROUT "Error\nInvalid map\nPlayer out of map\n"
+# define E_MAPCHAR "Error\nInvalid map\nInvalid char in the map: '%c'\n"
+# define E_MAPWALLS1 "Error\nInvalid map\nExternal walls are open\n"
+# define E_MAPWALLS2 "Error\nInvalid map\nInternal walls are open\n"
 
 // =============================================================================
 // STRUCTURES

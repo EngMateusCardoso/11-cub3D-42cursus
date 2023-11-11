@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 19:07:09 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/10 19:27:27 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 01:01:57 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../../inc/cub3D.h"
 
 void	init_params(t_params *params)
 {

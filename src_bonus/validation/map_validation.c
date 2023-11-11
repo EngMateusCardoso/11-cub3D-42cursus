@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:38:01 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/10 17:41:18 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 01:55:05 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../../inc/cub3D.h"
 
 short int	count_player(char **map)
 {
@@ -91,22 +91,22 @@ short int	map_validation(char **map)
 
 	player = count_player(map);
 	if (player < 1)
-		return (print_error(STR_PLAYER_NOT_FOUND, NULL, NULL));
+		return (print_error(E_PLAYER_404, NULL, NULL));
 	else if (player > 1)
-		return (print_error(STR_MULTI_PLAYER, NULL, NULL));
+		return (print_error(E_MULTIPLAYER, NULL, NULL));
 	clear_around_map(map);
 	invalid = validate_map_chars(map);
 	if (invalid)
-		return (print_error_char(STR_INVALID_MAP_CHAR, invalid));
+		return (print_error_char(E_MAPCHAR, invalid));
 	outline_walls(map);
 	outline_useless_walls(map);
 	if (!walls_are_closed(map))
-		return (print_error(STR_MAP_WALLS_OPEN1, NULL, NULL));
+		return (print_error(E_MAPWALLS1, NULL, NULL));
 	remove_out_characters(map);
 	if (!inner_polygons_are_closed(map))
-		return (print_error(STR_MAP_WALLS_OPEN2, NULL, NULL));
+		return (print_error(E_MAPWALLS2, NULL, NULL));
 	if (player_out_of_map(map))
-		return (print_error(STR_PLAYER_OUT, NULL, NULL));
+		return (print_error(E_PLAYEROUT, NULL, NULL));
 	tr_matrix(map, "@", "1");
 	tr_matrix(map, "!", "1");
 	return (TRUE);
