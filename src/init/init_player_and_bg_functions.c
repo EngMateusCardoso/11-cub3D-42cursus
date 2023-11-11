@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_player_and_background_functions.c             :+:      :+:    :+:   */
+/*   init_player_and_bg_functions.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 01:34:59 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 01:35:57 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:32:50 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../../inc/cub3D.h"
 
 void	init_player_position(t_win *win, char *file)
 {

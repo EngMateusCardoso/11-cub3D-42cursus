@@ -6,11 +6,11 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:12:32 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 01:35:22 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:32:45 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../../inc/cub3D.h"
 
 void	init_map_dimensions(t_win *win, char *file)
 {
