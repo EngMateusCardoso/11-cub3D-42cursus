@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 23:40:03 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 03:12:46 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:11:41 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	init_game(char *file)
 	t_win	win;
 
 	init_game_params(&win, file);
-	init_fps(&win);
 	if (!start_window(&win, file))
 		return (1);
 	return (0);
@@ -55,7 +54,7 @@ int	start_window(t_win *win, char *file)
 	}
 	init_textures(win, file);
 	start_image(win);
-	//mlx_mouse_hook(win->win_ptr, mouse_move, win);
+	mlx_mouse_hook(win->win_ptr, handle_mouse, win);
 	mlx_hook(win->win_ptr, 6, 1L << 6, mouse_move, win);
 	mlx_hook(win->win_ptr, 2, 1L << 0, &handle_input, win);
 	mlx_hook(win->win_ptr, 17, 1L << 0, &close_window, win);
