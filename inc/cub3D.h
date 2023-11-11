@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 02:08:10 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:59:50 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,5 +320,7 @@ void	render_map_unit(t_img *img, int x, int y, int color);
 void	render_player(t_img *img);
 float	fix_angle(float angle);
 t_ray	get_ray(t_img *img, t_coord hor_hit, t_coord vert_hit, t_ray ray);
+t_ray fix_fish_eye(t_ray ray, float angle);
+void	draw_walls(t_img *img, t_ray ray, int i);
 
 #endif

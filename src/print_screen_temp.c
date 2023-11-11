@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_screen_temp.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:21:24 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/10 18:29:48 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 13:07:59 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,44 +67,44 @@ void	raycasterr(t_img *img)
 		ray.angle += ((float)ANGLE_OF_VIEW / RAYCASTER_NUM_RAYS) * DR;
 		ray.angle = fix_angle(ray.angle);
 		ray = get_ray(img, hor_hit, vert_hit, ray);
-		// draw_walls(img, ray, i);
-		// fix fish eye
-		float ca = img->player.angle - ray.angle;
-		if (ca < 0)
-			ca += 2 * PI;
-		if (ca > 2 * PI)
-			ca -= 2 * PI;
-		ray.dist = ray.dist * cos(ca);
-
-		// line height
-		float lineH = (CUBE_SIZE * WIN_HEIGHT) / ray.dist;
-		// passo da textura
-		float step = img->texture_height[ray.wall_direction]  / lineH;
-		// quanbdo esta próximo começa a textura do offset
-		float step_offset = 0.0;
-		if (lineH > WIN_HEIGHT)
-		{
-			step_offset = ((lineH - WIN_HEIGHT) / 2.0);
-			lineH = WIN_HEIGHT;
-		}
-
-
-		// line offset
-		int lineO = WIN_HEIGHT / 2 - lineH / 2;
-		if (lineO < 0)
-			lineO = 0;
-
-		int j = 0;
-		// Laço para criar espessura da linha vertical
-		while (j <= WIN_WIDTH / RAYCASTER_NUM_RAYS)
-		{
-			render_line(img, i * WIN_WIDTH / RAYCASTER_NUM_RAYS + j, 1 + lineO, i * WIN_WIDTH / RAYCASTER_NUM_RAYS + j, 1 + lineH + lineO, ray.wall_direction, step, step_offset, ray.x_hit);
-			j++;
-		}
+		ray = fix_fish_eye(ray, img->player.angle);
+		draw_walls(img, ray, i);
 		i++;
 	}
 }
 
+void	draw_walls(t_img *img, t_ray ray, int i)
+{
+	float	line_height;
+	float	line_offset;
+	int		j;
+	float	step;
+	float	step_offset;
+
+	line_height = (CUBE_SIZE * WIN_HEIGHT) / ray.dist;
+	step = img->texture_height[ray.wall_direction] / line_height;
+	step_offset = 0.0;
+	if (line_height > WIN_HEIGHT)
+	{
+		step_offset = ((line_height - WIN_HEIGHT) / 2.0);
+		line_height = WIN_HEIGHT;
+	}
+	line_offset = WIN_HEIGHT / 2 - line_height / 2;
+	if (line_offset < 0)
+		line_offset = 0;
+	j = 0;
+	while (j <= WIN_WIDTH / RAYCASTER_NUM_RAYS)
+	{
+		render_line(img, i * WIN_WIDTH / RAYCASTER_NUM_RAYS + j, 1 + line_offset, i * WIN_WIDTH / RAYCASTER_NUM_RAYS + j, 1 + line_height + line_offset, ray.wall_direction, step, step_offset, ray.x_hit);
+		// color = img->textures[ray.wall_direction][0][(int)(j * img->texture_height[ray.wall_direction] / line_height)];
+		// if (ray.wall_direction == NO || ray.wall_direction == EA)
+		// 	color = img->textures[ray.wall_direction][((int)ray.x_hit % CUBE_SIZE) * img->texture_width[ray.wall_direction]/CUBE_SIZE][(int)(j * img->texture_height[ray.wall_direction] / line_height)];
+		// else if (ray.wall_direction == SO || ray.wall_direction == WE)
+		// 	color = img->textures[ray.wall_direction][((CUBE_SIZE - 1) - ((int)ray.x_hit % CUBE_SIZE))* img->texture_width[ray.wall_direction]/CUBE_SIZE][(int)(j * img->texture_height[ray.wall_direction] / line_height)];
+		// my_mlx_pixel_put(img, i * WIN_WIDTH / RAYCASTER_NUM_RAYS + j, 1 + line_offset, color);
+		j++;
+	}
+}
 t_ray	get_ray(t_img *img, t_coord hor_hit, t_coord vert_hit, t_ray ray)
 {
 	if (hor_hit.x > 0 && hor_hit.y > 0 && \
@@ -129,6 +129,19 @@ t_ray	get_ray(t_img *img, t_coord hor_hit, t_coord vert_hit, t_ray ray)
 		else
 			ray.wall_direction = EA;
 	}
+	return (ray);
+}
+
+t_ray fix_fish_eye(t_ray ray, float angle)
+{
+	float	ca;
+
+	ca = angle - ray.angle;
+	if (ca < 0)
+		ca += 2 * PI;
+	if (ca > 2 * PI)
+		ca -= 2 * PI;
+	ray.dist = ray.dist * cos(ca);
 	return (ray);
 }
 
