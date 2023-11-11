@@ -6,11 +6,11 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:48:25 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 16:17:27 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/11 16:31:59 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../../inc/cub3D.h"
 
 int	handle_input(int keysys, t_win *win)
 {
@@ -43,32 +43,6 @@ void	rotate_player(int keysys, t_win *win)
 	win->img.player.sin = sin(win->img.player.angle) * 5;
 }
 
-int	handle_mouse(int keysys, int x, int y, t_win *win)
-{
-	if (keysys && y)
-	{
-		if (x > WIN_WIDTH / 2)
-			rotate_player(KEY_RIGHT, win);
-		else if (x < 250)
-			rotate_player(KEY_LEFT, win);
-	}
-	start_image(win);
-	return (0);
-}
-
-void	free_textures(int	**textures)
-{
-	int	i;
-
-	i = 0;
-	while (textures[i])
-	{
-		free(textures[i]);
-		i++;
-	}
-	free(textures);
-}
-
 int	close_window(t_win *win)
 {
 	mlx_destroy_window(win->mlx_ptr, win->win_ptr);
@@ -94,4 +68,17 @@ void	free_map(char **map)
 		i++;
 	}
 	free(map);
+}
+
+void	free_textures(int	**textures)
+{
+	int	i;
+
+	i = 0;
+	while (textures[i])
+	{
+		free(textures[i]);
+		i++;
+	}
+	free(textures);
 }

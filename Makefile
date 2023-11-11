@@ -6,15 +6,13 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 23:42:00 by matcardo          #+#    #+#              #
-#    Updated: 2023/11/11 16:29:08 by matcardo         ###   ########.fr        #
+#    Updated: 2023/11/11 16:33:17 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= cub3D
 
 SRCS		= main.c								\
-			hooks.c									\
-			move_player.c							\
 			validation/check_args.c					\
 			validation/check_args_utils.c			\
 			validation/ftex_utils.c					\
@@ -35,6 +33,8 @@ SRCS		= main.c								\
 			print_screen/horizontal_hit.c			\
 			print_screen/vertical_hit.c				\
 			print_screen/draw_walls.c				\
+			hooks/hooks.c							\
+			hooks/move_player.c						\
 
 SRCS_BONUS	= main.c								\
 			validation/check_args.c					\
@@ -102,7 +102,7 @@ bonus: $(LIBFT) $(MLX) $(OBJS_DIR_B) $(addprefix $(OBJS_DIR_B),$(OBJS_BONUS))
 
 #lembrar de criar os subdiretorios quando houver
 $(OBJS_DIR):
-	@mkdir $(OBJS_DIR) objs/validation/ objs/init/ objs/print_screen/
+	@mkdir $(OBJS_DIR) objs/validation/ objs/init/ objs/print_screen/ objs/hooks/
 
 $(OBJS_DIR_B):
 	@mkdir $(OBJS_DIR_B) objs_bonus/validation/ objs_bonus/init/ objs_bonus/print_screen/ objs_bonus/hooks/
