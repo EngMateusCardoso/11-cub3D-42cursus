@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 19:06:12 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/10 19:27:12 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 01:02:10 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../../inc/cub3D.h"
 
 char	**set_padding(char **matrix, int maxsize)
 {

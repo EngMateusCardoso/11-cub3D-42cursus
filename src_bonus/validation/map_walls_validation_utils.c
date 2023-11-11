@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:50:31 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/10 18:56:19 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 01:01:48 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../../inc/cub3D.h"
 
 int	check_end(char **map, int x, int y, char c)
 {

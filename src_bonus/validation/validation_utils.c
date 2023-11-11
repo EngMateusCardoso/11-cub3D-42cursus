@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:55:27 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/10 19:27:14 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 01:18:10 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../../inc/cub3D.h"
 
 int	comma_counter(char *str)
 {
@@ -57,7 +57,7 @@ short int	is_str_number(char **str)
 		i++;
 		j = 0;
 	}
-	return (TRUE);	
+	return (TRUE);
 }
 
 void	gnl_purge(char *tmp, int fd)

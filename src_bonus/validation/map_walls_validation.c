@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:46:19 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/10 17:49:41 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 01:21:22 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../../inc/cub3D.h"
 
 short int	is_player_inside(char **map, int i, int j)
 {
@@ -100,7 +100,7 @@ short int	forked_polygon(char **map, int x, int y)
 
 short int	walls_are_closed(char **map)
 {
-	t_xy	xy;
+	t_xy		xy;
 	short int	boolean;
 
 	boolean = TRUE;

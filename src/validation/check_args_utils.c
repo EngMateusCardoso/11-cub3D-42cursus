@@ -6,17 +6,17 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:33:37 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/10 19:27:51 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 01:23:07 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../../inc/cub3D.h"
 
 short int	print_error(char *error, char *param, char *set)
 {
 	if (set && param)
 		printf(error, param, set);
-	else if(set)
+	else if (set)
 		printf(error, set);
 	else if (param)
 		printf(error, param);

@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:54:07 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/10 19:01:23 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 01:51:58 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../../inc/cub3D.h"
 
 void	tr_matrix(char **matrix, char *del, char *replace)
 {
@@ -46,27 +46,26 @@ char	*join_color_set(char **matrix)
 
 short int	validate_color_set(char *param, char *set, int *store)
 {
-	char	**rgb;
-	char	*tmp;
-	int		i;
+	char		**rgb;
+	char		*tmp;
+	int			i;
 	short int	valid;
 
 	valid = TRUE;
 	if (comma_counter(set) != 2)
-		return (print_error(STR_RGB_COLOR, param, set));
+		return (print_error(E_RGBCOLOR, param, set));
 	if (*store != -1)
-		return (print_error(STR_DUPLICATED_COLOR, param, NULL));
+		return (print_error(E_DUPCOLOR, param, NULL));
 	tmp = ftex_strerase(set, " \n");
 	rgb = ft_split(tmp, ',');
 	i = -1;
 	while (rgb[++i])
 		if (ft_atoi(rgb[i]) > 255 || ft_atoi(rgb[i]) < 0)
-			valid = print_error(STR_OUT_RANGE_COLOR, param, set);
+			valid = print_error(E_RANGECOLOR, param, set);
 	if (i != 3)
-		valid = print_error(STR_RGB_COLOR, param, set);
-	
+		valid = print_error(E_RGBCOLOR, param, set);
 	if (!is_str_number(rgb) && valid)
-		valid = print_error(STR_NOT_NUMERIC_COLOR, param, set);
+		valid = print_error(E_NOTNUMCOLOR, param, set);
 	if (valid)
 		*store = get_color(ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]));
 	free(tmp);

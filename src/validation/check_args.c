@@ -6,27 +6,27 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:16:04 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/10 19:07:48 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 01:42:08 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../../inc/cub3D.h"
 
 short int	check_args(int argc, char **argv)
 {
 	if (argc != 2)
 	{
-		printf(STR_INVALID_ARG);
+		printf(E_ARG);
 		return (FALSE);
 	}
 	if (!is_valid_file_extension(argv[1]))
 	{
-		printf(STR_INVALID_EXT, argv[1]);
+		printf(E_EXT, argv[1]);
 		return (FALSE);
 	}
 	if (!is_valid_file(argv[1]))
 	{
-		printf(STR_FILE_NOT_FOUND, argv[1]);
+		printf(E_FILE_404, argv[1]);
 		return (FALSE);
 	}
 	if (!is_valid_map(argv[1]))
@@ -59,13 +59,13 @@ short int	is_valid_file(char *str)
 
 short int	is_valid_map(char *str)
 {
-	t_params params;
+	t_params	params;
 
 	init_params(&params);
 	params.map = trim_map_array(open(str, O_RDONLY));
 	params.dev_map = trim_map_array(open(str, O_RDONLY));
 	if (!params.map)
-		return (print_error(STR_EMPTY_MAP, NULL, NULL));
+		return (print_error(E_EMPTMAP, NULL, NULL));
 	if (!files_validation(&params, str))
 		return (map_validation_failed(&params));
 	if (!map_validation(params.map))
