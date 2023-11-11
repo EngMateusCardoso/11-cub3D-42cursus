@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 23:42:00 by matcardo          #+#    #+#              #
-#    Updated: 2023/11/11 16:20:53 by thabeck-         ###   ########.fr        #
+#    Updated: 2023/11/11 16:29:08 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,19 +31,12 @@ SRCS		= main.c								\
 			init/init_player_and_bg_functions.c		\
 			init/init_texture_functions.c			\
 			print_screen/print_screen.c				\
-			print_screen/raycaster.c					\
+			print_screen/raycaster.c				\
 			print_screen/horizontal_hit.c			\
 			print_screen/vertical_hit.c				\
 			print_screen/draw_walls.c				\
 
 SRCS_BONUS	= main.c								\
-			print_screen_temp.c						\
-			init/init_map_functions.c				\
-			init/init_player_and_bg_functions.c		\
-			init/init_texture_functions.c			\
-			hooks/hooks.c							\
-			hooks/mouse_hooks.c						\
-			hooks/move_player.c						\
 			validation/check_args.c					\
 			validation/check_args_utils.c			\
 			validation/ftex_utils.c					\
@@ -56,6 +49,18 @@ SRCS_BONUS	= main.c								\
 			validation/parameter_utils.c			\
 			validation/trim_map.c					\
 			validation/validation_utils.c			\
+			init/init_map_functions.c				\
+			init/init_player_and_bg_functions.c		\
+			init/init_texture_functions.c			\
+			print_screen_temp.c						\
+			print_screen/print_screen.c				\
+			print_screen/raycaster.c				\
+			print_screen/horizontal_hit.c			\
+			print_screen/vertical_hit.c				\
+			print_screen/draw_walls.c				\
+			hooks/hooks.c							\
+			hooks/mouse_hooks.c						\
+			hooks/move_player.c						\
 
 OBJS		= ${SRCS:%.c=%.o}
 OBJS_BONUS	= ${SRCS_BONUS:%.c=%.o}
@@ -100,7 +105,7 @@ $(OBJS_DIR):
 	@mkdir $(OBJS_DIR) objs/validation/ objs/init/ objs/print_screen/
 
 $(OBJS_DIR_B):
-	@mkdir $(OBJS_DIR_B) objs_bonus/validation/ objs_bonus/init/ objs_bonus/hooks/
+	@mkdir $(OBJS_DIR_B) objs_bonus/validation/ objs_bonus/init/ objs_bonus/print_screen/ objs_bonus/hooks/
 	
 objs/%.o:	src/%.c ./inc/cub3D.h
 	@$(CC) $(FLAGS) -c $< -o $@
