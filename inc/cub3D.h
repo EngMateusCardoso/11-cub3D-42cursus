@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 16:31:36 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/11 16:48:31 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,11 +338,7 @@ void	vertical_hit_ray_update(t_img *img, t_raycaster *ray, int *i);
 
 // draw_walls.c
 void		draw_walls(t_img *img, t_ray ray, int ray_index);
-void		draw_wall_column(t_img *img, t_ray ray, t_wall_vert_pxl wall_params, int ray_i);
-
-// bonus
-// void	render_map(t_img *img);
-// void	render_map_unit(t_img *img, int x, int y, int color);
-// void	render_player(t_img *img);
+void		draw_wall_column(t_img *img, t_ray ray, \
+	t_wall_vert_pxl wall_params, int ray_i);
 
 #endif

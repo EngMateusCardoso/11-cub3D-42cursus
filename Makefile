@@ -6,7 +6,7 @@
 #    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 23:42:00 by matcardo          #+#    #+#              #
-#    Updated: 2023/11/11 16:33:17 by matcardo         ###   ########.fr        #
+#    Updated: 2023/11/11 16:49:55 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,12 +52,12 @@ SRCS_BONUS	= main.c								\
 			init/init_map_functions.c				\
 			init/init_player_and_bg_functions.c		\
 			init/init_texture_functions.c			\
-			print_screen_temp.c						\
 			print_screen/print_screen.c				\
 			print_screen/raycaster.c				\
 			print_screen/horizontal_hit.c			\
 			print_screen/vertical_hit.c				\
 			print_screen/draw_walls.c				\
+			print_screen/minimap.c						\
 			hooks/hooks.c							\
 			hooks/mouse_hooks.c						\
 			hooks/move_player.c						\

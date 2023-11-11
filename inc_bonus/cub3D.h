@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 16:39:33 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/11 16:49:07 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -334,21 +334,22 @@ t_ray		fix_fish_eye(t_ray ray, float angle);
 // horizontal_hit.c
 t_coord		get_horizontal_hit(t_img *img, float angle);
 t_raycaster	get_horizontal_hit_ray(t_img *img, float angle);
-void	horizontal_hit_ray_update(t_img *img, t_raycaster *ray, int *i);
+void		horizontal_hit_ray_update(t_img *img, t_raycaster *ray, int *i);
 float		dist_between_points(float x1, float y1, float x2, float y2);
 
 // vertical_hit.c
 t_coord		get_vertical_hit(t_img *img, float angle);
 t_raycaster	get_vertical_hit_ray(t_img *img, float angle);
-void	vertical_hit_ray_update(t_img *img, t_raycaster *ray, int *i);
+void		vertical_hit_ray_update(t_img *img, t_raycaster *ray, int *i);
 
 // draw_walls.c
 void		draw_walls(t_img *img, t_ray ray, int ray_index);
-void		draw_wall_column(t_img *img, t_ray ray, t_wall_vert_pxl wall_params, int ray_i);
+void		draw_wall_column(t_img *img, t_ray ray, \
+	t_wall_vert_pxl wall_params, int ray_i);
 
-// bonus
-void	render_map(t_img *img);
-void	render_map_unit(t_img *img, int x, int y, int color);
-void	render_player(t_img *img);
+// minimap.c
+void		render_map(t_img *img);
+void		render_map_unit(t_img *img, int x, int y, int color);
+void		render_player(t_img *img);
 
 #endif
