@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 01:34:59 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 03:08:26 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:59:23 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc_bonus/cub3D.h"
+#include "../../inc_bonus/cub3D.h"
 
 void	init_player_position(t_win *win, char *file)
 {
@@ -57,7 +57,6 @@ void	init_player_position_line(t_win *win, char *line, int i)
 				win->img.player.angle = PI;
 			win->img.player.cos = cos(win->img.player.angle) * 5;
 			win->img.player.sin = sin(win->img.player.angle) * 5;
-			win->img.player.turn_speed = 5 * (PI / 180);
 		}
 		j++;
 	}
@@ -110,11 +109,4 @@ int	get_color_in_line(char *line)
 	b = ft_atoi(line + i);
 	color = 0 << 24 | r << 16 | g << 8 | b;
 	return (color);
-}
-
-void	init_fps(t_win *data)
-{
-	data->frame.delta_time = 0;
-	ft_strlcpy(data->frame.fps, "060", 4);
-	data->frame.cycle = 0;
 }

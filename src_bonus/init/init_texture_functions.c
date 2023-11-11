@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 18:23:58 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 03:13:48 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:59:28 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc_bonus/cub3D.h"
+#include "../../inc_bonus/cub3D.h"
 
 void	init_textures(t_win *win, char *file)
 {

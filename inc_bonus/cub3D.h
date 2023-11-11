@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 03:10:02 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:54:25 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,10 +305,14 @@ int			str_maxsize(char **matrix);
 // hooks.c
 int			handle_input(int keysys, t_win *win);
 void		rotate_player(int keysys, t_win *win);
-int			mouse_move(int x, int y, t_win *win);
-int			handle_mouse(int keysys, int x, int y, t_win *win);
 int			close_window(t_win *win);
 void		free_map(char **map);
+
+// mouse_hooks.c
+int			mouse_move(int x, int y, t_win *win);
+int			handle_mouse(int keysys, int x, int y, t_win *win);
+void		mouse_move_x(int x, int mid_x, int mid_y, t_win *win);
+void		mouse_move_y(int y, int mid_x, int mid_y, t_win *win);
 
 // move_player.c
 void		move_player(int keysys, t_win *win);

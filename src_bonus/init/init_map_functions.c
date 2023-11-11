@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:12:32 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 03:13:41 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:57:58 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc_bonus/cub3D.h"
+#include "../../inc_bonus/cub3D.h"
 
 void	init_map_dimensions(t_win *win, char *file)
 {
