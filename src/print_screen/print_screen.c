@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_screen.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:48:54 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 15:59:30 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/11 20:13:43 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,5 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	char	*dst;
 
 	dst = data->addr + (y * data->line_len + x * (data->bpp / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
-

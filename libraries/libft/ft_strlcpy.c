@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 23:26:24 by thabeck-          #+#    #+#             */
-/*   Updated: 2022/04/24 19:53:39 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 20:08:30 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 		{
 			dest[i] = src[i];
 			i++;
-		}	
+		}
 		dest[i] = '\0';
 	}
 	return (len);

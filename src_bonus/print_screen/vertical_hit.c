@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   vertical_hit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:52:16 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 16:25:22 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/11 20:14:28 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc_bonus/cub3D.h"
-
 
 t_coord	get_vertical_hit(t_img *img, float angle)
 {
@@ -20,7 +19,7 @@ t_coord	get_vertical_hit(t_img *img, float angle)
 	int			i;
 
 	i = 0;
-	hit.len = 10000000000000;
+	hit.len = 10000000000000.0;
 	hit.x = img->player.x;
 	hit.y = img->player.y;
 	ray = get_vertical_hit_ray(img, angle);
@@ -50,7 +49,7 @@ t_raycaster	get_vertical_hit_ray(t_img *img, float angle)
 		ray.x_offset = -CUBE_SIZE;
 		ray.y_offset = -ray.x_offset * -tan(angle);
 	}
-	else if (angle < PI / 2 || angle > 3 * PI / 2)
+	if (angle < PI / 2 || angle > 3 * PI / 2)
 	{
 		ray.first_hit_x = (((int)img->player.x >> BASE_CUBE) \
 			<< BASE_CUBE) + CUBE_SIZE;

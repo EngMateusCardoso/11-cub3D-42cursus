@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw_walls.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:53:46 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 15:54:15 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/11 20:07:43 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3D.h"
-
 
 void	draw_walls(t_img *img, t_ray ray, int ray_index)
 {

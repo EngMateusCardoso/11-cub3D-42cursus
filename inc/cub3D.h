@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 16:48:31 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/11 20:12:17 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // LIBRARIES
 // =============================================================================
 
-# include "../libraries/minilibx-linux/mlx.h"
+# include "/usr/local/include/mlx.h"
 # include "../libraries/libft/libft.h"
 # include <unistd.h>	// write (?)
 # include <stdio.h>		// printf
@@ -328,13 +328,13 @@ t_ray		fix_fish_eye(t_ray ray, float angle);
 // horizontal_hit.c
 t_coord		get_horizontal_hit(t_img *img, float angle);
 t_raycaster	get_horizontal_hit_ray(t_img *img, float angle);
-void	horizontal_hit_ray_update(t_img *img, t_raycaster *ray, int *i);
+void		horizontal_hit_ray_update(t_img *img, t_raycaster *ray, int *i);
 float		dist_between_points(float x1, float y1, float x2, float y2);
 
 // vertical_hit.c
 t_coord		get_vertical_hit(t_img *img, float angle);
 t_raycaster	get_vertical_hit_ray(t_img *img, float angle);
-void	vertical_hit_ray_update(t_img *img, t_raycaster *ray, int *i);
+void		vertical_hit_ray_update(t_img *img, t_raycaster *ray, int *i);
 
 // draw_walls.c
 void		draw_walls(t_img *img, t_ray ray, int ray_index);
