@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:48:25 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/03 23:32:29 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/11 16:17:27 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,29 @@ int	handle_mouse(int keysys, int x, int y, t_win *win)
 	return (0);
 }
 
+void	free_textures(int	**textures)
+{
+	int	i;
+
+	i = 0;
+	while (textures[i])
+	{
+		free(textures[i]);
+		i++;
+	}
+	free(textures);
+}
+
 int	close_window(t_win *win)
 {
 	mlx_destroy_window(win->mlx_ptr, win->win_ptr);
 	mlx_destroy_display(win->mlx_ptr);
 	free(win->mlx_ptr);
 	free_map(win->img.map.map);
+	free_textures(win->img.textures[NO]);
+	free_textures(win->img.textures[SO]);
+	free_textures(win->img.textures[WE]);
+	free_textures(win->img.textures[EA]);
 	exit(0);
 	return (0);
 }
