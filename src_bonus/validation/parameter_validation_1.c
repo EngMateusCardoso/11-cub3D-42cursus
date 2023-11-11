@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:01:16 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/11 01:48:23 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 03:14:56 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3D.h"
+#include "../../inc_bonus/cub3D.h"
 
 short int	check_parameter_matrix(t_params *p, char **m, char *f, char *t)
 {

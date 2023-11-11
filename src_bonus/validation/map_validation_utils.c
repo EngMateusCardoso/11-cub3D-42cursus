@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:40:54 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/11 01:20:48 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 03:14:36 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3D.h"
+#include "../../inc_bonus/cub3D.h"
 
 short int	is_border(char **map, int x, int y, char c)
 {

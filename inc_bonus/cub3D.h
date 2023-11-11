@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 02:08:31 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 03:10:02 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,15 @@ typedef struct player {
 	float	cos;
 	float	sin;
 	float	angle;
+	float	turn_speed;
 }				t_player;
+
+typedef struct s_frame
+{
+	float	delta_time;
+	char	fps[4];
+	int		cycle;
+}	t_frame;
 
 typedef struct s_img {
 	void		*img_ptr;
@@ -157,6 +165,7 @@ typedef struct s_win {
 	void	*mlx_ptr;
 	char	*win_ptr;
 	t_img	img;
+	t_frame	frame;
 }				t_win;
 
 typedef struct s_params
@@ -211,6 +220,7 @@ void		init_roof_and_ceiling_color(t_win *win, char *file);
 int			get_color_in_line(char *line);
 void		init_player_position(t_win *win, char *file);
 void		init_player_position_line(t_win *win, char *line, int i);
+void		init_fps(t_win *data);
 
 // init_texture_functions.c
 void		init_textures(t_win *win, char *file);
@@ -295,6 +305,7 @@ int			str_maxsize(char **matrix);
 // hooks.c
 int			handle_input(int keysys, t_win *win);
 void		rotate_player(int keysys, t_win *win);
+int			mouse_move(int x, int y, t_win *win);
 int			handle_mouse(int keysys, int x, int y, t_win *win);
 int			close_window(t_win *win);
 void		free_map(char **map);

@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:55:27 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/11 01:18:10 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 03:15:07 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3D.h"
+#include "../../inc_bonus/cub3D.h"
 
 int	comma_counter(char *str)
 {

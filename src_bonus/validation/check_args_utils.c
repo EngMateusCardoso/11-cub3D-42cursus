@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:33:37 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/11 01:23:07 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 03:14:12 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3D.h"
+#include "../../inc_bonus/cub3D.h"
 
 short int	print_error(char *error, char *param, char *set)
 {
