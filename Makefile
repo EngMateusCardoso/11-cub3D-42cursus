@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 23:42:00 by matcardo          #+#    #+#              #
-#    Updated: 2023/11/11 16:49:55 by matcardo         ###   ########.fr        #
+#    Updated: 2023/11/11 17:44:08 by thabeck-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
