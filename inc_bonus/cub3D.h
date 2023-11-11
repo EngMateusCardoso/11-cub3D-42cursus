@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 16:26:11 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/11 16:39:33 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,14 @@ typedef struct s_ray {
 	float	x_hit;
 }				t_ray;
 
+typedef struct s_wall_vert_pxl {
+	float	line_height;
+	float	line_offset;
+	float	step;
+	float	step_offset;
+	int		ray_pixel;
+}				t_wall_vert_pxl;
+
 typedef struct s_coord {
 	int		x;
 	int		y;
@@ -133,15 +141,7 @@ typedef struct player {
 	float	cos;
 	float	sin;
 	float	angle;
-	float	turn_speed;
 }				t_player;
-
-typedef struct s_frame
-{
-	float	delta_time;
-	char	fps[4];
-	int		cycle;
-}	t_frame;
 
 typedef struct s_img {
 	void		*img_ptr;
@@ -165,7 +165,6 @@ typedef struct s_win {
 	void	*mlx_ptr;
 	char	*win_ptr;
 	t_img	img;
-	t_frame	frame;
 }				t_win;
 
 typedef struct s_params
