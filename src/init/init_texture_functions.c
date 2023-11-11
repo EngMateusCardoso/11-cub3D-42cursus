@@ -6,11 +6,11 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 18:23:58 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/06 01:48:06 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:32:52 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../../inc/cub3D.h"
 
 void	init_textures(t_win *win, char *file)
 {

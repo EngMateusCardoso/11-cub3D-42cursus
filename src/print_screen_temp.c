@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:21:24 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 13:07:59 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:28:27 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,38 +73,61 @@ void	raycasterr(t_img *img)
 	}
 }
 
-void	draw_walls(t_img *img, t_ray ray, int i)
+void	draw_walls(t_img *img, t_ray ray, int ray_index)
 {
-	float	line_height;
-	float	line_offset;
-	int		j;
-	float	step;
-	float	step_offset;
+	t_wall_vert_pxl	wall_params;
 
-	line_height = (CUBE_SIZE * WIN_HEIGHT) / ray.dist;
-	step = img->texture_height[ray.wall_direction] / line_height;
-	step_offset = 0.0;
-	if (line_height > WIN_HEIGHT)
+	wall_params.line_height = (CUBE_SIZE * WIN_HEIGHT) / ray.dist;
+	wall_params.step = \
+		img->texture_height[ray.wall_direction] / wall_params.line_height;
+	wall_params.step_offset = 0.0;
+	if (wall_params.line_height > WIN_HEIGHT)
 	{
-		step_offset = ((line_height - WIN_HEIGHT) / 2.0);
-		line_height = WIN_HEIGHT;
+		wall_params.step_offset = \
+			((wall_params.line_height - WIN_HEIGHT) / 2.0);
+		wall_params.line_height = WIN_HEIGHT;
 	}
-	line_offset = WIN_HEIGHT / 2 - line_height / 2;
-	if (line_offset < 0)
-		line_offset = 0;
-	j = 0;
-	while (j <= WIN_WIDTH / RAYCASTER_NUM_RAYS)
+	wall_params.line_offset = WIN_HEIGHT / 2 - wall_params.line_height / 2;
+	if (wall_params.line_offset < 0)
+		wall_params.line_offset = 0;
+	wall_params.ray_pixel = 0;
+	while (wall_params.ray_pixel <= WIN_WIDTH / RAYCASTER_NUM_RAYS)
 	{
-		render_line(img, i * WIN_WIDTH / RAYCASTER_NUM_RAYS + j, 1 + line_offset, i * WIN_WIDTH / RAYCASTER_NUM_RAYS + j, 1 + line_height + line_offset, ray.wall_direction, step, step_offset, ray.x_hit);
-		// color = img->textures[ray.wall_direction][0][(int)(j * img->texture_height[ray.wall_direction] / line_height)];
-		// if (ray.wall_direction == NO || ray.wall_direction == EA)
-		// 	color = img->textures[ray.wall_direction][((int)ray.x_hit % CUBE_SIZE) * img->texture_width[ray.wall_direction]/CUBE_SIZE][(int)(j * img->texture_height[ray.wall_direction] / line_height)];
-		// else if (ray.wall_direction == SO || ray.wall_direction == WE)
-		// 	color = img->textures[ray.wall_direction][((CUBE_SIZE - 1) - ((int)ray.x_hit % CUBE_SIZE))* img->texture_width[ray.wall_direction]/CUBE_SIZE][(int)(j * img->texture_height[ray.wall_direction] / line_height)];
-		// my_mlx_pixel_put(img, i * WIN_WIDTH / RAYCASTER_NUM_RAYS + j, 1 + line_offset, color);
-		j++;
+		draw_wall_column(img, ray, wall_params, ray_index);
+		wall_params.ray_pixel++;
 	}
 }
+
+void	draw_wall_column(t_img *img, t_ray ray, \
+	t_wall_vert_pxl wall_params, int ray_i)
+{
+	int		x;
+	int		y0;
+	int		y1;
+	float	iv;
+	int		color;
+
+	x = (int)(ray_i * WIN_WIDTH / RAYCASTER_NUM_RAYS + wall_params.ray_pixel);
+	y0 = (int)(1 + wall_params.line_offset);
+	y1 = (int)(1 + wall_params.line_height + wall_params.line_offset);
+	iv = 1 + wall_params.step_offset * wall_params.step;
+	while (y0 <= y1)
+	{
+		if (ray.wall_direction == NO || ray.wall_direction == EA)
+			color = img->textures[ray.wall_direction][((int)ray.x_hit % \
+			CUBE_SIZE) * img->texture_width[ray.wall_direction] / \
+			CUBE_SIZE][(int)(iv)];
+		else if (ray.wall_direction == SO || ray.wall_direction == WE)
+			color = img->textures[ray.wall_direction][((CUBE_SIZE - 1) - \
+				((int)ray.x_hit % CUBE_SIZE)) * \
+				img->texture_width[ray.wall_direction] / \
+				CUBE_SIZE][(int)(iv)];
+		my_mlx_pixel_put(img, (int)x, y0, color);
+		iv += wall_params.step;
+		y0++;
+	}
+}
+
 t_ray	get_ray(t_img *img, t_coord hor_hit, t_coord vert_hit, t_ray ray)
 {
 	if (hor_hit.x > 0 && hor_hit.y > 0 && \
@@ -155,44 +178,58 @@ t_coord	get_horizontal_hit(t_img *img, float angle)
 	hit.len = 10000000000000;
 	hit.x = img->player.x;
 	hit.y = img->player.y;
-	if (angle > PI) // looking up
-	{
-		ray.first_hit_y = (((int)img->player.y >> BASE_CUBE) \
-			<< BASE_CUBE) - 0.001;
-		ray.first_hit_x = (img->player.y - ray.first_hit_y) * -1 / tan(angle) + img->player.x;
-		ray.y_offset = -CUBE_SIZE;
-		ray.x_offset = -ray.y_offset * -1 / tan(angle);
-	}
-	else if (angle < PI) // looking down
-	{
-		ray.first_hit_y = (((int)img->player.y >> BASE_CUBE) \
-			<< BASE_CUBE) + CUBE_SIZE;
-		ray.first_hit_x = (img->player.y - ray.first_hit_y) * -1 / tan(angle) + img->player.x;
-		ray.y_offset = CUBE_SIZE;
-		ray.x_offset = -ray.y_offset * -1 / tan(angle);
-	}
-	else if (angle == 0)
+	ray = get_horizontal_hit_ray(img, angle);
+	if (angle == 0 || angle == PI)
 		i = img->map.height;
-	else if (angle == PI)
-		i = img->map.height;
-
 	while (i < img->map.height)
 	{
-		ray.map_x = (int)(ray.first_hit_x) >> BASE_CUBE;
-		ray.map_y = (int)(ray.first_hit_y) >> BASE_CUBE;
-		if (ray.map_x >= 0 && ray.map_y >= 0 && ray.map_x < img->map.width && ray.map_y < img->map.height && img->map.map[ray.map_y][ray.map_x] == '1')
-			i = img->map.height;
-		else
-		{
-			ray.first_hit_x += ray.x_offset;
-			ray.first_hit_y += ray.y_offset;
-			i += 1;
-		}
+		horizontal_hit_ray_update(img, &ray, &i);
 		hit.x = ray.first_hit_x;
 		hit.y = ray.first_hit_y;
 		hit.len = dist_between_points(img->player.x, img->player.y, hit.x, hit.y);
 	}
 	return (hit);
+}
+
+t_raycaster	get_horizontal_hit_ray(t_img *img, float angle)
+{
+	t_raycaster	ray;
+
+	if (angle > PI)
+	{
+		ray.first_hit_y = (((int)img->player.y >> BASE_CUBE) \
+			<< BASE_CUBE) - 0.001;
+		ray.first_hit_x = (img->player.y - ray.first_hit_y) * \
+			-1 / tan(angle) + img->player.x;
+		ray.y_offset = -CUBE_SIZE;
+		ray.x_offset = -ray.y_offset * -1 / tan(angle);
+	}
+	else if (angle < PI)
+	{
+		ray.first_hit_y = (((int)img->player.y >> BASE_CUBE) \
+			<< BASE_CUBE) + CUBE_SIZE;
+		ray.first_hit_x = (img->player.y - ray.first_hit_y) * \
+			-1 / tan(angle) + img->player.x;
+		ray.y_offset = CUBE_SIZE;
+		ray.x_offset = -ray.y_offset * -1 / tan(angle);
+	}
+	return (ray);
+}
+
+void	horizontal_hit_ray_update(t_img *img, t_raycaster *ray, int *i)
+{
+	(*ray).map_x = (int)((*ray).first_hit_x) >> BASE_CUBE;
+	(*ray).map_y = (int)((*ray).first_hit_y) >> BASE_CUBE;
+	if ((*ray).map_x >= 0 && (*ray).map_y >= 0 \
+		&& (*ray).map_x < img->map.width && (*ray).map_y < img->map.height && \
+		img->map.map[(*ray).map_y][(*ray).map_x] == '1')
+		*i = img->map.height;
+	else
+	{
+		(*ray).first_hit_x += (*ray).x_offset;
+		(*ray).first_hit_y += (*ray).y_offset;
+		*i += 1;
+	}
 }
 
 t_coord	get_vertical_hit(t_img *img, float angle)
@@ -205,84 +242,58 @@ t_coord	get_vertical_hit(t_img *img, float angle)
 	hit.len = 10000000000000;
 	hit.x = img->player.x;
 	hit.y = img->player.y;
+	ray = get_vertical_hit_ray(img, angle);
+	if (angle == PI / 2 || angle == 3 * PI / 2)
+		i = img->map.width;
+	while (i < img->map.width)
+	{
+		vertical_hit_ray_update(img, &ray, &i);
+		hit.x = ray.first_hit_x;
+		hit.y = ray.first_hit_y;
+		hit.len = dist_between_points(img->player.x, img->player.y, \
+			hit.x, hit.y);
+	}
+	return (hit);
+}
+
+t_raycaster	get_vertical_hit_ray(t_img *img, float angle)
+{
+	t_raycaster	ray;
+
 	if (angle > PI / 2 && angle < 3 * PI / 2)
 	{
-		ray.first_hit_x = (((int)img->player.x >> BASE_CUBE) << BASE_CUBE) - 0.001;
-		ray.first_hit_y = (img->player.x - ray.first_hit_x) * -tan(angle) + img->player.y;
+		ray.first_hit_x = (((int)img->player.x >> BASE_CUBE) << \
+			BASE_CUBE) - 0.001;
+		ray.first_hit_y = (img->player.x - ray.first_hit_x) * \
+			-tan(angle) + img->player.y;
 		ray.x_offset = -CUBE_SIZE;
 		ray.y_offset = -ray.x_offset * -tan(angle);
 	}
 	else if (angle < PI / 2 || angle > 3 * PI / 2)
 	{
-		ray.first_hit_x = (((int)img->player.x >> BASE_CUBE) << BASE_CUBE) + CUBE_SIZE;
-		ray.first_hit_y = (img->player.x - ray.first_hit_x) * -tan(angle) + img->player.y;
+		ray.first_hit_x = (((int)img->player.x >> BASE_CUBE) \
+			<< BASE_CUBE) + CUBE_SIZE;
+		ray.first_hit_y = (img->player.x - ray.first_hit_x) * \
+			-tan(angle) + img->player.y;
 		ray.x_offset = CUBE_SIZE;
 		ray.y_offset = -ray.x_offset * -tan(angle);
 	}
-	else if (angle == PI / 2)
-		i = img->map.width;
-	else if (angle == 3 * PI / 2)
-		i = img->map.width;
-
-	while (i < img->map.width)
-	{
-		ray.map_x = (int)(ray.first_hit_x) >> BASE_CUBE;
-		ray.map_y = (int)(ray.first_hit_y) >> BASE_CUBE;
-		if (ray.map_x >= 0 && ray.map_y >= 0 && ray.map_x < img->map.width && ray.map_y < img->map.height && img->map.map[ray.map_y][ray.map_x] == '1')
-			i = img->map.width;
-		else
-		{
-			ray.first_hit_x += ray.x_offset;
-			ray.first_hit_y += ray.y_offset;
-			i += 1;
-		}
-			hit.x = ray.first_hit_x;
-			hit.y = ray.first_hit_y;
-			hit.len = dist_between_points(img->player.x, img->player.y, hit.x, hit.y);
-	}
-	return (hit);
+	return (ray);
 }
 
-void	render_line(t_img *img, float x0, float y0, float x1, float y1, int direction, float step, float step_offset, float x_hit)
+void	vertical_hit_ray_update(t_img *img, t_raycaster *ray, int *i)
 {
-	int x0_int;
-	int x1_int;
-	int y0_int;
-	int y1_int;
-	float i;
-	int	color;
-
-	if (x0 < x1) {
-		x0_int = round(x0);
-		x1_int = round(x1);
-	}
-	else {
-		x1_int = round(x0);
-		x0_int = round(x1);
-	}
-	if (y0 < y1) {
-		y0_int = round(y0);
-		y1_int = round(y1);
-	}
-	else {
-		y1_int = round(y0);
-		y0_int = round(y1);
-	}
-	while (x0_int <= x1_int)
+	(*ray).map_x = (int)((*ray).first_hit_x) >> BASE_CUBE;
+	(*ray).map_y = (int)((*ray).first_hit_y) >> BASE_CUBE;
+	if ((*ray).map_x >= 0 && (*ray).map_y >= 0 \
+		&& (*ray).map_x < img->map.width && (*ray).map_y < img->map.height && \
+		img->map.map[(*ray).map_y][(*ray).map_x] == '1')
+		*i = img->map.width;
+	else
 	{
-		i = 1 + step_offset * step;
-		while (y0_int <= y1_int)
-		{
-			color = img->textures[direction][0][(int)(i)];
-			if (direction == NO || direction == EA)
-				color = img->textures[direction][((int)x_hit % CUBE_SIZE) * img->texture_width[direction]/CUBE_SIZE][(int)(i)];
-			else if (direction == SO || direction == WE)
-				color = img->textures[direction][((CUBE_SIZE - 1) - ((int)x_hit % CUBE_SIZE))* img->texture_width[direction]/CUBE_SIZE][(int)(i)];
-			my_mlx_pixel_put(img, x0_int, y0_int, color);
-			i += step;
-			y0_int++;
-		}
-		x0_int++; 
+		(*ray).first_hit_x += (*ray).x_offset;
+		(*ray).first_hit_y += (*ray).y_offset;
+		*i += 1;
 	}
 }
 

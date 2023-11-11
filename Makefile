@@ -3,19 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 23:42:00 by matcardo          #+#    #+#              #
-#    Updated: 2023/11/11 13:07:22 by thabeck-         ###   ########.fr        #
+#    Updated: 2023/11/11 15:34:39 by matcardo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= cub3D
 
 SRCS		= main.c								\
-			init_map_functions.c					\
-			init_player_and_bg_functions.c			\
-			init_texture_functions.c				\
 			hooks.c									\
 			move_player.c							\
 			print_screen_temp.c						\
@@ -31,6 +28,9 @@ SRCS		= main.c								\
 			validation/parameter_utils.c			\
 			validation/trim_map.c					\
 			validation/validation_utils.c			\
+			init/init_map_functions.c				\
+			init/init_player_and_bg_functions.c		\
+			init/init_texture_functions.c			\
 
 SRCS_BONUS	= main.c								\
 			init_map_functions.c					\
@@ -92,7 +92,7 @@ bonus: $(LIBFT) $(MLX) $(OBJS_DIR_B) $(addprefix $(OBJS_DIR_B),$(OBJS_BONUS))
 
 #lembrar de criar os subdiretorios quando houver
 $(OBJS_DIR):
-	@mkdir $(OBJS_DIR) objs/validation/
+	@mkdir $(OBJS_DIR) objs/validation/ objs/init/
 
 $(OBJS_DIR_B):
 	@mkdir $(OBJS_DIR_B) objs_bonus/validation/

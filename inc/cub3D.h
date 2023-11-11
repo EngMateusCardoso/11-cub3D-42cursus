@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 12:59:50 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:29:40 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,14 @@ typedef struct s_ray {
 	float	dist;
 	float	x_hit;
 }				t_ray;
+
+typedef struct s_wall_vert_pxl {
+	float	line_height;
+	float	line_offset;
+	float	step;
+	float	step_offset;
+	int		ray_pixel;
+}				t_wall_vert_pxl;
 
 typedef struct s_coord {
 	int		x;
@@ -312,7 +320,7 @@ void		print_screen_background(t_img *img);
 void		raycasterr(t_img *img);
 t_coord		get_horizontal_hit(t_img *img, float angle);
 t_coord		get_vertical_hit(t_img *img, float angle);
-void		render_line(t_img *img, float x0, float y0, float x1, float y1, int color, float step, float step_offset, float x_hit);
+void		render_line(t_img *img, int x, int y0, int y1, int direction, float step, float step_offset, float x_hit);
 void		my_mlx_pixel_put(t_img *data, int x, int y, int color);
 float		dist_between_points(float x1, float y1, float x2, float y2);
 void	render_map(t_img *img);
@@ -321,6 +329,11 @@ void	render_player(t_img *img);
 float	fix_angle(float angle);
 t_ray	get_ray(t_img *img, t_coord hor_hit, t_coord vert_hit, t_ray ray);
 t_ray fix_fish_eye(t_ray ray, float angle);
-void	draw_walls(t_img *img, t_ray ray, int i);
-
+void	draw_walls(t_img *img, t_ray ray, int ray_index);
+void	draw_wall_column(t_img *img, t_ray ray, \
+	t_wall_vert_pxl wall_params, int ray_i);
+t_raycaster	get_vertical_hit_ray(t_img *img, float angle);
+t_raycaster	get_horizontal_hit_ray(t_img *img, float angle);
+void	vertical_hit_ray_update(t_img *img, t_raycaster *ray, int *i);
+void	horizontal_hit_ray_update(t_img *img, t_raycaster *ray, int *i);
 #endif
