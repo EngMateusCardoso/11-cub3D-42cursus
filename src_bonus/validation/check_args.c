@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:16:04 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 01:42:08 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 03:14:27 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3D.h"
+#include "../../inc_bonus/cub3D.h"
 
 short int	check_args(int argc, char **argv)
 {

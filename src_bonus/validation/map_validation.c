@@ -6,11 +6,11 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:38:01 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/11 01:55:05 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/11 03:14:39 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3D.h"
+#include "../../inc_bonus/cub3D.h"
 
 short int	count_player(char **map)
 {
