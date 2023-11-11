@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   horizontal_hit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:52:19 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 16:25:15 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/11 20:14:13 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_coord	get_horizontal_hit(t_img *img, float angle)
 	int			i;
 
 	i = 0;
-	hit.len = 10000000000000;
+	hit.len = 10000000000000.0;
 	hit.x = img->player.x;
 	hit.y = img->player.y;
 	ray = get_horizontal_hit_ray(img, angle);
@@ -30,7 +30,8 @@ t_coord	get_horizontal_hit(t_img *img, float angle)
 		horizontal_hit_ray_update(img, &ray, &i);
 		hit.x = ray.first_hit_x;
 		hit.y = ray.first_hit_y;
-		hit.len = dist_between_points(img->player.x, img->player.y, hit.x, hit.y);
+		hit.len = dist_between_points(img->player.x, img->player.y, \
+			hit.x, hit.y);
 	}
 	return (hit);
 }
@@ -48,7 +49,7 @@ t_raycaster	get_horizontal_hit_ray(t_img *img, float angle)
 		ray.y_offset = -CUBE_SIZE;
 		ray.x_offset = -ray.y_offset * -1 / tan(angle);
 	}
-	else if (angle < PI)
+	if (angle < PI)
 	{
 		ray.first_hit_y = (((int)img->player.y >> BASE_CUBE) \
 			<< BASE_CUBE) + CUBE_SIZE;

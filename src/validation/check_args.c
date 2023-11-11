@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:16:04 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 16:04:37 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/11 20:16:31 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ short int	is_valid_map(char *str)
 		return (map_validation_failed(&params));
 	if (!map_validation(params.map))
 		return (map_validation_failed(&params));
-	print_color_map(params.map);
 	free_params_validation(&params);
 	return (TRUE);
 }
