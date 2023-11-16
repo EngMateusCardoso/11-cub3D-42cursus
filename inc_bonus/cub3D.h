@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 20:16:53 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/15 23:57:18 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,7 @@ short int	print_error(char *error, char *param, char *set);
 short int	print_error_char(char *error, char param);
 int			istrimmed(char c, char const *set);
 int			strsize(char *str, char *set);
+void		print_color_map(char **map);
 
 //ftex_utils.c
 int			is_in_del(char c, char *del);
