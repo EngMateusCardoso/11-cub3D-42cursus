@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trim_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 19:06:12 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/11 01:02:10 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/15 22:22:25 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ char	**trim_map_array(int fd)
 	char	*tmp;
 	char	**ret;
 
-	if (fd == -1)
-		return (NULL);
 	tmp = get_next_line(fd);
+	if (!tmp)
+		return (NULL);
 	while (ftex_is_in_set(*tmp, VALID_ID))
 	{
 		free(tmp);
@@ -59,7 +59,6 @@ char	**trim_map_array(int fd)
 	}
 	ret = ft_split(line, '\n');
 	ret = set_padding(ret, str_maxsize(ret));
-	close(fd);
 	free(line);
 	return (ret);
 }

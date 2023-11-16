@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:16:04 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 03:14:27 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/15 22:58:38 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,20 +57,29 @@ short int	is_valid_file(char *str)
 	return (TRUE);
 }
 
+
 short int	is_valid_map(char *str)
 {
 	t_params	params;
+	int			fd;
 
 	init_params(&params);
-	params.map = trim_map_array(open(str, O_RDONLY));
-	params.dev_map = trim_map_array(open(str, O_RDONLY));
+	fd = open(str, O_RDONLY);
+	if (fd == -1)
+		return (FALSE);
+	params.map = trim_map_array(fd);
+	close(fd);
+	fd = open(str, O_RDONLY);
+	if (fd == -1)
+		return (FALSE);
+	params.dev_map = trim_map_array(fd);
+	close(fd);
 	if (!params.map)
 		return (print_error(E_EMPTMAP, NULL, NULL));
 	if (!files_validation(&params, str))
 		return (map_validation_failed(&params));
 	if (!map_validation(params.map))
 		return (map_validation_failed(&params));
-	print_color_map(params.map);
 	free_params_validation(&params);
 	return (TRUE);
 }
