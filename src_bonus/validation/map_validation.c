@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:38:01 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/11 03:14:39 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/16 00:33:25 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,13 @@ short int	map_validation(char **map)
 		return (print_error_char(E_MAPCHAR, invalid));
 	outline_walls(map);
 	outline_useless_walls(map);
+	if (player_out_of_map(map))
+		return (print_error(E_PLAYEROUT, NULL, NULL));
 	if (!walls_are_closed(map))
 		return (print_error(E_MAPWALLS1, NULL, NULL));
 	remove_out_characters(map);
 	if (!inner_polygons_are_closed(map))
 		return (print_error(E_MAPWALLS2, NULL, NULL));
-	if (player_out_of_map(map))
-		return (print_error(E_PLAYEROUT, NULL, NULL));
 	tr_matrix(map, "@", "1");
 	tr_matrix(map, "!", "1");
 	return (TRUE);
