@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parameter_validation_2.c                           :+:      :+:    :+:   */
+/*   parameter_validation_2_bonus.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:54:07 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/11 03:14:59 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/17 20:16:44 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc_bonus/cub3D.h"
+#include "../../inc_bonus/cub3D_bonus.h"
 
 void	tr_matrix(char **matrix, char *del, char *replace)
 {

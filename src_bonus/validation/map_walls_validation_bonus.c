@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_walls_validation.c                             :+:      :+:    :+:   */
+/*   map_walls_validation_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:46:19 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/16 00:27:59 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/17 20:16:28 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc_bonus/cub3D.h"
+#include "../../inc_bonus/cub3D_bonus.h"
 
 short int	is_player_inside(char **map, int i, int j)
 {
