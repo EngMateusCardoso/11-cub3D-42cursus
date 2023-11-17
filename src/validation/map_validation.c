@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:38:01 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/16 00:35:15 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/17 01:01:28 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,15 @@ char	validate_map_chars(char **map)
 	while (map[++i])
 	{
 		while (map[i][++j])
+		{
 			if (!ftex_is_in_set(map[i][j], VALID_MAP_CHARS))
 				return (map[i][j]);
+			if (i != 0 && j != 0 && map[i + 1] && map[i][j + 1] && \
+				map[i][j] == ' ' && (map[i + 1][j] == '0' || \
+				map[i - 1][j] == '0' || map[i][j + 1] == '0' \
+				|| map[i][j - 1] == '0'))
+				return (map[i][j]);
+		}
 		j = -1;
 	}
 	return ('\0');
