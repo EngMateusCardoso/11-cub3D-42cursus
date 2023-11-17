@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validation_utils.c                                 :+:      :+:    :+:   */
+/*   validation_utils_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:55:27 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/11 03:15:07 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/17 20:16:53 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc_bonus/cub3D.h"
+#include "../../inc_bonus/cub3D_bonus.h"
 
 int	comma_counter(char *str)
 {

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_walls.c                                       :+:      :+:    :+:   */
+/*   draw_walls_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:53:46 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 16:25:06 by matcardo         ###   ########.fr       */
+/*   Updated: 2023/11/17 20:14:09 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc_bonus/cub3D.h"
+#include "../../inc_bonus/cub3D_bonus.h"
 
 void	draw_walls(t_img *img, t_ray ray, int ray_index)
 {

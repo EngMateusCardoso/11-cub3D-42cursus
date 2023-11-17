@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   horizontal_hit.c                                   :+:      :+:    :+:   */
+/*   horizontal_hit_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:52:19 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/11 20:14:13 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/17 20:14:13 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc_bonus/cub3D.h"
+#include "../../inc_bonus/cub3D_bonus.h"
 
 t_coord	get_horizontal_hit(t_img *img, float angle)
 {

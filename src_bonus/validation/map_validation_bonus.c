@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_validation.c                                   :+:      :+:    :+:   */
+/*   map_validation_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:38:01 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/17 01:03:02 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/17 20:16:14 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc_bonus/cub3D.h"
+#include "../../inc_bonus/cub3D_bonus.h"
 
 short int	count_player(char **map)
 {

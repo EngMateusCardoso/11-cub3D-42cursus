@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args_utils.c                                 :+:      :+:    :+:   */
+/*   check_args_utils_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:33:37 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/11 03:14:12 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/17 20:16:02 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc_bonus/cub3D.h"
+#include "../../inc_bonus/cub3D_bonus.h"
 
 short int	print_error(char *error, char *param, char *set)
 {

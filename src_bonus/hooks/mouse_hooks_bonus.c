@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse_hooks.c                                      :+:      :+:    :+:   */
+/*   mouse_hooks_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:50:40 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/11 15:56:30 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/17 20:13:36 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc_bonus/cub3D.h"
+#include "../../inc_bonus/cub3D_bonus.h"
 
 void	mouse_move_x(int x, int mid_x, int mid_y, t_win *win)
 {

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_validation_utils.c                             :+:      :+:    :+:   */
+/*   map_validation_utils_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:40:54 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/17 00:06:40 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/17 20:16:20 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc_bonus/cub3D.h"
+#include "../../inc_bonus/cub3D_bonus.h"
 
 short int	is_border(char **map, int x, int y, char c)
 {

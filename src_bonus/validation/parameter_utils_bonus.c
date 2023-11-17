@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parameter_utils.c                                  :+:      :+:    :+:   */
+/*   parameter_utils_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 19:07:09 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/11 03:14:52 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/17 20:16:37 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc_bonus/cub3D.h"
+#include "../../inc_bonus/cub3D_bonus.h"
 
 void	init_params(t_params *params)
 {

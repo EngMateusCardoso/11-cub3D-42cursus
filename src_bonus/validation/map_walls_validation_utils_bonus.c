@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_walls_validation_utils.c                       :+:      :+:    :+:   */
+/*   map_walls_validation_utils_bonus.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:50:31 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/11 03:14:43 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/17 20:16:32 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc_bonus/cub3D.h"
+#include "../../inc_bonus/cub3D_bonus.h"
 
 int	check_end(char **map, int x, int y, char c)
 {

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/15 23:57:18 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/17 20:19:57 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 // =============================================================================
 // LIBRARIES
@@ -201,107 +201,107 @@ enum e_directions
 // PROTOTYPES
 // =============================================================================
 
-// main.c
+// main_bonus.c
 int			main(int argc, char **argv);
 int			init_game(char *file);
 void		init_game_params(t_win *win, char *file);
 int			start_window(t_win *win, char *file);
 void		start_image(t_win *win);
 
-// init_map_functions.c
+// init_map_functions_bonus.c
 void		init_map_dimensions(t_win *win, char *file);
 void		init_map(t_win *win, char *file);
 void		init_map_scale(t_win *win);
 short int	is_map_line(char *line);
 
-// init_player_and_bg_functions.c
+// init_player_and_bg_functions_bonus.c
 void		init_roof_and_ceiling_color(t_win *win, char *file);
 int			get_color_in_line(char *line);
 void		init_player_position(t_win *win, char *file);
 void		init_player_position_line(t_win *win, char *line, int i);
 void		init_fps(t_win *data);
 
-// init_texture_functions.c
+// init_texture_functions_bonus.c
 void		init_textures(t_win *win, char *file);
 void		get_texture(char *line, t_win *win, int direction);
 char		*path_to_texture(char *line);
 void		set_texture(t_win *win, t_img img, int direction);
 
-// check_args.c
+// check_args_bonus.c
 short int	check_args(int argc, char **argv);
 short int	is_valid_file_extension(char *str);
 short int	is_valid_file(char *str);
 short int	is_valid_map(char *str);
 
-//check_args_utils.c
+//check_args_utils_bonus.c
 short int	print_error(char *error, char *param, char *set);
 short int	print_error_char(char *error, char param);
 int			istrimmed(char c, char const *set);
 int			strsize(char *str, char *set);
 void		print_color_map(char **map);
 
-//ftex_utils.c
+//ftex_utils_bonus.c
 int			is_in_del(char c, char *del);
 char		find_new(char *ret, int index);
 char		*ftex_strerase(char *str, char *set);
 short int	ftex_is_in_set(char c, char *set);
 void		ftex_tr(char *str, char *del, char *replace);
 
-//map_validation.c
+//map_validation_bonus.c
 short int	count_player(char **map);
 short int	char_is_next_to(char **map, int x, int y, char c);
 void		clear_around_map(char **map);
 char		validate_map_chars(char **map);
 short int	map_validation(char **map);
 
-//map_validation_utils.c
+//map_validation_utils_bonus.c
 short int	is_border(char **map, int x, int y, char c);
 void		outline_walls(char **map);
 void		outline_useless_walls(char **map);
 void		remove_out_characters(char **map);
 short int	player_out_of_map(char **map);
 
-//map_walls_validation.c
+//map_walls_validation_bonus.c
 short int	is_player_inside(char **map, int i, int j);
 short int	slide_polygon(char **map, int x, int y, char fill);
 short int	recursive_polygon(char **map, int x, int y);
 short int	forked_polygon(char **map, int x, int y);
 short int	walls_are_closed(char **map);
 
-//map_walls_validation_utils.c
+//map_walls_validation_utils_bonus.c
 int			check_end(char **map, int x, int y, char c);
 t_xy		get_player_position(char **map, int x, int y);
 short int	inner_polygons_are_closed(char **map);
 
-//parameter_validation_1.c
+//parameter_validation_1_bonus.c
 short int	check_parameter_matrix(t_params *p, char **m, char *f, char *t);
 short int	is_first_char_invalid(int fd, char **tmp);
 short int	check_all_params(t_params *params);
 short int	validate_texture_file(char *param, char *file, char **store);
 short int	files_validation(t_params *params, char *file);
 
-//parameter_validation_2.c
+//parameter_validation_2_bonus.c
 void		tr_matrix(char **matrix, char *del, char *replace);
 char		*join_color_set(char **matrix);
 short int	validate_color_set(char *param, char *set, int *store);
 
-//parameter_utils.c
+//parameter_utils_bonus.c
 void		init_params(t_params *params);
 void		free_params_validation(t_params *params);
 short int	map_validation_failed(t_params *params);
 
-//trim_map.c
+//trim_map_bonus.c
 char		**set_padding(char **matrix, int maxsize);
 char		**trim_map_array(int fd);
 
-//validation_utils.c
+//validation_utils_bonus.c
 int			comma_counter(char *str);
 int			get_color(int r, int g, int b);
 short int	is_str_number(char **str);
 void		gnl_purge(char *tmp, int fd);
 int			str_maxsize(char **matrix);
 
-// hooks.c
+// hooks_bonus.c
 int			handle_input(int keysys, t_win *win);
 void		rotate_player(int keysys, t_win *win);
 int			close_window(t_win *win);
@@ -313,41 +313,41 @@ int			handle_mouse(int keysys, int x, int y, t_win *win);
 void		mouse_move_x(int x, int mid_x, int mid_y, t_win *win);
 void		mouse_move_y(int y, int mid_x, int mid_y, t_win *win);
 
-// move_player.c
+// move_player_bonus.c
 void		move_player(int keysys, t_win *win);
 void		move_player_forward(t_win *win);
 void		move_player_backward(t_win *win);
 void		move_player_left(t_win *win);
 void		move_player_right(t_win *win);
 
-// print_creen.c
+// print_creen_bonus.c
 void		print_screen(t_img *img);
 void		print_screen_background(t_img *img);
 void		my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
-// raycaster.c
+// raycaster_bonus.c
 void		raycaster(t_img *img);
 float		fix_angle(float angle);
 t_ray		get_ray(t_img *img, t_coord hor_hit, t_coord vert_hit, t_ray ray);
 t_ray		fix_fish_eye(t_ray ray, float angle);
 
-// horizontal_hit.c
+// horizontal_hit_bonus.c
 t_coord		get_horizontal_hit(t_img *img, float angle);
 t_raycaster	get_horizontal_hit_ray(t_img *img, float angle);
 void		horizontal_hit_ray_update(t_img *img, t_raycaster *ray, int *i);
 float		dist_between_points(float x1, float y1, float x2, float y2);
 
-// vertical_hit.c
+// vertical_hit_bonus.c
 t_coord		get_vertical_hit(t_img *img, float angle);
 t_raycaster	get_vertical_hit_ray(t_img *img, float angle);
 void		vertical_hit_ray_update(t_img *img, t_raycaster *ray, int *i);
 
-// draw_walls.c
+// draw_walls_bonus.c
 void		draw_walls(t_img *img, t_ray ray, int ray_index);
 void		draw_wall_column(t_img *img, t_ray ray, \
 	t_wall_vert_pxl wall_params, int ray_i);
 
-// minimap.c
+// minimap_bonus.c
 void		render_map(t_img *img);
 void		render_map_unit(t_img *img, int x, int y, int color);
 void		render_player(t_img *img);
