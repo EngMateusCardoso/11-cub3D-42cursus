@@ -6,7 +6,7 @@
 /*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:40:54 by thabeck-          #+#    #+#             */
-/*   Updated: 2023/11/16 00:34:37 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/17 00:02:39 by thabeck-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ short int	player_out_of_map(char **map)
 	t_xy	xy;
 
 	xy = get_player_position(map, 0, 0);
-	if (!map[xy.x - 1] || !map[xy.x][xy.y - 1] \
+	if (xy.x == 0 || !map[xy.x - 1] || !map[xy.x][xy.y - 1] \
 		|| !map[xy.x + 1] || !map[xy.x][xy.y + 1])
 		return (TRUE);
 	if (map[xy.x - 1][xy.y] == ' ' || map[xy.x - 1][xy.y] == '\t'
