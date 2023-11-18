@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_player_and_bg_functions_bonus.c               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 01:34:59 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/17 20:13:55 by thabeck-         ###   ########.fr       */
+/*   Updated: 2023/11/18 00:24:02 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int	get_color_in_line(char *line)
 	i = 0;
 	while (line[i] == ' ' || line[i] == 'C' || line[i] == 'F')
 		i++;
-	i++;
 	r = ft_atoi(line + i);
 	while (ft_isdigit(line[i]))
 		i++;
