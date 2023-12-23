@@ -44,6 +44,7 @@
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
+# define KEY_SPACE 32
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
@@ -67,9 +68,9 @@
 // Variables
 # define VALID_ID "NSEWCF\n"
 # define VALID_GLOBAL_ID "NSEWCF \t01\n"
-# define VALID_MAP_CHARS "01 NSEW\n"
+# define VALID_MAP_CHARS "01PO NSEW\n"
 # define VALID_PLAYER "NSEW"
-# define VALID_MAP "01"
+# define VALID_MAP "01PO"
 
 // Errors
 # define E_ARG "Error\nInvalid number of arguments\nUsage: ./cub3D <map.cub>\n"

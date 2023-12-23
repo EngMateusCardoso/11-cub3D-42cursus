@@ -67,7 +67,8 @@ void	vertical_hit_ray_update(t_img *img, t_raycaster *ray, int *i)
 	(*ray).map_y = (int)((*ray).first_hit_y) >> BASE_CUBE;
 	if ((*ray).map_x >= 0 && (*ray).map_y >= 0 \
 		&& (*ray).map_x < img->map.width && (*ray).map_y < img->map.height && \
-		img->map.map[(*ray).map_y][(*ray).map_x] == '1')
+        (img->map.map[(*ray).map_y][(*ray).map_x] == '1' || \
+        img->map.map[(*ray).map_y][(*ray).map_x] == 'P'))
 		*i = img->map.width;
 	else
 	{

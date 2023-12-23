@@ -24,7 +24,7 @@ void	render_map(t_img *img)
 		j = 0;
 		while (img->map.map[i][j] != '\0' && img->map.map[i][j] != '\n')
 		{
-			if (img->map.map[i][j] == '1')
+            if (img->map.map[i][j] == '1' || img->map.map[i][j] == 'P')
 				render_map_unit(img, i, j, WALL_MINIMAP_COLOR);
 			j++;
 		}

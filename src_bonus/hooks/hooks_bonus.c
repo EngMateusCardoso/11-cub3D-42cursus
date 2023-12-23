@@ -12,6 +12,11 @@
 
 #include "../../inc_bonus/cub3D_bonus.h"
 
+void    active_doors()
+{
+	printf("oiiii");
+}
+
 int	handle_input(int keysys, t_win *win)
 {
 	if (keysys == KEY_ESC)
@@ -21,6 +26,8 @@ int	handle_input(int keysys, t_win *win)
 		move_player(keysys, win);
 	else if (keysys == KEY_LEFT || keysys == KEY_RIGHT)
 		rotate_player(keysys, win);
+	else if (keysys == KEY_SPACE)
+		active_doors();
 	start_image(win);
 	return (0);
 }
