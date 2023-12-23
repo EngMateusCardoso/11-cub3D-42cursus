@@ -52,7 +52,9 @@ t_ray	get_ray(t_img *img, t_coord hor_hit, t_coord vert_hit, t_ray ray)
 	{
 		ray.dist = hor_hit.len;
 		ray.x_hit = hor_hit.x;
-		if (ray.angle > 0 && ray.angle < PI)
+		if (img->map.map[(int) hor_hit.y >> BASE_CUBE][(int) hor_hit.x >> BASE_CUBE] == 'P')
+			ray.wall_direction = DO;
+		else if (ray.angle > 0 && ray.angle < PI)
 			ray.wall_direction = SO;
 		else
 			ray.wall_direction = NO;
@@ -63,7 +65,9 @@ t_ray	get_ray(t_img *img, t_coord hor_hit, t_coord vert_hit, t_ray ray)
 	{
 		ray.dist = vert_hit.len;
 		ray.x_hit = vert_hit.y;
-		if (ray.angle > PI / 2 && ray.angle < 3 * PI / 2)
+		if (img->map.map[(int) vert_hit.y >> BASE_CUBE][(int) vert_hit.x >> BASE_CUBE] == 'P')
+			ray.wall_direction = DO;
+		else if ( ray.angle > PI / 2 && ray.angle < 3 * PI / 2)
 			ray.wall_direction = WE;
 		else
 			ray.wall_direction = EA;

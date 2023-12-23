@@ -89,6 +89,7 @@ int	close_window(t_win *win)
 	free_textures(win->img.textures[SO]);
 	free_textures(win->img.textures[WE]);
 	free_textures(win->img.textures[EA]);
+	free_textures(win->img.textures[DO]);
 	exit(0);
 	return (0);
 }

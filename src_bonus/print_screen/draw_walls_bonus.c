@@ -52,7 +52,7 @@ void	draw_wall_column(t_img *img, t_ray ray, \
 	iv = 1 + wall_params.step_offset * wall_params.step;
 	while (y0 <= y1)
 	{
-		if (ray.wall_direction == NO || ray.wall_direction == EA)
+		if (ray.wall_direction == NO || ray.wall_direction == EA || ray.wall_direction == DO)
 			color = img->textures[ray.wall_direction][((int)ray.x_hit % \
 			CUBE_SIZE) * img->texture_width[ray.wall_direction] / \
 			CUBE_SIZE][(int)(iv)];

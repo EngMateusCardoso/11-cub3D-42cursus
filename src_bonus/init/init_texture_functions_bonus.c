@@ -38,6 +38,7 @@ void	init_textures(t_win *win, char *file)
 	}
 	free(line);
 	close(fd);
+	get_texture(PATHTEXDOOR, win, DO);
 }
 
 void	get_texture(char *line, t_win *win, int direction)

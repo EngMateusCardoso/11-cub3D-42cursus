@@ -64,6 +64,7 @@
 # define WALL_MINIMAP_COLOR 0x00FFFFFF
 # define ANGLE_OF_VIEW 60
 # define RAYCASTER_NUM_RAYS 640
+# define PATHTEXDOOR "DO ./textures/door.xpm\n"
 
 // Variables
 # define VALID_ID "NSEWCF\n"
@@ -157,9 +158,9 @@ typedef struct s_img {
 	int			floor_color;
 	t_player	player;
 	t_map		map;
-	int			**textures[4];
-	int			texture_width[4];
-	int			texture_height[4];
+	int			**textures[5];
+	int			texture_width[5];
+	int			texture_height[5];
 }				t_img;
 
 typedef struct s_win {
@@ -195,7 +196,8 @@ enum e_directions
 	NO,
 	SO,
 	EA,
-	WE
+	WE,
+	DO
 };
 
 // =============================================================================
