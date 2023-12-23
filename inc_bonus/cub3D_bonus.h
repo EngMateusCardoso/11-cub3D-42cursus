@@ -305,6 +305,7 @@ int			str_maxsize(char **matrix);
 // hooks_bonus.c
 int			handle_input(int keysys, t_win *win);
 void		rotate_player(int keysys, t_win *win);
+void    	active_doors(t_win *win);
 int			close_window(t_win *win);
 void		free_map(char **map);
 
