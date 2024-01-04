@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2024/01/04 03:40:02 by matcardo         ###   ########.fr       */
+/*   Updated: 2024/01/04 03:42:35 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@
 # define RAYCASTER_NUM_RAYS 640
 # define PATHTEXDOOR "DO ./textures/door.xpm\n"
 # define MAX_SPRITES 5
-// # define ANGRY_CUCUMBER "S0 ./textures/okay_cucumber.xpm\n"
-// # define ANGRY_CUCUMBER "S1 ./textures/angry_cucumber.xpm\n"
-// # define ANGRY_CUCUMBER "S2 ./textures/angrier_cucumber.xpm\n"
+# define ANGRY_CUCUMBER0 "S0 ./textures/okay_cucumber.xpm\n"
+# define ANGRY_CUCUMBER1 "S1 ./textures/angry_cucumber.xpm\n"
+# define ANGRY_CUCUMBER2 "S2 ./textures/angrier_cucumber.xpm\n"
 
 // Variables
 # define VALID_ID "NSEWCF\n"

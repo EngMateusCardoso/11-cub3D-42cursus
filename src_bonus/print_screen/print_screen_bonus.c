@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:48:54 by matcardo          #+#    #+#             */
-/*   Updated: 2024/01/04 03:38:23 by matcardo         ###   ########.fr       */
+/*   Updated: 2024/01/04 03:58:00 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,16 @@ void   render_sprites(t_img *img, int sprite_i)
 	float	sprite_a;
 	float	sprite_b;
 	float	sprite_dist;
+	int		color;
+	int		sprite_nvl;
 
 	sprite_dist = dist_between_points(img->player.x, img->player.y, img->sprite.x[sprite_i], img->sprite.y[sprite_i]);
+	if (sprite_dist > 500)
+		sprite_nvl = S1;
+	else if (sprite_dist > 250)
+		sprite_nvl = S2;
+	else
+		sprite_nvl = S3;
 	sprite_x = (img->sprite.x[sprite_i] - img->player.x);
 	sprite_y = (img->sprite.y[sprite_i] - img->player.y);
 	sprite_a = sprite_x * img->player.cos + sprite_y * img->player.sin;
@@ -63,7 +71,13 @@ void   render_sprites(t_img *img, int sprite_i)
 			sprite_y + y > 0 && sprite_y + y < WIN_HEIGHT && \
 			sprite_a >= 0 && \
 			sprite_dist < img->sprite.depth[x / 2])
-				my_mlx_pixel_put(img, x, sprite_y + y, 0x00FF0000);
+			{
+				color = img->textures[sprite_nvl][((int)(x - sprite_x + scale / 2)) * \
+				img->texture_width[sprite_nvl] / scale][((int)(y * 1280 / scale)) * \
+				img->texture_width[sprite_nvl] / 1280];
+				if (color != -16777216)
+					my_mlx_pixel_put(img, x, sprite_y + y, color);
+			}
 			y++;
 		}
 		x++;

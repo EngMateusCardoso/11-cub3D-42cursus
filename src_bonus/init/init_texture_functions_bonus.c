@@ -6,7 +6,7 @@
 /*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 18:23:58 by matcardo          #+#    #+#             */
-/*   Updated: 2024/01/04 03:40:48 by matcardo         ###   ########.fr       */
+/*   Updated: 2024/01/04 03:42:51 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ void	init_textures(t_win *win, char *file)
 	free(line);
 	close(fd);
 	get_texture(PATHTEXDOOR, win, DO);
-	// get_texture(PATHTEXDOOR2, win, DO2);
+	get_texture(ANGRY_CUCUMBER0, win, S1);
+	get_texture(ANGRY_CUCUMBER1, win, S2);
+	get_texture(ANGRY_CUCUMBER2, win, S3);
 }
 
 void	get_texture(char *line, t_win *win, int direction)
