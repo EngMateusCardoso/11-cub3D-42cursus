@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/17 20:19:57 by thabeck-         ###   ########.fr       */
+/*   Updated: 2024/01/04 03:40:02 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@
 # define WIN_HEIGHT 960
 
 // Game constants
-# define PLAYER_SIZE 20
 # define CUBE_SIZE 128
 # define BASE_CUBE 7
 # define PLAYER_SIZE 20
@@ -65,13 +64,17 @@
 # define ANGLE_OF_VIEW 60
 # define RAYCASTER_NUM_RAYS 640
 # define PATHTEXDOOR "DO ./textures/door.xpm\n"
+# define MAX_SPRITES 5
+// # define ANGRY_CUCUMBER "S0 ./textures/okay_cucumber.xpm\n"
+// # define ANGRY_CUCUMBER "S1 ./textures/angry_cucumber.xpm\n"
+// # define ANGRY_CUCUMBER "S2 ./textures/angrier_cucumber.xpm\n"
 
 // Variables
 # define VALID_ID "NSEWCF\n"
 # define VALID_GLOBAL_ID "NSEWCF \t01\n"
-# define VALID_MAP_CHARS "01PO NSEW\n"
+# define VALID_MAP_CHARS "01POX NSEW\n"
 # define VALID_PLAYER "NSEW"
-# define VALID_MAP "01PO"
+# define VALID_MAP "01POX"
 
 // Errors
 # define E_ARG "Error\nInvalid number of arguments\nUsage: ./cub3D <map.cub>\n"
@@ -145,6 +148,14 @@ typedef struct player {
 	float	angle;
 }				t_player;
 
+typedef struct sprite {
+	float	x[MAX_SPRITES];
+	float	y[MAX_SPRITES];
+	int		level;
+	int		depth[RAYCASTER_NUM_RAYS];
+	int		count_sprites;
+}				t_sprite;
+
 typedef struct s_img {
 	void		*img_ptr;
 	char		*addr;
@@ -158,9 +169,10 @@ typedef struct s_img {
 	int			floor_color;
 	t_player	player;
 	t_map		map;
-	int			**textures[5];
-	int			texture_width[5];
-	int			texture_height[5];
+	t_sprite	sprite;
+	int			**textures[8];
+	int			texture_width[8];
+	int			texture_height[8];
 }				t_img;
 
 typedef struct s_win {
@@ -197,7 +209,10 @@ enum e_directions
 	SO,
 	EA,
 	WE,
-	DO
+	DO,
+	S1,
+	S2,
+	S3
 };
 
 // =============================================================================

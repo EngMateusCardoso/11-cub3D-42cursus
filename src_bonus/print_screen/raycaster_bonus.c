@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:50:03 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/17 20:14:30 by thabeck-         ###   ########.fr       */
+/*   Updated: 2024/01/04 01:54:46 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	raycaster(t_img *img)
 		ray.angle += ((float)ANGLE_OF_VIEW / RAYCASTER_NUM_RAYS) * DR;
 		ray.angle = fix_angle(ray.angle);
 		ray = get_ray(img, hor_hit, vert_hit, ray);
+		img->sprite.depth[i] = ray.dist;
 		ray = fix_fish_eye(ray, img->player.angle);
 		draw_walls(img, ray, i);
 		i++;
@@ -67,7 +68,7 @@ t_ray	get_ray(t_img *img, t_coord hor_hit, t_coord vert_hit, t_ray ray)
 		ray.x_hit = vert_hit.y;
 		if (img->map.map[(int) vert_hit.y >> BASE_CUBE][(int) vert_hit.x >> BASE_CUBE] == 'P')
 			ray.wall_direction = DO;
-		else if ( ray.angle > PI / 2 && ray.angle < 3 * PI / 2)
+		else if (ray.angle > PI / 2 && ray.angle < 3 * PI / 2)
 			ray.wall_direction = WE;
 		else
 			ray.wall_direction = EA;

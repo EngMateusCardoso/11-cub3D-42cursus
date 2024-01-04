@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_texture_functions_bonus.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 18:23:58 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/17 20:13:59 by thabeck-         ###   ########.fr       */
+/*   Updated: 2024/01/04 03:40:48 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	init_textures(t_win *win, char *file)
 	free(line);
 	close(fd);
 	get_texture(PATHTEXDOOR, win, DO);
+	// get_texture(PATHTEXDOOR2, win, DO2);
 }
 
 void	get_texture(char *line, t_win *win, int direction)

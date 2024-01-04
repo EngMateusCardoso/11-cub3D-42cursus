@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thabeck- <thabeck-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: matcardo <matcardo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:31:13 by matcardo          #+#    #+#             */
-/*   Updated: 2023/11/15 23:57:13 by thabeck-         ###   ########.fr       */
+/*   Updated: 2024/01/03 20:37:13 by matcardo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@
 # define WIN_HEIGHT 960
 
 // Game constants
-# define PLAYER_SIZE 20
 # define CUBE_SIZE 128
 # define BASE_CUBE 7
 # define PLAYER_SIZE 20
